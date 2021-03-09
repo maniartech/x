@@ -1,6 +1,7 @@
 package currency
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"strconv"
@@ -15,7 +16,7 @@ import (
 // }
 
 // Num2WordInd convert the number string into indian numbering word format.
-func Num2WordInd(input string) string {
+func Num2WordInd(input string) (string, error) {
 	word := ""
 	part := ""
 	paiseV := ""
@@ -25,14 +26,28 @@ func Num2WordInd(input string) string {
 	var number int = 0
 	var paise int = 0
 	var err error
-	var err2 error
 	// err3B := false
-	fmt.Println(strings.Index(input, ".") == -1)
-	if strings.Index(input, ".") != -1 {
-		number, err = strconv.Atoi(strings.Split(input, ".")[0])
-		paise, err2 = strconv.Atoi(strings.Split(input, ".")[1])
-	} else {
+	// fmt.Println(strings.Index(input, ".") == -1)
+	stringArr := strings.Split(input, ".")
+	stringArrLen := len(stringArr)
+
+	if stringArrLen == 1 {
 		number, err = strconv.Atoi(input)
+		if err != nil {
+			return "", err
+		}
+	} else if stringArrLen == 2 {
+		number, err = strconv.Atoi(stringArr[0])
+		if err != nil {
+			return "", err
+		}
+		paise, err = strconv.Atoi(stringArr[1])
+		if err != nil {
+			return "", err
+		}
+
+	} else {
+		return "", errors.New("invalid-string")
 	}
 
 	singles := [10]string{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
@@ -40,105 +55,104 @@ func Num2WordInd(input string) string {
 	tys := [9]string{"ten", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"}
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
 
-	if err == nil && err2 == nil {
-		paiseS := strconv.Itoa(paise)
-		if paise > 100 {
-			paiseS = paiseS[:2] + "." + paiseS[2:]
-			paiseF, err3 := strconv.ParseFloat(paiseS, 64)
-			if err3 == nil {
-				paise = int(math.Round(paiseF))
-			}
+	paiseS := strconv.Itoa(paise)
+	if paise > 100 {
+		paiseS = paiseS[:2] + "." + paiseS[2:]
+		paiseF, err3 := strconv.ParseFloat(paiseS, 64)
+		if err3 == nil {
+			paise = int(math.Round(paiseF))
 		}
-		if paise != 0 {
-			if paise > 0 && paise < 10 {
-				paiseV = singles[paise]
-			} else if paise > 10 && paise < 20 {
-				paiseV = tees[paise-10]
-			} else if paise < 100 && paise > 19 {
-				mod1 = paise % 10
-				mod2 = paise / 10
-				if mod2 != 0 {
-					paiseV = tys[mod2-1] + " " + singles[mod1]
-				} else {
-					paiseV = singles[mod1]
-				}
-			} else if paise == 100 {
-				number++
-				paise = 0
-
+	}
+	if paise != 0 {
+		if paise > 0 && paise < 10 {
+			paiseV = singles[paise]
+		} else if paise > 10 && paise < 20 {
+			paiseV = tees[paise-10]
+		} else if paise < 100 && paise > 19 {
+			mod1 = paise % 10
+			mod2 = paise / 10
+			if mod2 != 0 {
+				paiseV = tys[mod2-1] + " " + singles[mod1]
+			} else {
+				paiseV = singles[mod1]
 			}
+		} else if paise == 100 {
+			number++
+			paise = 0
 
 		}
-		if number == 0 {
-			word = "zero"
-		} else if number > 0 && number < 10 {
-			word = singles[number]
-		} else if number == 10 {
-			word = tys[0]
-		} else if number > 10 && number < 20 {
-			word = tees[number-11]
-		} else {
-			temp := int(number)
-			for temp != 0 {
-				part = ""
-				if powerCounter == 0 {
-					mod1 = temp % 100
-					mod2 = temp % 1000
-					word = singles[mod2/100]
-					if mod2 != 0 {
-						word = word + " hundred"
-					}
-					if mod1 > 10 && mod1 < 20 {
-						word = word + tees[mod1-10]
-					} else if mod1 == 10 {
-						part = tys[0]
-					} else {
-						mod2 = mod1 / 10
-						mod1 = mod1 % 10
-						if mod1 != 0 {
-							word = word + " " + tys[mod2-1]
-						}
-						if mod2 != 0 {
-							word = word + " " + singles[mod1]
-						}
-					}
-					powerCounter++
-					temp = temp / 1000
-				}
+
+	}
+	if number == 0 {
+		word = "zero"
+	} else if number > 0 && number < 10 {
+		word = singles[number]
+	} else if number == 10 {
+		word = tys[0]
+	} else if number > 10 && number < 20 {
+		word = tees[number-11]
+	} else {
+		temp := int(number)
+		for temp != 0 {
+			part = ""
+			if powerCounter == 0 {
 				mod1 = temp % 100
-				if mod1 != 0 {
+				mod2 = temp % 1000
+				word = singles[mod2/100]
+				if mod2 != 0 {
+					word = word + " hundred"
+				}
+				if mod1 > 10 && mod1 < 20 {
+					word = word + tees[mod1-10]
+				} else if mod1 == 10 {
+					part = tys[0]
+				} else {
 					mod2 = mod1 / 10
-					if mod1 > 0 && mod1 < 10 {
-						part = singles[mod1]
+					mod1 = mod1 % 10
+					if mod1 != 0 {
+						word = word + " " + tys[mod2-1]
 					}
-					if mod1 > 0 && mod1 < 10 {
-						part = singles[mod1]
-					} else if mod1 == 10 {
-						part = tys[0]
-					} else if mod1 > 10 && mod1 < 20 {
-						part = tees[mod1-11]
-					} else {
-						mod1 = mod1 % 10
-						if mod1 != 0 {
-							part = tys[mod2-1]
-						}
-						if mod2 != 0 {
-							part = part + " " + singles[mod1]
-						}
+					if mod2 != 0 {
+						word = word + " " + singles[mod1]
 					}
-					part = part + " " + power[powerCounter]
-					word = part + " " + word
 				}
 				powerCounter++
-				temp = temp / 100
+				temp = temp / 1000
 			}
+			mod1 = temp % 100
+			if mod1 != 0 {
+				mod2 = mod1 / 10
+				if mod1 > 0 && mod1 < 10 {
+					part = singles[mod1]
+				}
+				if mod1 > 0 && mod1 < 10 {
+					part = singles[mod1]
+				} else if mod1 == 10 {
+					part = tys[0]
+				} else if mod1 > 10 && mod1 < 20 {
+					part = tees[mod1-11]
+				} else {
+					mod1 = mod1 % 10
+					if mod1 != 0 {
+						part = tys[mod2-1]
+					}
+					if mod2 != 0 {
+						part = part + " " + singles[mod1]
+					}
+				}
+				part = part + " " + power[powerCounter]
+				word = part + " " + word
+			}
+			powerCounter++
+			temp = temp / 100
 		}
 	}
+
 	if paise == 0 {
-		return word
+		return word, nil
 	}
 
-	return word + " and " + paiseV + " paise"
+	return word + " and " + paiseV + " paise", nil
 }
 
 func numWordINT(input string) string {

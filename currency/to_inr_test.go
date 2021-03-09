@@ -9,26 +9,34 @@ import (
 
 func TestNumWord(t *testing.T) {
 
-	assert.Equal(t, "one", currency.Num2WordInd("1"))
-	assert.Equal(t, "two", currency.Num2WordInd("2"))
-	assert.Equal(t, "three", currency.Num2WordInd("3"))
-	assert.Equal(t, "four", currency.Num2WordInd("4"))
-	assert.Equal(t, "five", currency.Num2WordInd("5"))
-	assert.Equal(t, "six", currency.Num2WordInd("6"))
-	assert.Equal(t, "seven", currency.Num2WordInd("7"))
-	assert.Equal(t, "eight", currency.Num2WordInd("8"))
-	assert.Equal(t, "nine", currency.Num2WordInd("9"))
-	assert.Equal(t, "ten", currency.Num2WordInd("10"))
-	assert.Equal(t, "eleven", currency.Num2WordInd("11"))
-	assert.Equal(t, "twelve", currency.Num2WordInd("12"))
-	assert.Equal(t, "thirteen", currency.Num2WordInd("13"))
-	assert.Equal(t, "fourteen", currency.Num2WordInd("14"))
-	assert.Equal(t, "fifteen", currency.Num2WordInd("15"))
-	assert.Equal(t, "sixteen", currency.Num2WordInd("16"))
-	assert.Equal(t, "seventeen", currency.Num2WordInd("17"))
-	assert.Equal(t, "eighteen", currency.Num2WordInd("18"))
-	assert.Equal(t, "nineteen", currency.Num2WordInd("19"))
-	assert.Equal(t, "twenty", currency.Num2WordInd("20"))
+	assert.Equal(t, "one", num2WordInd(t, "1"))
+	assert.Equal(t, "two", num2WordInd(t, "2"))
+	assert.Equal(t, "three", num2WordInd(t, "3"))
+	assert.Equal(t, "four", num2WordInd(t, "4"))
+	assert.Equal(t, "five", num2WordInd(t, "5"))
+	assert.Equal(t, "six", num2WordInd(t, "6"))
+	assert.Equal(t, "seven", num2WordInd(t, "7"))
+	assert.Equal(t, "eight", num2WordInd(t, "8"))
+	assert.Equal(t, "nine", num2WordInd(t, "9"))
+	assert.Equal(t, "ten", num2WordInd(t, "10"))
+	assert.Equal(t, "eleven", num2WordInd(t, "11"))
+	assert.Equal(t, "twelve", num2WordInd(t, "12"))
+	assert.Equal(t, "thirteen", num2WordInd(t, "13"))
+	assert.Equal(t, "fourteen", num2WordInd(t, "14"))
+	assert.Equal(t, "fifteen", num2WordInd(t, "15"))
+	assert.Equal(t, "sixteen", num2WordInd(t, "16"))
+	assert.Equal(t, "seventeen", num2WordInd(t, "17"))
+	assert.Equal(t, "eighteen", num2WordInd(t, "18"))
+	assert.Equal(t, "nineteen", num2WordInd(t, "19"))
+	assert.Equal(t, "twenty", num2WordInd(t, "20"))
 
-	assert.Equal(t, "one arab ten crore eleven lac twenty six thousand five hundred and sixty nine", currency.Num2WordInd("01101126569"))
+	assert.Equal(t, "one arab ten crore eleven lac twenty six thousand five hundred and sixty nine", num2WordInd(t, "01101126569"))
+}
+
+func num2WordInd(t *testing.T, input string) string {
+	output, err := currency.Num2WordInd(input)
+	if err != nil {
+		assert.Fail(t, err.Error())
+	}
+	return output
 }
