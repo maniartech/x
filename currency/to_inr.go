@@ -8,13 +8,6 @@ import (
 	"strings"
 )
 
-// func main() {
-// 	var num string = "0.01"
-// 	fmt.Println("Enter a number for which you want in word form ?")
-// 	// fmt.Scanf("%d", &num)
-// 	fmt.Printf("The word form of %s is %s", num, numWordINT(num))
-// }
-
 // Num2WordInd convert the number string into indian numbering word format.
 func Num2WordInd(input string) (string, error) {
 	word := ""
@@ -26,33 +19,27 @@ func Num2WordInd(input string) (string, error) {
 	var number int = 0
 	var paise int = 0
 	var err error
-	// err3B := false
-	// fmt.Println(strings.Index(input, ".") == -1)
+
 	stringArr := strings.Split(input, ".")
 	stringArrLen := len(stringArr)
 
 	if stringArrLen == 1 {
 		number, err = strconv.Atoi(input)
 		if err != nil {
-			return "", err
+			return "", errInvalidInput
 		}
 	} else if stringArrLen == 2 {
 		number, err = strconv.Atoi(stringArr[0])
 		if err != nil {
-			return "", err
+			return "", errInvalidInput
 		}
 		paise, err = strconv.Atoi(stringArr[1])
 		if err != nil {
-			return "", err
+			return "", errInvalidInput
 		}
-
 	} else {
-		return "", errors.New("invalid-string")
+		return "", errors.New("invalid-input")
 	}
-
-	singles := [10]string{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
-	tees := [10]string{"eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"}
-	tys := [9]string{"ten", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"}
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
 
 	paiseS := strconv.Itoa(paise)
