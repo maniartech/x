@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// Num2Word convert the number string into international numbering word format.
-func Num2Char(input string) (string, error) {
+// Digit2Word convert the indiviual digits to their word form.
+func Digit2Word(input string) (string, error) {
 	var word string
 	var number int
 	var point int
@@ -18,6 +18,9 @@ func Num2Char(input string) (string, error) {
 	var pointS string = ""
 	var pointV string = ""
 	var multiplier bool = false
+	var digit []string = []string{
+		"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+	}
 	stringArr := strings.Split(input, ".")
 	stringArrLen := len(stringArr)
 	if stringArrLen == 1 {
@@ -50,23 +53,23 @@ func Num2Char(input string) (string, error) {
 	}
 	if point != 0 && point < 100 {
 		if multiplier == true {
-			pointV = singles[point-1] + " zero"
+			pointV = "point " + digit[point%10]
+		} else {
+			pointV = "point " + digit[point/10] + " " + digit[point%10]
 		}
-		pointV = " point " + singles[point/10] + " " + singles[point%10]
-		word = pointV
 	} else if point == 100 {
 		return "", errInvalidInput
 	}
-	for number != 0 {
-		if number%10 == 0 {
-			word = "zero " + word
-		} else {
-			word = singles[number%10] + " " + word
+	if number == 0 {
+		word = "zero "
+	} else {
+		for number != 0 {
+			word = digit[number%10] + " " + word
+			number = number / 10
 		}
-		number = number / 10
 	}
-	if point == 0 {
+	if point != 0 {
 		return word + pointV, nil
 	}
-	return word, nil
+	return word[:len(word)-1], nil
 }
