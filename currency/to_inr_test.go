@@ -7,8 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNumWord(t *testing.T) {
+func TestNumWordIND(t *testing.T) {
 
+	assert.Equal(t, "zero", num2WordInd(t, "0"))
 	assert.Equal(t, "one", num2WordInd(t, "1"))
 	assert.Equal(t, "two", num2WordInd(t, "2"))
 	assert.Equal(t, "three", num2WordInd(t, "3"))
@@ -29,8 +30,27 @@ func TestNumWord(t *testing.T) {
 	assert.Equal(t, "eighteen", num2WordInd(t, "18"))
 	assert.Equal(t, "nineteen", num2WordInd(t, "19"))
 	assert.Equal(t, "twenty", num2WordInd(t, "20"))
+	assert.Equal(t, "twenty one", num2WordInd(t, "21"))
+	assert.Equal(t, "one hundred and one", num2WordInd(t, "101"))
+	assert.Equal(t, "one hundred and ten", num2WordInd(t, "110"))
+	assert.Equal(t, "one hundred and eleven", num2WordInd(t, "111"))
+	assert.Equal(t, "one thousand one hundred and eleven", num2WordInd(t, "1111"))
+	assert.Equal(t, "twenty one thousand one hundred and eleven", num2WordInd(t, "21111"))
+	assert.Equal(t, "twenty thousand one hundred and eleven", num2WordInd(t, "20111"))
+	assert.Equal(t, "one arab ten crore eleven lakh twenty six thousand five hundred and sixty nine", num2WordInd(t, "01101126569"))
+	assert.Equal(t, "one hundred and eleven and ten paise", num2WordInd(t, "111.1"))
+	assert.Equal(t, "one hundred and eleven and eleven paise", num2WordInd(t, "111.111"))
+	assert.Equal(t, "one hundred and twelve", num2WordInd(t, "111.100"))
+	assert.Equal(t, "one hundred and eleven and fifty six paise", num2WordInd(t, "111.56"))
+	assert.Equal(t, "one hundred and eleven and fifty paise", num2WordInd(t, "111.50"))
 
-	assert.Equal(t, "one arab ten crore eleven lac twenty six thousand five hundred and sixty nine", num2WordInd(t, "01101126569"))
+	// Failing cases
+	assert.EqualError(t, num2WordIndErr(t, "asdf"), "invalid-input")
+	assert.EqualError(t, num2WordIndErr(t, "a.0"), "invalid-input")
+	assert.EqualError(t, num2WordIndErr(t, "1.b"), "invalid-input")
+	assert.EqualError(t, num2WordIndErr(t, "1.2.3"), "invalid-input")
+	assert.EqualError(t, num2WordIndErr(t, ".9"), "invalid-input")
+	assert.EqualError(t, num2WordIndErr(t, "1."), "invalid-input")
 }
 
 func num2WordInd(t *testing.T, input string) string {
@@ -39,4 +59,9 @@ func num2WordInd(t *testing.T, input string) string {
 		assert.Fail(t, err.Error())
 	}
 	return output
+}
+
+func num2WordIndErr(t *testing.T, input string) error {
+	_, err := currency.Num2WordInd(input)
+	return err
 }
