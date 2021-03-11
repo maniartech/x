@@ -27,5 +27,7 @@ The following packages are functions are ready for use!
 Provides the currency manipulation functions.
 
 ```go
-func Num2WordInd(input string) string
+func Num2WordInd(input string) (string , error)
+func Num2Word(input string) (string , error)
+func Digit2Word(input string) (string , error)
 ```
