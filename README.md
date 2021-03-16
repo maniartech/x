@@ -30,4 +30,6 @@ Provides the currency manipulation functions.
 func Num2WordInd(input string) (string , error)
 func Num2Word(input string) (string , error)
 func Digit2Word(input string) (string , error)
+func FormatMoney(input string) (string , error)
+func FormatMoneyInd(input string) (string , error)
 ```
