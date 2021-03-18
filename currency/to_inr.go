@@ -101,7 +101,6 @@ func Num2WordInd(input string) (string, error) {
 			}
 			mod1 = temp % 100
 			if mod1 != 0 {
-				mod2 = mod1 / 10
 				if mod1 > 0 && mod1 < 20 {
 					part = singles[mod1]
 				} else {
