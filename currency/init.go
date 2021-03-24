@@ -2,7 +2,7 @@ package currency
 
 import "errors"
 
-var errInvalidInput error = errors.New("invalid-input")
+var ErrInvalidInput error = errors.New("invalid-input")
 
 // var singles []string = []string{
 // 	"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",

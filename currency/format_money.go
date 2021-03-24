@@ -15,12 +15,12 @@ func FormatMoney(input string, currencySymbol string) string {
 	strArrLen := len(strArr)
 	//checking if there more than one `.` in the inputed value if thats the case then the input is wrong.
 	if strArrLen != 1 && strArrLen != 2 {
-		panic(errInvalidInput)
+		panic(ErrInvalidInput)
 	}
 	//Checking all the characters in the inputed string are numerical digits
 	numberValidator := strings.IndexFunc(strArr[0], is.NotDigit) == -1
 	if !numberValidator {
-		panic(errInvalidInput)
+		panic(ErrInvalidInput)
 	}
 	number = strArr[0]
 	//Checking if the lenght of the number is greater than three so if thats the case then we do the complex
@@ -44,7 +44,7 @@ func FormatMoney(input string, currencySymbol string) string {
 	if strArrLen == 2 {
 		pointValidator := strings.IndexFunc(strArr[1], is.NotDigit) == -1
 		if !pointValidator {
-			panic(errInvalidInput)
+			panic(ErrInvalidInput)
 		}
 		value = value + "." + strArr[1]
 	}

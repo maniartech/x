@@ -23,28 +23,29 @@ func Num2Word(input string) (string, error) {
 	var centS string = ""
 	var multiplier bool = false
 	power := [6]string{"", " thousand ", " million ", " billion ", " trillion ", " quadrillion "}
-
+	//Spliting the number and checking for `.`
 	stringArr := strings.Split(input, ".")
 	stringArrLen := len(stringArr)
+	//Checking if there is a `.` in the number if there is more than one the input is wrong
 	if stringArrLen == 1 {
 		number, err = strconv.Atoi(input)
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 	} else if stringArrLen == 2 {
 		number, err = strconv.Atoi(stringArr[0])
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 		cent, err = strconv.Atoi(stringArr[1])
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 		if len(stringArr[1]) == 1 {
 			multiplier = true
 		}
 	} else {
-		return "", errInvalidInput
+		return "", ErrInvalidInput
 	}
 	if err == nil {
 		centS = strconv.Itoa(cent)
@@ -55,11 +56,12 @@ func Num2Word(input string) (string, error) {
 				cent = int(math.Round(centF))
 			}
 		}
+		//Checking if paise is != 0 then we compute and the cent part final output
 		if cent != 0 {
 			if cent > 0 && cent < 20 {
 				centV = singles[cent]
 
-				if multiplier == true {
+				if multiplier {
 					centV = tys[cent-1]
 				}
 			} else if cent > 19 && cent < 100 {
@@ -74,6 +76,8 @@ func Num2Word(input string) (string, error) {
 			}
 		}
 	}
+	//Some basic conditons
+	// computing the 3 digits of the number togther
 	if number == 0 {
 		word = "zero"
 	} else if number > 0 && number < 20 {

@@ -21,33 +21,33 @@ func Num2WordInd(input string) (string, error) {
 	var paise int = 0
 	var err error
 	var multiplier bool = false
-
+	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
+	//Spliting the number and checking for `.`
 	stringArr := strings.Split(input, ".")
 	stringArrLen := len(stringArr)
-
+	//Checking if there is a `.` in the number if there is more than one the input is wrong
 	if stringArrLen == 1 {
 		number, err = strconv.Atoi(input)
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 	} else if stringArrLen == 2 {
 		number, err = strconv.Atoi(stringArr[0])
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 		paise, err = strconv.Atoi(stringArr[1])
 		if err != nil {
-			return "", errInvalidInput
+			return "", ErrInvalidInput
 		}
 		if len(stringArr[1]) == 1 {
 			multiplier = true
 		}
 	} else {
-		return "", errInvalidInput
+		return "", ErrInvalidInput
 	}
-	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
-
 	paiseS := strconv.Itoa(paise)
+	//Checking if paise is != 0 then we compute and the paise part final output
 	if paise != 0 {
 		if paise > 100 {
 			paiseS = paiseS[:2] + "." + paiseS[2:]
@@ -72,6 +72,7 @@ func Num2WordInd(input string) (string, error) {
 			paise = 0
 		}
 	}
+	//Some basic conditons
 	if number == 0 {
 		word = "zero"
 	} else if number > 0 && number < 20 {
@@ -80,6 +81,7 @@ func Num2WordInd(input string) (string, error) {
 		temp := int(number)
 		for temp != 0 {
 			part = ""
+			// computing the first 3 digits of the number togther
 			if powerCounter == 0 {
 				mod1 = temp % 100
 				mod2 = temp % 1000
@@ -99,6 +101,7 @@ func Num2WordInd(input string) (string, error) {
 				powerCounter++
 				temp = temp / 1000
 			}
+			// Coumputing the remaining parts of numbers in 2
 			mod1 = temp % 100
 			if mod1 != 0 {
 				if mod1 > 0 && mod1 < 20 {
@@ -118,10 +121,10 @@ func Num2WordInd(input string) (string, error) {
 			temp = temp / 100
 		}
 	}
-
+	// if paise == 0 then we dont add the paise part to the final output
 	if paise == 0 {
 		return word, nil
 	}
-
+	// if paise != 0 then we add the paise part to the final output
 	return word + " and " + paiseV + " paise", nil
 }
