@@ -45,12 +45,12 @@ func TestNumWordIND(t *testing.T) {
 	assert.Equal(t, "one hundred and eleven and fifty paise", num2WordInd(t, "111.50"))
 
 	// Failing cases
-	assert.EqualError(t, num2WordIndErr(t, "asdf"), "invalid-input")
-	assert.EqualError(t, num2WordIndErr(t, "a.0"), "invalid-input")
-	assert.EqualError(t, num2WordIndErr(t, "1.b"), "invalid-input")
-	assert.EqualError(t, num2WordIndErr(t, "1.2.3"), "invalid-input")
-	assert.EqualError(t, num2WordIndErr(t, ".9"), "invalid-input")
-	assert.EqualError(t, num2WordIndErr(t, "1."), "invalid-input")
+	num2WordIndErr(t, "asdf", currency.ErrInvalidInput)
+	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
+	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
+	num2WordIndErr(t, "1.2.3", currency.ErrInvalidInput)
+	num2WordIndErr(t, ".9", currency.ErrInvalidInput)
+	num2WordIndErr(t, "1.", currency.ErrInvalidInput)
 }
 
 func num2WordInd(t *testing.T, input string) string {
@@ -61,7 +61,6 @@ func num2WordInd(t *testing.T, input string) string {
 	return output
 }
 
-func num2WordIndErr(t *testing.T, input string) error {
-	_, err := currency.Num2WordInd(input)
-	return err
+func num2WordIndErr(t *testing.T, input string, err error) {
+	assert.PanicsWithValue(t, err, func() { currency.Num2WordInd(input) })
 }

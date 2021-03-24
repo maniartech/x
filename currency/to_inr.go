@@ -1,12 +1,8 @@
 package currency
 
 import (
-
-	// "fmt"
-
 	"math"
 	"strconv"
-	"strings"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
@@ -19,36 +15,19 @@ func Num2WordInd(input string) (string, error) {
 	powerCounter := 0
 	var number int = 0
 	var paise int = 0
-	var err error
+	// var err error
 	var multiplier bool = false
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
-	//Spliting the number and checking for `.`
-	stringArr := strings.Split(input, ".")
-	stringArrLen := len(stringArr)
-	//Checking if there is a `.` in the number if there is more than one the input is wrong
-	if stringArrLen == 1 {
-		number, err = strconv.Atoi(input)
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-	} else if stringArrLen == 2 {
-		number, err = strconv.Atoi(stringArr[0])
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-		paise, err = strconv.Atoi(stringArr[1])
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-		if len(stringArr[1]) == 1 {
-			multiplier = true
-		}
-	} else {
-		return "", ErrInvalidInput
-	}
-	paiseS := strconv.Itoa(paise)
+
+	//Converting the input to int and then spliting it into two
+	number, paise = ConvertToInt(input)
+
 	//Checking if paise is != 0 then we compute and the paise part final output
 	if paise != 0 {
+		paiseS := strconv.Itoa(paise)
+		if len(paiseS) == 1 {
+			multiplier = true
+		}
 		if paise > 100 {
 			paiseS = paiseS[:2] + "." + paiseS[2:]
 			paiseF, err3 := strconv.ParseFloat(paiseS, 64)

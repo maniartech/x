@@ -1,54 +1,25 @@
 package currency
 
 import (
-
-	// "fmt"
-
 	"math"
 	"strconv"
-	"strings"
 )
 
 // Num2Word convert the number string into international numbering word format.
 func Num2Word(input string) (string, error) {
-	var word string
-	var part string
-	var centV string
-	var mod1 int
-	var mod2 int
-	var powerCounter int
-	var number int
-	var cent int
+	var word, part, centV, centS string
+	var mod1, mod2, powerCounter, number, cent int
 	var err error
-	var centS string = ""
 	var multiplier bool = false
 	power := [6]string{"", " thousand ", " million ", " billion ", " trillion ", " quadrillion "}
-	//Spliting the number and checking for `.`
-	stringArr := strings.Split(input, ".")
-	stringArrLen := len(stringArr)
-	//Checking if there is a `.` in the number if there is more than one the input is wrong
-	if stringArrLen == 1 {
-		number, err = strconv.Atoi(input)
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-	} else if stringArrLen == 2 {
-		number, err = strconv.Atoi(stringArr[0])
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-		cent, err = strconv.Atoi(stringArr[1])
-		if err != nil {
-			return "", ErrInvalidInput
-		}
-		if len(stringArr[1]) == 1 {
-			multiplier = true
-		}
-	} else {
-		return "", ErrInvalidInput
-	}
+	//Converting the input to int and then spliting it into two
+	number, cent = ConvertToInt(input)
+
 	if err == nil {
 		centS = strconv.Itoa(cent)
+		if len(centS) == 1 {
+			multiplier = true
+		}
 		if cent > 100 {
 			centS = centS[:2] + "." + centS[2:]
 			centF, err3 := strconv.ParseFloat(centS, 64)
@@ -60,7 +31,6 @@ func Num2Word(input string) (string, error) {
 		if cent != 0 {
 			if cent > 0 && cent < 20 {
 				centV = singles[cent]
-
 				if multiplier {
 					centV = tys[cent-1]
 				}
