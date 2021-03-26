@@ -42,7 +42,7 @@ Provides the currency manipulation functions.
 ```go
 func Num2WordInd(input string) string
 func Num2Word(input string) string
-func Digit2Word(input string) string)
+func Digit2Word(input string) string
 func FormatMoney(input string) string
 func FormatMoneyInd(input string) string
 ```
