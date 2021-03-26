@@ -1,7 +1,12 @@
 
-# go-funcs
+# Expression (WIP)
 
-Excel like reusable functions in go lang
+Expression evaluator in Go-lang, similar to Excel. This open source project is part of Processious, a modern no-code, low-code proces automation platform.
+
+```go
+val := expression.Eval(UpperCase(NumToWord(2000 + 100 + 222)))
+print(val) // Prints - TWO THOUSAND THREE HUNDRED TWENTY TWO
+```
 
 ## Important commands
 
