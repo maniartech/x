@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/maniartech/go-funcs/currency"
+	// "github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,23 +16,19 @@ func TestFormatMoney(t *testing.T) {
 	assert.Equal(t, "PKR1,113,658.456", formatMoney(t, "1113658.456", "PKR"))
 
 	// Failing cases
-	assert.EqualError(t, formatMoneyErr(t, "$asdf", "$"), "invalid-input")
-	assert.EqualError(t, formatMoneyErr(t, "INRas.00", "INR"), "invalid-input")
-	assert.EqualError(t, formatMoneyErr(t, "54.asdfb", ""), "invalid-input")
-	assert.EqualError(t, formatMoneyErr(t, "PKR025.asdf", "PKR"), "invalid-input")
-	assert.EqualError(t, formatMoneyErr(t, "USD135.351.1.53", "USD"), "invalid-input")
-
+	formatMoneyErr(t, "asdf", "", currency.ErrInvalidInput)
+	formatMoneyErr(t, "INRas.00", "INR", currency.ErrInvalidInput)
+	formatMoneyErr(t, "54.asdfb", "", currency.ErrInvalidInput)
+	formatMoneyErr(t, "PKR025.asdf", "PKR", currency.ErrInvalidInput)
+	formatMoneyErr(t, "USD135.351.1.53", "USD", currency.ErrInvalidInput)
 }
 
 func formatMoney(t *testing.T, input string, symbol string) string {
-	output, err := currency.FormatMoney(input, symbol)
-	if err != nil {
-		assert.Fail(t, err.Error())
-	}
+	output := currency.FormatMoney(input, symbol)
+
 	return output
 }
 
-func formatMoneyErr(t *testing.T, input string, symbol string) error {
-	_, err := currency.FormatMoney(input, symbol)
-	return err
+func formatMoneyErr(t *testing.T, input string, symbol string, err error) {
+	assert.PanicsWithValue(t, err, func() { currency.FormatMoney(input, symbol) })
 }

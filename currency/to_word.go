@@ -1,53 +1,25 @@
 package currency
 
 import (
-
-	// "fmt"
-
 	"math"
 	"strconv"
-	"strings"
 )
 
 // Num2Word convert the number string into international numbering word format.
 func Num2Word(input string) (string, error) {
-	var word string
-	var part string
-	var centV string
-	var mod1 int
-	var mod2 int
-	var powerCounter int
-	var number int
-	var cent int
+	var word, part, centV, centS string
+	var mod1, mod2, powerCounter, number, cent int
 	var err error
-	var centS string = ""
 	var multiplier bool = false
 	power := [6]string{"", " thousand ", " million ", " billion ", " trillion ", " quadrillion "}
+	//Converting the input to int and then spliting it into two
+	number, cent = ConvertToInt(input)
 
-	stringArr := strings.Split(input, ".")
-	stringArrLen := len(stringArr)
-	if stringArrLen == 1 {
-		number, err = strconv.Atoi(input)
-		if err != nil {
-			return "", errInvalidInput
-		}
-	} else if stringArrLen == 2 {
-		number, err = strconv.Atoi(stringArr[0])
-		if err != nil {
-			return "", errInvalidInput
-		}
-		cent, err = strconv.Atoi(stringArr[1])
-		if err != nil {
-			return "", errInvalidInput
-		}
-		if len(stringArr[1]) == 1 {
-			multiplier = true
-		}
-	} else {
-		return "", errInvalidInput
-	}
 	if err == nil {
 		centS = strconv.Itoa(cent)
+		if len(centS) == 1 {
+			multiplier = true
+		}
 		if cent > 100 {
 			centS = centS[:2] + "." + centS[2:]
 			centF, err3 := strconv.ParseFloat(centS, 64)
@@ -55,11 +27,11 @@ func Num2Word(input string) (string, error) {
 				cent = int(math.Round(centF))
 			}
 		}
+		//Checking if paise is != 0 then we compute and the cent part final output
 		if cent != 0 {
 			if cent > 0 && cent < 20 {
 				centV = singles[cent]
-
-				if multiplier == true {
+				if multiplier {
 					centV = tys[cent-1]
 				}
 			} else if cent > 19 && cent < 100 {
@@ -74,6 +46,8 @@ func Num2Word(input string) (string, error) {
 			}
 		}
 	}
+	//Some basic conditons
+	// computing the 3 digits of the number togther
 	if number == 0 {
 		word = "zero"
 	} else if number > 0 && number < 20 {

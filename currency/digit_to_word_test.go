@@ -18,13 +18,12 @@ func TestDigit2Word(t *testing.T) {
 	assert.Equal(t, "one two three point two two", digit2Word(t, "123.223"))
 
 	// Failing cases
-	assert.EqualError(t, digit2WordErr(t, "asdf"), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, "a.0"), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, "1.b"), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, "1.2.3"), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, ".9"), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, "1."), "invalid-input")
-	assert.EqualError(t, digit2WordErr(t, "1.100"), "invalid-input")
+	digit2WordErr(t, "asdf", currency.ErrInvalidInput)
+	digit2WordErr(t, "213.100", currency.ErrInvalidInput)
+	digit2WordErr(t, "INRas.00", currency.ErrInvalidInput)
+	digit2WordErr(t, "54.asdfb", currency.ErrInvalidInput)
+	digit2WordErr(t, "PKR025.asdf", currency.ErrInvalidInput)
+	digit2WordErr(t, "USD135.351.1.53", currency.ErrInvalidInput)
 }
 
 func digit2Word(t *testing.T, input string) string {
@@ -35,7 +34,6 @@ func digit2Word(t *testing.T, input string) string {
 	return output
 }
 
-func digit2WordErr(t *testing.T, input string) error {
-	_, err := currency.Digit2Word(input)
-	return err
+func digit2WordErr(t *testing.T, input string, err error) {
+	assert.PanicsWithValue(t, err, func() { currency.Digit2Word(input) })
 }
