@@ -1,7 +1,7 @@
 
 # x - the expression evaluator! (work in progress)
 
-Expression evaluator in Go-lang, similar to Excel. This open source project is part of Processious, a modern no-code, low-code proces automation platform.
+The xxpression evaluator in Go-lang, similar to Excel. This open source project is part of Processious, a modern no-code, low-code process automation platform.
 
 ```go
 package main
