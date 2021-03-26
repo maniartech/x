@@ -29,7 +29,7 @@ The following packages are functions are ready for use!
 
 ### Packages
 
-#### github.com/maniartech/go-funcs/currency
+#### github.com/maniartech/expression/currency
 
 Provides the currency manipulation functions.
 
