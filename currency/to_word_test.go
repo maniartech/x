@@ -42,12 +42,13 @@ func TestNumWord(t *testing.T) {
 	assert.Equal(t, "one billion one hundred one million one hundred twenty six thousand five hundred sixty nine", num2Word(t, "01101126569"))
 	assert.Equal(t, "one hundred eleven and ten cent", num2Word(t, "111.1"))
 	assert.Equal(t, "one hundred eleven and eleven cent", num2Word(t, "111.111"))
-	assert.Equal(t, "one hundred twelve", num2Word(t, "111.100"))
 	assert.Equal(t, "one hundred eleven and fifty six cent", num2Word(t, "111.56"))
 	assert.Equal(t, "one hundred eleven and fifty cent", num2Word(t, "111.50"))
 
 	// Failing cases
 	num2WordErr(t, "asdf", currency.ErrInvalidInput)
+	num2WordErr(t, "123.321asdf", currency.ErrInvalidInput)
+	num2WordErr(t, "123.100", currency.ErrInvalidInput)
 	num2WordErr(t, "a.0", currency.ErrInvalidInput)
 	num2WordErr(t, "a.0", currency.ErrInvalidInput)
 	num2WordErr(t, "1.2.3", currency.ErrInvalidInput)
@@ -56,10 +57,7 @@ func TestNumWord(t *testing.T) {
 }
 
 func num2Word(t *testing.T, input string) string {
-	output, err := currency.Num2Word(input)
-	if err != nil {
-		assert.Fail(t, err.Error())
-	}
+	output := currency.Num2Word(input)
 	return output
 }
 func num2WordErr(t *testing.T, input string, err error) {

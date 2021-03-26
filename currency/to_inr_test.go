@@ -31,21 +31,21 @@ func TestNumWordIND(t *testing.T) {
 	assert.Equal(t, "nineteen", num2WordInd(t, "19"))
 	assert.Equal(t, "twenty", num2WordInd(t, "20"))
 	assert.Equal(t, "twenty one", num2WordInd(t, "21"))
-	assert.Equal(t, "one hundred and one", num2WordInd(t, "101"))
-	assert.Equal(t, "one hundred and ten", num2WordInd(t, "110"))
-	assert.Equal(t, "one hundred and eleven", num2WordInd(t, "111"))
-	assert.Equal(t, "one thousand one hundred and eleven", num2WordInd(t, "1111"))
-	assert.Equal(t, "twenty one thousand one hundred and eleven", num2WordInd(t, "21111"))
-	assert.Equal(t, "twenty thousand one hundred and eleven", num2WordInd(t, "20111"))
-	assert.Equal(t, "one arab ten crore eleven lakh twenty six thousand five hundred and sixty nine", num2WordInd(t, "01101126569"))
-	assert.Equal(t, "one hundred and eleven and ten paise", num2WordInd(t, "111.1"))
-	assert.Equal(t, "one hundred and eleven and eleven paise", num2WordInd(t, "111.111"))
-	assert.Equal(t, "one hundred and twelve", num2WordInd(t, "111.100"))
-	assert.Equal(t, "one hundred and eleven and fifty six paise", num2WordInd(t, "111.56"))
-	assert.Equal(t, "one hundred and eleven and fifty paise", num2WordInd(t, "111.50"))
+	assert.Equal(t, "one hundred one", num2WordInd(t, "101"))
+	assert.Equal(t, "one hundred ten", num2WordInd(t, "110"))
+	assert.Equal(t, "one hundred eleven", num2WordInd(t, "111"))
+	assert.Equal(t, "one thousand one hundred eleven", num2WordInd(t, "1111"))
+	assert.Equal(t, "twenty one thousand one hundred eleven", num2WordInd(t, "21111"))
+	assert.Equal(t, "twenty thousand one hundred eleven", num2WordInd(t, "20111"))
+	assert.Equal(t, "one arab ten crore eleven lakh twenty six thousand five hundred sixty nine", num2WordInd(t, "01101126569"))
+	assert.Equal(t, "one hundred eleven and ten paise", num2WordInd(t, "111.1"))
+	assert.Equal(t, "one hundred eleven and eleven paise", num2WordInd(t, "111.111"))
+	assert.Equal(t, "one hundred eleven and fifty six paise", num2WordInd(t, "111.56"))
+	assert.Equal(t, "one hundred eleven and fifty paise", num2WordInd(t, "111.50"))
 
 	// Failing cases
 	num2WordIndErr(t, "asdf", currency.ErrInvalidInput)
+	num2WordIndErr(t, "123.100", currency.ErrInvalidInput)
 	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
 	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
 	num2WordIndErr(t, "1.2.3", currency.ErrInvalidInput)
@@ -54,10 +54,7 @@ func TestNumWordIND(t *testing.T) {
 }
 
 func num2WordInd(t *testing.T, input string) string {
-	output, err := currency.Num2WordInd(input)
-	if err != nil {
-		assert.Fail(t, err.Error())
-	}
+	output := currency.Num2WordInd(input)
 	return output
 }
 
