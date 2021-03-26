@@ -1,13 +1,19 @@
 
-# Expression (WIP)
+# x - the expression evaluator! (work in progress)
 
 Expression evaluator in Go-lang, similar to Excel. This open source project is part of Processious, a modern no-code, low-code proces automation platform.
 
 ```go
-exp := "Upper(NumToWord(2000 + 100 + 222))"
-val := expression.Eval(exp)
+package main
 
-print(val) // Prints - TWO THOUSAND THREE HUNDRED TWENTY TWO
+import "github.com/maniartech/x"
+
+func main() {
+  exp := "Upper(NumToWord(2000 + 100 + 222))"
+  val := x.Eval(exp)
+
+  print(val) // Prints - TWO THOUSAND THREE HUNDRED TWENTY TWO
+}
 ```
 
 ## Important commands
@@ -29,7 +35,7 @@ The following packages are functions are ready for use!
 
 ### Packages
 
-#### github.com/maniartech/expression/currency
+#### github.com/maniartech/x/currency
 
 Provides the currency manipulation functions.
 
