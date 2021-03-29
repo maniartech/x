@@ -1,20 +1,5 @@
 package currency
 
-import (
-	"math"
-	"strconv"
-)
-
-func RoundOffToTens(input int) int {
-	var inputS string = strconv.Itoa(input)
-	inputS = inputS[:2] + "." + inputS[2:]
-	inputF, err := strconv.ParseFloat(inputS, 64)
-	if err != nil {
-		panic(ErrInvalidInput)
-	}
-	return int(math.Round(inputF))
-}
-
 // ToWordTens converts numbers form 0 to 99 to word form
 func ToWordTens(input int, multiplier bool) string {
 	var output string

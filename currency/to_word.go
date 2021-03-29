@@ -1,27 +1,27 @@
 package currency
 
 import (
-	"strconv"
+	"math"
+
+	"github.com/maniartech/go-funcs/calc"
 )
 
 // Num2Word convert the number string into international numbering word format.
 func Num2Word(input string) string {
-	var word, part, centV, centS string
+	var word, part, centV string
 	var mod, powerCounter, number, cent int
 	var multiplier bool = false
 	power := [6]string{"", " thousand ", " million ", " billion ", " trillion ", " quadrillion "}
 	//Converting the input to int and then spliting it into two
 	number, cent = ConvertToInt(input)
-
-	centS = strconv.Itoa(cent)
-	if len(centS) == 1 {
+	if calc.NumberOfDigits(cent) == 1 {
 		multiplier = true
 	}
 
-	//Checking if paise is != 0 then we compute and the cent part final output
+	//Checking if cent is != 0 then we compute and the cent part final output
 	if cent != 0 {
 		if cent > 100 {
-			cent = RoundOffToTens(cent)
+			cent = int((calc.Round(float64(cent), -(calc.NumberOfDigits(cent) - 2))) / math.Pow10(calc.NumberOfDigits(cent)-2))
 		}
 		if cent == 100 {
 			panic(ErrInvalidInput)

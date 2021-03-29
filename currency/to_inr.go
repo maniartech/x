@@ -1,7 +1,9 @@
 package currency
 
 import (
-	"strconv"
+	"math"
+
+	"github.com/maniartech/go-funcs/calc"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
@@ -13,15 +15,13 @@ func Num2WordInd(input string) string {
 
 	//Converting the input to int and then spliting it into two
 	number, paise = ConvertToInt(input)
-
+	if calc.NumberOfDigits(paise) == 1 {
+		multiplier = true
+	}
 	//Checking if paise is != 0 then we compute and the paise part final output
 	if paise != 0 {
-		paiseS := strconv.Itoa(paise)
-		if len(paiseS) == 1 {
-			multiplier = true
-		}
 		if paise > 100 {
-			paise = RoundOffToTens(paise)
+			paise = int((calc.Round(float64(paise), -(calc.NumberOfDigits(paise) - 2))) / math.Pow10(calc.NumberOfDigits(paise)-2))
 		}
 		if paise == 100 {
 			panic(ErrInvalidInput)
