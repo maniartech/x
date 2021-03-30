@@ -17,7 +17,10 @@ func Rad2Deg(input float64) float64 { return input * (180 / math.Pi) }
 // Math Functions
 func Abs(input float64) float64    { return math.Abs(input) }
 func Even(input float64) int       { return int((math.Floor(input/2) + 1) * 2) }
+func Odd(input float64) int        { return int(((math.Floor(input/2) - 1) * 2) + 3) }
 func INT(input float64) int        { return int(math.Floor(input)) }
 func Sqrt(input float64) float64   { return math.Sqrt(input) }
 func SqrtPi(input float64) float64 { return input * math.Pi }
 func Quotient(n, d float64) int    { return int(math.Floor(n / d)) }
+func LN(input float64) float64     { return math.Log(input) }
+func Log10(input float64) float64  { return math.Log10(input) }
