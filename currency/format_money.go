@@ -17,8 +17,7 @@ func FormatMoneyInd(input string, currencySymbol string) string {
 // FormatMoneySymbol formats the money with correct placement of ',' between digits according to sepSpaces
 // this function also places a currency symbol before the number
 func formatMoney(input string, currencySymbol string, sepSpace int) string {
-	var value string
-	var number string
+	var value, number string
 	//Spliting the input into two parts and checking for errors in input
 	strArr := Split(input)
 	var strArrLen int = len(strArr)

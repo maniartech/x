@@ -3,20 +3,20 @@ package currency
 import (
 	"math"
 	"strconv"
+
+	"github.com/maniartech/go-funcs/calc"
 )
 
 // Digit2Word convert the indiviual digits to their word form.
 func Digit2Word(input string) (string, error) {
 	//Variable initalization
-	var word string
-	var number int
-	var point int
-	var pointS string = ""
-	var pointV string = ""
-	var single bool = false
+	var word, pointV, pointS string
 	var digit []string = []string{
 		"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 	}
+	var number, point int
+	var single bool = false
+
 	//Converting the input to int and then spliting it into two
 	number, point = ConvertToInt(input)
 	pointS = strconv.Itoa(point)
@@ -25,18 +25,12 @@ func Digit2Word(input string) (string, error) {
 	}
 	//Converting the input from string to int
 	if point > 100 {
-
-		pointS = pointS[:2] + "." + pointS[2:]
-		pointF, err3 := strconv.ParseFloat(pointS, 64)
-		if err3 == nil {
-			point = int(math.Round(pointF))
-		}
+		point = int((calc.Round(float64(point), -(calc.NumberOfDigits(point) - 2))) / math.Pow10(calc.NumberOfDigits(point)-2))
 	}
 	if point != 0 && point < 100 {
 		if single {
 			pointV = "point " + digit[point%10]
 		} else {
-
 			pointV = "point " + digit[point/10] + " " + digit[point%10]
 		}
 	} else if point == 100 {

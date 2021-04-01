@@ -2,54 +2,31 @@ package currency
 
 import (
 	"math"
-	"strconv"
+
+	"github.com/maniartech/go-funcs/calc"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
-func Num2WordInd(input string) (string, error) {
-	word := ""
-	part := ""
-	paiseV := ""
-	mod1 := 0
-	mod2 := 0
-	powerCounter := 0
-	var number int = 0
-	var paise int = 0
-	// var err error
+func Num2WordInd(input string) string {
+	var word, part, paiseV string
+	var mod1, powerCounter, number, paise int
 	var multiplier bool = false
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
 
 	//Converting the input to int and then spliting it into two
 	number, paise = ConvertToInt(input)
-
+	if calc.NumberOfDigits(paise) == 1 {
+		multiplier = true
+	}
 	//Checking if paise is != 0 then we compute and the paise part final output
 	if paise != 0 {
-		paiseS := strconv.Itoa(paise)
-		if len(paiseS) == 1 {
-			multiplier = true
-		}
 		if paise > 100 {
-			paiseS = paiseS[:2] + "." + paiseS[2:]
-			paiseF, err3 := strconv.ParseFloat(paiseS, 64)
-			if err3 == nil {
-				paise = int(math.Round(paiseF))
-			}
+			paise = int((calc.Round(float64(paise), -(calc.NumberOfDigits(paise) - 2))) / math.Pow10(calc.NumberOfDigits(paise)-2))
 		}
-		if paise > 0 && paise < 20 {
-			paiseV = singles[paise]
-			if multiplier {
-				paiseV = tys[paise-1]
-			}
-		} else if paise < 100 {
-			if (paise % 10) == 0 {
-				paiseV = tys[(paise/10)-1]
-			} else {
-				paiseV = tys[(paise/10)-1] + " " + singles[paise%10]
-			}
-		} else if paise == 100 {
-			number++
-			paise = 0
+		if paise == 100 {
+			panic(ErrInvalidInput)
 		}
+		paiseV = ToWordTens(paise, multiplier)
 	}
 	//Some basic conditons
 	if number == 0 {
@@ -62,48 +39,28 @@ func Num2WordInd(input string) (string, error) {
 			part = ""
 			// computing the first 3 digits of the number togther
 			if powerCounter == 0 {
-				mod1 = temp % 100
-				mod2 = temp % 1000
-				word = singles[mod2/100]
-				if mod2/100 != 0 {
-					word = word + " hundred and "
-				}
-				if mod1 > 0 && mod1 < 20 {
-					word = word + singles[mod1]
-				} else {
-					if (mod1 % 10) == 0 {
-						word = word + tys[(mod1/10)%10-1]
-					} else {
-						word = word + tys[(mod1/10)%10-1] + " " + singles[mod1%10]
-					}
-				}
+				mod1 = temp % 1000
+				word = ToWordHundreds(mod1)
 				powerCounter++
 				temp = temp / 1000
 			}
 			// Coumputing the remaining parts of numbers in 2
 			mod1 = temp % 100
-			if mod1 != 0 {
-				if mod1 > 0 && mod1 < 20 {
-					part = singles[mod1]
-				} else {
-					if mod1%10 == 0 {
-						part = tys[(mod1/10)%10-1]
-					} else {
-
-						part = tys[(mod1/10)%10-1] + " " + singles[mod1%10]
-					}
-				}
-				part = part + " " + power[powerCounter]
-				word = part + " " + word
+			if mod1 == 0 {
+				powerCounter++
+				temp = temp / 100
+				continue
 			}
+			part = ToWordTens(mod1, false)
+			word = part + " " + power[powerCounter] + " " + word
 			powerCounter++
 			temp = temp / 100
 		}
 	}
 	// if paise == 0 then we dont add the paise part to the final output
 	if paise == 0 {
-		return word, nil
+		return word
 	}
 	// if paise != 0 then we add the paise part to the final output
-	return word + " and " + paiseV + " paise", nil
+	return word + " and " + paiseV + " paise"
 }

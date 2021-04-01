@@ -3,15 +3,6 @@ package currency
 import "errors"
 
 var ErrInvalidInput error = errors.New("invalid-input")
-
-// var singles []string = []string{
-// 	"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-// }
-
-// var tees []string = []string{
-// 	"eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
-// }
-
 var singles []string = []string{
 	// The element 0 contains no value because the number zero isn't
 	// rendered in the output of most numbers.
