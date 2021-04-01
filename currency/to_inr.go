@@ -1,12 +1,8 @@
 package currency
 
 import (
-
-	// "fmt"
-
 	"math"
 	"strconv"
-	"strings"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
@@ -19,36 +15,19 @@ func Num2WordInd(input string) (string, error) {
 	powerCounter := 0
 	var number int = 0
 	var paise int = 0
-	var err error
+	// var err error
 	var multiplier bool = false
-
-	stringArr := strings.Split(input, ".")
-	stringArrLen := len(stringArr)
-
-	if stringArrLen == 1 {
-		number, err = strconv.Atoi(input)
-		if err != nil {
-			return "", errInvalidInput
-		}
-	} else if stringArrLen == 2 {
-		number, err = strconv.Atoi(stringArr[0])
-		if err != nil {
-			return "", errInvalidInput
-		}
-		paise, err = strconv.Atoi(stringArr[1])
-		if err != nil {
-			return "", errInvalidInput
-		}
-		if len(stringArr[1]) == 1 {
-			multiplier = true
-		}
-	} else {
-		return "", errInvalidInput
-	}
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
 
-	paiseS := strconv.Itoa(paise)
+	//Converting the input to int and then spliting it into two
+	number, paise = ConvertToInt(input)
+
+	//Checking if paise is != 0 then we compute and the paise part final output
 	if paise != 0 {
+		paiseS := strconv.Itoa(paise)
+		if len(paiseS) == 1 {
+			multiplier = true
+		}
 		if paise > 100 {
 			paiseS = paiseS[:2] + "." + paiseS[2:]
 			paiseF, err3 := strconv.ParseFloat(paiseS, 64)
@@ -72,6 +51,7 @@ func Num2WordInd(input string) (string, error) {
 			paise = 0
 		}
 	}
+	//Some basic conditons
 	if number == 0 {
 		word = "zero"
 	} else if number > 0 && number < 20 {
@@ -80,6 +60,7 @@ func Num2WordInd(input string) (string, error) {
 		temp := int(number)
 		for temp != 0 {
 			part = ""
+			// computing the first 3 digits of the number togther
 			if powerCounter == 0 {
 				mod1 = temp % 100
 				mod2 = temp % 1000
@@ -99,6 +80,7 @@ func Num2WordInd(input string) (string, error) {
 				powerCounter++
 				temp = temp / 1000
 			}
+			// Coumputing the remaining parts of numbers in 2
 			mod1 = temp % 100
 			if mod1 != 0 {
 				if mod1 > 0 && mod1 < 20 {
@@ -118,10 +100,10 @@ func Num2WordInd(input string) (string, error) {
 			temp = temp / 100
 		}
 	}
-
+	// if paise == 0 then we dont add the paise part to the final output
 	if paise == 0 {
 		return word, nil
 	}
-
+	// if paise != 0 then we add the paise part to the final output
 	return word + " and " + paiseV + " paise", nil
 }
