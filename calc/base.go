@@ -7,7 +7,7 @@ import (
 )
 
 func Base(input int64, base, min_len int) string {
-	if base < 2|| base > 36 || min_len < 0 || min_len > 255 {
+	if base < 2 || base > 36 || min_len < 0 || min_len > 255 {
 		panic(currency.ErrInvalidInput)
 	}
 	value := (strconv.FormatInt(input, base))
