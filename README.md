@@ -10,7 +10,7 @@ import "github.com/maniartech/x"
 
 func main() {
   exp := "Upper(NumToWord(2000 + 100 + 222))"
-  val, err := x.Eval(exp)
+  val, err := x.Eval(exp, nil)
   if err != nil {
     panic(err)
   }
