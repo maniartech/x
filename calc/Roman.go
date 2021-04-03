@@ -19,7 +19,7 @@ func Roman(number int) string {
 	var key_slice []int
 	// range of a map returns key, value pair
 	// value is not needed so use blank identifier _
-	for k, _ := range romanMap {
+	for k := range romanMap {
 		key_slice = append(key_slice, k)
 	}
 	// sort the slice in place, highest number first (decending)

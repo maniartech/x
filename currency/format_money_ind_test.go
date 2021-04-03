@@ -3,7 +3,8 @@ package currency_test
 import (
 	"testing"
 
-	"github.com/maniartech/go-funcs/currency"
+	"github.com/maniartech/x/core"
+	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,11 +16,11 @@ func TestFormatMoneyInd(t *testing.T) {
 	assert.Equal(t, "Rs.11,13,658.456", formatMoneyInd(t, "1113658.456", "Rs."))
 
 	// Failing cases
-	formatMoneyIndErr(t, "asdf", "", currency.ErrInvalidInput)
-	formatMoneyIndErr(t, "INRas.00", "INR", currency.ErrInvalidInput)
-	formatMoneyIndErr(t, "54.asdfb", "", currency.ErrInvalidInput)
-	formatMoneyIndErr(t, "PKR025.asdf", "PKR", currency.ErrInvalidInput)
-	formatMoneyIndErr(t, "USD135.351.1.53", "USD", currency.ErrInvalidInput)
+	formatMoneyIndErr(t, "asdf", "", core.ErrInvalidInput)
+	formatMoneyIndErr(t, "INRas.00", "INR", core.ErrInvalidInput)
+	formatMoneyIndErr(t, "54.asdfb", "", core.ErrInvalidInput)
+	formatMoneyIndErr(t, "PKR025.asdf", "PKR", core.ErrInvalidInput)
+	formatMoneyIndErr(t, "USD135.351.1.53", "USD", core.ErrInvalidInput)
 }
 
 func formatMoneyInd(t *testing.T, input string, symbol string) string {

@@ -3,7 +3,8 @@ package currency
 import (
 	"math"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/core"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
@@ -24,7 +25,7 @@ func Num2WordInd(input string) string {
 			paise = int((calc.Round(float64(paise), -(calc.NumberOfDigits(paise) - 2))) / math.Pow10(calc.NumberOfDigits(paise)-2))
 		}
 		if paise == 100 {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 		paiseV = ToWordTens(paise, multiplier)
 	}

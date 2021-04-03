@@ -1,6 +1,6 @@
 package calc
 
-import "github.com/maniartech/go-funcs/currency"
+import "github.com/maniartech/x/core"
 
 func calcGCD(a int, b int) int {
 	if a == 0 {
@@ -21,14 +21,12 @@ func GCD(arr []interface{}) int {
 		//If the type of the `arr` element is int then it gets added to the `arrInt`
 		case int:
 			arrInt[i] = typedValue
-			break
 			//If the type of the `arr` element is float64 then it gets truncated
 		case float64:
 			arrInt[i] = INT(value.(float64))
-			break
 			//If the type of `arr` is neither int nor float64 then it creates a panic
 		default:
-			panic(currency.ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 	}
 	//Initalizing results with a default value
@@ -37,7 +35,7 @@ func GCD(arr []interface{}) int {
 	for i := 1; i < len(arrInt); i++ {
 		//Using the GCD value of the prev numbers we compute it with the next value
 		result = calcGCD(int(arrInt[i]), result)
-		//If the results == 1 then we return 1 
+		//If the results == 1 then we return 1
 		if result == 1 {
 			return 1
 		}
