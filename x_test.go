@@ -9,8 +9,10 @@ import (
 )
 
 func TestEval(t *testing.T) {
+	env := make(x.Env)
+	env["ten"] = 10
 
-	r, err := x.Eval("AverageA(10 + (20 * 3), 10, true)")
+	r, err := x.Eval("Average([ten, ten], ten)", env)
 
 	if err != nil {
 		log.Fatalln(err)

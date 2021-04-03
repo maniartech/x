@@ -7,9 +7,15 @@ import (
 	"github.com/maniartech/x/statistics"
 )
 
-func Eval(e string) (interface{}, error) {
+// Env represent the environment
+type Env map[string]interface{}
 
-	env := registry.GetFunctions()
+func Eval(e string, env Env) (interface{}, error) {
+
+	if env == nil {
+		env = make(Env)
+	}
+	registry.AttachFunctions(env)
 	return expr.Eval(e, env)
 }
 

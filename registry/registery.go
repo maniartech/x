@@ -33,11 +33,8 @@ func Unregister(n string) {
 	delete(registry, n)
 }
 
-func GetFunctions() map[string]interface{} {
-	clone := make(map[string]interface{})
-
+func AttachFunctions(env map[string]interface{}) {
 	for k, v := range registry {
-		clone[k] = v
+		env[k] = v
 	}
-	return clone
 }
