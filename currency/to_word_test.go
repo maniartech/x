@@ -3,7 +3,8 @@ package currency_test
 import (
 	"testing"
 
-	"github.com/maniartech/go-funcs/currency"
+	"github.com/maniartech/x/core"
+	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -46,14 +47,14 @@ func TestNumWord(t *testing.T) {
 	assert.Equal(t, "one hundred eleven and fifty cent", num2Word(t, "111.50"))
 
 	// Failing cases
-	num2WordErr(t, "asdf", currency.ErrInvalidInput)
-	num2WordErr(t, "123.321asdf", currency.ErrInvalidInput)
-	num2WordErr(t, "123.100", currency.ErrInvalidInput)
-	num2WordErr(t, "a.0", currency.ErrInvalidInput)
-	num2WordErr(t, "a.0", currency.ErrInvalidInput)
-	num2WordErr(t, "1.2.3", currency.ErrInvalidInput)
-	num2WordErr(t, ".9", currency.ErrInvalidInput)
-	num2WordErr(t, "1.", currency.ErrInvalidInput)
+	num2WordErr(t, "asdf", core.ErrInvalidInput)
+	num2WordErr(t, "123.321asdf", core.ErrInvalidInput)
+	num2WordErr(t, "123.100", core.ErrInvalidInput)
+	num2WordErr(t, "a.0", core.ErrInvalidInput)
+	num2WordErr(t, "a.0", core.ErrInvalidInput)
+	num2WordErr(t, "1.2.3", core.ErrInvalidInput)
+	num2WordErr(t, ".9", core.ErrInvalidInput)
+	num2WordErr(t, "1.", core.ErrInvalidInput)
 }
 
 func num2Word(t *testing.T, input string) string {
