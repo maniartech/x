@@ -4,6 +4,10 @@ import (
 	"math"
 
 	"github.com/maniartech/x/calc"
+<<<<<<< HEAD
+=======
+	"github.com/maniartech/x/core"
+>>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
@@ -24,7 +28,7 @@ func Num2WordInd(input string) string {
 			paise = int((calc.Round(float64(paise), -(calc.NumberOfDigits(paise) - 2))) / math.Pow10(calc.NumberOfDigits(paise)-2))
 		}
 		if paise == 100 {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 		paiseV = ToWordTens(paise, multiplier)
 	}

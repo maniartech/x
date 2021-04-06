@@ -4,6 +4,10 @@ import (
 	"math"
 
 	"github.com/maniartech/x/calc"
+<<<<<<< HEAD
+=======
+	"github.com/maniartech/x/core"
+>>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 )
 
 // Num2Word convert the number string into international numbering word format.
@@ -24,7 +28,7 @@ func Num2Word(input string) string {
 			cent = int((calc.Round(float64(cent), -(calc.NumberOfDigits(cent) - 2))) / math.Pow10(calc.NumberOfDigits(cent)-2))
 		}
 		if cent == 100 {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 		centV = ToWordTens(cent, multiplier)
 	}

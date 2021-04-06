@@ -3,12 +3,12 @@ package calc
 import (
 	"strconv"
 
-	"github.com/maniartech/x/currency"
+	"github.com/maniartech/x/core"
 )
 
 func Base(input int64, base, min_len int) string {
 	if base < 2 || base > 36 || min_len < 0 || min_len > 255 {
-		panic(currency.ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	value := (strconv.FormatInt(input, base))
 	if (min_len - len(value)) <= 0 {

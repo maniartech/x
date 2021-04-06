@@ -3,6 +3,7 @@ package currency_test
 import (
 	"testing"
 
+	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,12 +19,12 @@ func TestDigit2Word(t *testing.T) {
 	assert.Equal(t, "one two three point two two", digit2Word(t, "123.223"))
 
 	// Failing cases
-	digit2WordErr(t, "asdf", currency.ErrInvalidInput)
-	digit2WordErr(t, "213.100", currency.ErrInvalidInput)
-	digit2WordErr(t, "INRas.00", currency.ErrInvalidInput)
-	digit2WordErr(t, "54.asdfb", currency.ErrInvalidInput)
-	digit2WordErr(t, "PKR025.asdf", currency.ErrInvalidInput)
-	digit2WordErr(t, "USD135.351.1.53", currency.ErrInvalidInput)
+	digit2WordErr(t, "asdf", core.ErrInvalidInput)
+	digit2WordErr(t, "213.100", core.ErrInvalidInput)
+	digit2WordErr(t, "INRas.00", core.ErrInvalidInput)
+	digit2WordErr(t, "54.asdfb", core.ErrInvalidInput)
+	digit2WordErr(t, "PKR025.asdf", core.ErrInvalidInput)
+	digit2WordErr(t, "USD135.351.1.53", core.ErrInvalidInput)
 }
 
 func digit2Word(t *testing.T, input string) string {

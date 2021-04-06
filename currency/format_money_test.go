@@ -3,7 +3,13 @@ package currency_test
 import (
 	"testing"
 
+<<<<<<< HEAD
 	"github.com/maniartech/x/currency"
+=======
+	"github.com/maniartech/x/core"
+	"github.com/maniartech/x/currency"
+
+>>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 	// "github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
@@ -16,11 +22,11 @@ func TestFormatMoney(t *testing.T) {
 	assert.Equal(t, "PKR1,113,658.456", formatMoney(t, "1113658.456", "PKR"))
 
 	// Failing cases
-	formatMoneyErr(t, "asdf", "", currency.ErrInvalidInput)
-	formatMoneyErr(t, "INRas.00", "INR", currency.ErrInvalidInput)
-	formatMoneyErr(t, "54.asdfb", "", currency.ErrInvalidInput)
-	formatMoneyErr(t, "PKR025.asdf", "PKR", currency.ErrInvalidInput)
-	formatMoneyErr(t, "USD135.351.1.53", "USD", currency.ErrInvalidInput)
+	formatMoneyErr(t, "asdf", "", core.ErrInvalidInput)
+	formatMoneyErr(t, "INRas.00", "INR", core.ErrInvalidInput)
+	formatMoneyErr(t, "54.asdfb", "", core.ErrInvalidInput)
+	formatMoneyErr(t, "PKR025.asdf", "PKR", core.ErrInvalidInput)
+	formatMoneyErr(t, "USD135.351.1.53", "USD", core.ErrInvalidInput)
 }
 
 func formatMoney(t *testing.T, input string, symbol string) string {

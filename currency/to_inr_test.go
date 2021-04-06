@@ -3,6 +3,10 @@ package currency_test
 import (
 	"testing"
 
+<<<<<<< HEAD
+=======
+	"github.com/maniartech/x/core"
+>>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
@@ -44,13 +48,13 @@ func TestNumWordIND(t *testing.T) {
 	assert.Equal(t, "one hundred eleven and fifty paise", num2WordInd(t, "111.50"))
 
 	// Failing cases
-	num2WordIndErr(t, "asdf", currency.ErrInvalidInput)
-	num2WordIndErr(t, "123.100", currency.ErrInvalidInput)
-	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
-	num2WordIndErr(t, "a.0", currency.ErrInvalidInput)
-	num2WordIndErr(t, "1.2.3", currency.ErrInvalidInput)
-	num2WordIndErr(t, ".9", currency.ErrInvalidInput)
-	num2WordIndErr(t, "1.", currency.ErrInvalidInput)
+	num2WordIndErr(t, "asdf", core.ErrInvalidInput)
+	num2WordIndErr(t, "123.100", core.ErrInvalidInput)
+	num2WordIndErr(t, "a.0", core.ErrInvalidInput)
+	num2WordIndErr(t, "a.0", core.ErrInvalidInput)
+	num2WordIndErr(t, "1.2.3", core.ErrInvalidInput)
+	num2WordIndErr(t, ".9", core.ErrInvalidInput)
+	num2WordIndErr(t, "1.", core.ErrInvalidInput)
 }
 
 func num2WordInd(t *testing.T, input string) string {

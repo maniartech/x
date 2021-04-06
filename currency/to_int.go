@@ -4,7 +4,12 @@ import (
 	"strconv"
 	"strings"
 
+<<<<<<< HEAD
 	"github.com/maniartech/x/utils"
+=======
+	"github.com/maniartech/x/core"
+	"github.com/maniartech/x/is"
+>>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 )
 
 //ConvertToInt, converts inputs into integer type
@@ -14,25 +19,25 @@ func ConvertToInt(input string) (int, int) {
 	strArr := strings.Split(input, ".")
 	strArrLen := len(strArr)
 	if strArrLen != 1 && strArrLen != 2 {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	//Checking all the characters in the inputed string are numerical digits before coverting the number to int
 	numberValidator := strings.IndexFunc(strArr[0], utils.NotDigit) == -1
 	if !numberValidator {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	numberV, err = strconv.Atoi(strArr[0])
 	if err != nil {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	if strArrLen == 2 {
 		decimalValidator := strings.IndexFunc(strArr[1], utils.NotDigit) == -1
 		if !decimalValidator {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 		decimalV, err = strconv.Atoi(strArr[1])
 		if err != nil {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 	}
 	return numberV, decimalV
@@ -41,17 +46,17 @@ func Split(input string) []string {
 	strArr := strings.Split(input, ".")
 	strArrLen := len(strArr)
 	if strArrLen != 1 && strArrLen != 2 {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	numberValidator := strings.IndexFunc(strArr[0], utils.NotDigit) == -1
 	if !numberValidator {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 
 	if strArrLen == 2 {
 		decimalValidator := strings.IndexFunc(strArr[1], utils.NotDigit) == -1
 		if !decimalValidator {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 	}
 
