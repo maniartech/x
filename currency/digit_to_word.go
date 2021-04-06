@@ -4,7 +4,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
 )
 
 // Digit2Word convert the indiviual digits to their word form.

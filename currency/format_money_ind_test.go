@@ -3,7 +3,7 @@ package currency_test
 import (
 	"testing"
 
-	"github.com/maniartech/go-funcs/currency"
+	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
 

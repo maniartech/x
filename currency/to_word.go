@@ -3,7 +3,7 @@ package currency
 import (
 	"math"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
 )
 
 // Num2Word convert the number string into international numbering word format.

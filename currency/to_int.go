@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/maniartech/go-funcs/is"
+	"github.com/maniartech/x/utils"
 )
 
 //ConvertToInt, converts inputs into integer type
@@ -17,7 +17,7 @@ func ConvertToInt(input string) (int, int) {
 		panic(ErrInvalidInput)
 	}
 	//Checking all the characters in the inputed string are numerical digits before coverting the number to int
-	numberValidator := strings.IndexFunc(strArr[0], is.NotDigit) == -1
+	numberValidator := strings.IndexFunc(strArr[0], utils.NotDigit) == -1
 	if !numberValidator {
 		panic(ErrInvalidInput)
 	}
@@ -26,7 +26,7 @@ func ConvertToInt(input string) (int, int) {
 		panic(ErrInvalidInput)
 	}
 	if strArrLen == 2 {
-		decimalValidator := strings.IndexFunc(strArr[1], is.NotDigit) == -1
+		decimalValidator := strings.IndexFunc(strArr[1], utils.NotDigit) == -1
 		if !decimalValidator {
 			panic(ErrInvalidInput)
 		}
@@ -43,13 +43,13 @@ func Split(input string) []string {
 	if strArrLen != 1 && strArrLen != 2 {
 		panic(ErrInvalidInput)
 	}
-	numberValidator := strings.IndexFunc(strArr[0], is.NotDigit) == -1
+	numberValidator := strings.IndexFunc(strArr[0], utils.NotDigit) == -1
 	if !numberValidator {
 		panic(ErrInvalidInput)
 	}
 
 	if strArrLen == 2 {
-		decimalValidator := strings.IndexFunc(strArr[1], is.NotDigit) == -1
+		decimalValidator := strings.IndexFunc(strArr[1], utils.NotDigit) == -1
 		if !decimalValidator {
 			panic(ErrInvalidInput)
 		}

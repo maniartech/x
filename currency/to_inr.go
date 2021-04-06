@@ -3,7 +3,7 @@ package currency
 import (
 	"math"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.

@@ -1,6 +1,6 @@
 package calc
 
-import "github.com/maniartech/go-funcs/currency"
+import "github.com/maniartech/x/currency"
 
 func calcGCD(a int, b int) int {
 	if a == 0 {

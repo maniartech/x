@@ -3,7 +3,7 @@ package calc
 import (
 	"strconv"
 
-	"github.com/maniartech/go-funcs/currency"
+	"github.com/maniartech/x/currency"
 )
 
 func Base(input int64, base, min_len int) string {

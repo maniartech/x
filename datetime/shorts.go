@@ -5,9 +5,9 @@ import (
 	"time"
 )
 
-func DateValue(input time.Time) int {
-	return int(input.Sub(DayZero).Hours()/24) + 2
-}
+// func DateValue(input time.Time) int {
+// 	return int(input.Sub(DayZero).Hours()/24) + 2
+// }
 
 func Days(date1 time.Time, date2 time.Time) int {
 	return int(math.Abs((date1.Sub(date2).Hours() / 24)))
@@ -27,6 +27,11 @@ func EOMonth(date time.Time, months int) time.Time {
 		date = date.AddDate(0, 0, DaysInMonth[int(date.Month())%12]-date.Day()+1)
 	}
 	return date
+}
+
+func YearFrac(date1 time.Time, date2 time.Time) float64 {
+	diff := (math.Abs(float64(DateValue(date1) - DateValue(date2)))) / 365
+	return diff
 }
 
 func Today() time.Time { return time.Now() }

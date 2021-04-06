@@ -8,37 +8,49 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func Date(date interface{}) time.Time {
-	switch date.(type) {
+func DateValue(date interface{}) int {
+	var val time.Time = time.Date(1900, time.Month(1), 1, 0, 0, 0, 0, time.UTC)
+	sep := ""
+	valS := date.(string)
+	if strings.Contains(valS, "/") {
+		sep = "/"
+	} else if strings.Contains(valS, "-") {
+		sep = "-"
+	} else {
+		panic(currency.ErrInvalidInput)
+	}
+	inpSep := strings.Split(valS, sep)
+	inpSepLen := len(inpSep)
+
+	if inpSepLen != 2 && inpSepLen != 3 {
+		panic(currency.ErrInvalidInput)
+	}
+	isDigit := strings.IndexFunc(inpSep[1], utils.NotDigit) == -1
+	var month time.Month
+	if isDigit {
+		month = getMonth(inpSep[1])
+	} else {
+		monthS := inpSep[1]
+		month = getMonth(monthS[:3])
+	}
+	if inpSepLen == 2 {
+		val = time.Date(time.Now().Year(), month, utils.ToInt(inpSep[0]), 0, 0, 0, 0, time.UTC)
+	} else {
+		val = time.Date(utils.ToInt(inpSep[0]), month, utils.ToInt(inpSep[2]), 0, 0, 0, 0, time.UTC)
+	}
+	return int(val.Sub(DayZero).Hours()/24) + 2
+}
+func getMonth(input interface{}) time.Month {
+	switch v := input.(type) {
 	case string:
-		sep := ""
-		valS := date.(string)
-		if strings.Contains(valS, "/") {
-			sep = "/"
-		} else if strings.Contains(valS, "-") {
-			sep = "-"
-		} else {
-			panic(currency.ErrInvalidInput)
-		}
-		inpSep := strings.Split(valS, sep)
-		inpSepLen := len(inpSep)
-		if inpSepLen != 2 && inpSepLen != 3 {
-			panic(currency.ErrInvalidInput)
-		}
-		if inpSepLen == 2 {
-			return time.Date(time.Now().Year(), time.Month(utils.ToInt(inpSep[1])), utils.ToInt(inpSep[0]), 0, 0, 0, 0, time.UTC)
-		} else {
-			if utils.ToInt(inpSep[0]) > 31 {
-				return time.Date(utils.ToInt(inpSep[0]), time.Month(utils.ToInt(inpSep[1])), utils.ToInt(inpSep[2]), 0, 0, 0, 0, time.UTC)
-			} else {
-				return time.Date(utils.ToInt(inpSep[2]), time.Month(utils.ToInt(inpSep[1])), utils.ToInt(inpSep[0]), 0, 0, 0, 0, time.UTC)
+		for i := 0; i < 12; i++ {
+			if MonthsInYear[i] == v {
+				return time.Month(i + 1)
 			}
 		}
-
+		panic(currency.ErrInvalidInput)
 	case int:
-		return DayZero.AddDate(0, 0, utils.ToInt(date)-2)
-	case time.Time:
-		return date.(time.Time)
+		return time.Month(input.(int))
 	default:
 		panic(currency.ErrInvalidInput)
 	}
