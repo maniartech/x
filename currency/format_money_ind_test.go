@@ -3,10 +3,7 @@ package currency_test
 import (
 	"testing"
 
-<<<<<<< HEAD
-=======
 	"github.com/maniartech/x/core"
->>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 	"github.com/maniartech/x/currency"
 	"github.com/stretchr/testify/assert"
 )
