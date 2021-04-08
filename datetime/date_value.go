@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/maniartech/x/currency"
+	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/utils"
 )
 
@@ -17,18 +17,18 @@ func DateValue(date interface{}) int {
 	} else if strings.Contains(valS, "-") {
 		sep = "-"
 	} else {
-		panic(currency.ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	inpSep := strings.Split(valS, sep)
 	inpSepLen := len(inpSep)
 
 	if inpSepLen != 2 && inpSepLen != 3 {
-		panic(currency.ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	isDigit := strings.IndexFunc(inpSep[1], utils.NotDigit) == -1
 	var month time.Month
 	if isDigit {
-		month = getMonth(inpSep[1])
+		month = getMonth(utils.ToInt(inpSep[1]))
 	} else {
 		monthS := inpSep[1]
 		month = getMonth(monthS[:3])
@@ -48,10 +48,10 @@ func getMonth(input interface{}) time.Month {
 				return time.Month(i + 1)
 			}
 		}
-		panic(currency.ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	case int:
 		return time.Month(input.(int))
 	default:
-		panic(currency.ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 }

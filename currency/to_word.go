@@ -4,10 +4,7 @@ import (
 	"math"
 
 	"github.com/maniartech/x/calc"
-<<<<<<< HEAD
-=======
 	"github.com/maniartech/x/core"
->>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
 )
 
 // Num2Word convert the number string into international numbering word format.

@@ -4,12 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-<<<<<<< HEAD
-	"github.com/maniartech/x/utils"
-=======
 	"github.com/maniartech/x/core"
-	"github.com/maniartech/x/is"
->>>>>>> 8151667aa13b9e11970a2a53282d2337ac5b29de
+	"github.com/maniartech/x/utils"
 )
 
 //ConvertToInt, converts inputs into integer type
