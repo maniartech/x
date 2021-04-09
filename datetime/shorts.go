@@ -19,17 +19,17 @@ func EDate(date time.Time, months int) time.Time {
 
 //EOMonth Adds or subtract months from the inputed date and then sets the day to the last day of the month
 func EOMonth(date time.Time, months int) time.Time {
+	var DaysInMonthC []int = []int{31, 31, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 	date = date.AddDate(0, months, 0)
 	if date.Month() == time.February {
 		if isLeapYear(date.Year()) {
-			date = date.AddDate(0, 0, 29-date.Day())
+			return time.Date(date.Year(), date.Month(), 29, 0, 0, 0, 0, time.UTC)
 		} else {
-			date = date.AddDate(0, 0, 28-date.Day())
+			return time.Date(date.Year(), date.Month(), 28, 0, 0, 0, 0, time.UTC)
 		}
 	} else {
-		date = date.AddDate(0, 0, DaysInMonth[int(date.Month())%12]-date.Day()+1)
+		return time.Date(date.Year(), date.Month(), DaysInMonthC[(int(date.Month())%12)], 0, 0, 0, 0, time.UTC)
 	}
-	return date
 }
 
 //YearFrac finds the fraction of year between two dates
