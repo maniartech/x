@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"strconv"
+
+	"github.com/shopspring/decimal"
 )
 
 // Loop through all the values and returns the
@@ -65,6 +67,58 @@ func ToFloat64(v interface{}) float64 {
 			panic(e)
 		}
 		return f
+	}
+}
+
+// ToDecimal converts the generic interface value to decimal
+func ToDecimal(v interface{}) decimal.Decimal {
+
+	switch v := v.(type) {
+
+	case nil:
+		return decimal.Zero
+
+	// Bool
+	case bool:
+		if v {
+			return decimal.NewFromInt(1)
+		}
+		return decimal.Zero
+
+	// Bytes
+	case byte:
+		return decimal.NewFromInt(int64(v))
+
+		// Ints
+	case int:
+		return decimal.NewFromInt(int64(v))
+	case int16:
+		return decimal.NewFromInt(int64(v))
+	case int32:
+		return decimal.NewFromInt(int64(v))
+	case int64:
+		return decimal.NewFromInt(int64(v))
+
+		// Uints
+	case uint:
+		return decimal.NewFromInt(int64(v))
+	case uint16:
+		return decimal.NewFromInt(int64(v))
+	case uint32:
+		return decimal.NewFromInt(int64(v))
+	case uint64:
+		return decimal.NewFromInt(int64(v))
+
+		// Floats
+	case float32:
+		return decimal.NewFromFloat(float64(v))
+
+	default:
+		rval, err := decimal.NewFromString(fmt.Sprintf("%v", v))
+		if err != nil {
+			panic(err)
+		}
+		return rval
 	}
 }
 

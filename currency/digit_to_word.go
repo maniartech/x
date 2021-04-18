@@ -4,7 +4,8 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/core"
 )
 
 // Digit2Word convert the indiviual digits to their word form.
@@ -34,7 +35,7 @@ func Digit2Word(input string) (string, error) {
 			pointV = "point " + digit[point/10] + " " + digit[point%10]
 		}
 	} else if point == 100 {
-		panic(ErrInvalidInput)
+		panic(core.ErrInvalidInput)
 	}
 	//If the number == 0 then return 0
 	if number == 0 {

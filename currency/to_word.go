@@ -3,7 +3,8 @@ package currency
 import (
 	"math"
 
-	"github.com/maniartech/go-funcs/calc"
+	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/core"
 )
 
 // Num2Word convert the number string into international numbering word format.
@@ -24,7 +25,7 @@ func Num2Word(input string) string {
 			cent = int((calc.Round(float64(cent), -(calc.NumberOfDigits(cent) - 2))) / math.Pow10(calc.NumberOfDigits(cent)-2))
 		}
 		if cent == 100 {
-			panic(ErrInvalidInput)
+			panic(core.ErrInvalidInput)
 		}
 		centV = ToWordTens(cent, multiplier)
 	}
