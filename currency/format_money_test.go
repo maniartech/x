@@ -3,10 +3,9 @@ package currency_test
 import (
 	"testing"
 
+	// "github.com/pkg/errors"
 	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/currency"
-
-	// "github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
