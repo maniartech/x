@@ -172,3 +172,12 @@ func ToInt(v interface{}) int {
 		return int(i)
 	}
 }
+
+// ToInt converts the interface value to the generic integer
+func ToString(v interface{}) string {
+
+	if s, ok := v.(string); ok {
+		return s
+	}
+	return fmt.Sprintf("%v", v)
+}
