@@ -7,12 +7,16 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func Char(input rune) string             { return fmt.Sprintf("%x", input) }
-func Code(input interface{}) string      { return fmt.Sprintf("%x", utils.ToString(input)) }
-func Left(input, num interface{}) string { return utils.ToString(input)[:utils.ToInt(num)] }
-func Len(input interface{}) int          { return len(utils.ToString(input)) }
-func Upper(input interface{}) string     { return strings.ToUpper(utils.ToString(input)) }
-func Lower(input interface{}) string     { return strings.ToLower(utils.ToString(input)) }
+func Char(input rune) string              { return fmt.Sprintf("%x", input) }
+func Code(input interface{}) string       { return fmt.Sprintf("%x", utils.ToString(input)) }
+func Left(input, num interface{}) string  { return utils.ToString(input)[:utils.ToInt(num)] }
+func Right(input, num interface{}) string { return utils.ToString(input)[utils.ToInt(num):] }
+func Len(input interface{}) int           { return len(utils.ToString(input)) }
+func Upper(input interface{}) string      { return strings.ToUpper(utils.ToString(input)) }
+func Lower(input interface{}) string      { return strings.ToLower(utils.ToString(input)) }
+func Dollar(input, decimals interface{}) string {
+	return fmt.Sprintf(fmt.Sprintf("%%.%df", utils.ToInt(decimals)), utils.ToString(input))
+}
 func Substitute(s, old, new, n interface{}) string {
 	return strings.Replace(utils.ToString(s), utils.ToString(old), utils.ToString(new), utils.ToInt(n))
 }
