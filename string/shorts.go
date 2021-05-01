@@ -22,21 +22,21 @@ func Left(input, num interface{}) string {
 	if utils.ToInt(num) >= len(utils.ToString(input)) {
 		return utils.ToString(input)
 	}
-	return string(utf16.Decode(utf16.Encode([]rune(utils.ToString(input)))[:utils.ToInt(num)]))
+	return utils.ToUTF16String(utils.ToString(input)[:utils.ToInt(num)])
 }
 
 func Right(input, num interface{}) string {
 	if utils.ToInt(num) >= len(utils.ToString(input)) {
 		return utils.ToString(input)
 	}
-	return string(utf16.Decode(utf16.Encode([]rune(utils.ToString(input)))[Len(input)-utils.ToInt(num):]))
+	return utils.ToUTF16String(utils.ToString(input)[Len(input)-utils.ToInt(num):])
 }
 
 func Mid(input, start, end interface{}) string {
 	if utils.ToInt(start) <= 0 || utils.ToInt(end) >= Len(input) {
 		panic(core.ErrInvalidInput)
 	}
-	return string(utf16.Decode(utf16.Encode([]rune(utils.ToString(input)))[utils.ToInt(start):utils.ToInt(end)]))
+	return utils.ToUTF16String(utils.ToString(input)[utils.ToInt(start):utils.ToInt(end)])
 }
 
 func Fixed(input, decimals interface{}) string {
@@ -50,13 +50,13 @@ func Dollar(input, decimals interface{}) string {
 func Substitute(input, old, new interface{}) string {
 	return strings.ReplaceAll(utils.ToString(input), utils.ToString(old), utils.ToString(new))
 }
-//WIP
+
 func Search(find, within, sPos interface{}) int {
-	return (strings.Index(string(utf16.Decode(utf16.Encode([]rune(utils.ToString(within)))))[utils.ToInt(sPos):], string(utf16.Decode(utf16.Encode([]rune(utils.ToString(within)))))))
+	return (strings.Index(utils.ToUTF16String(utils.ToString(within)[utils.ToInt(sPos):]), utils.ToUTF16String(utils.ToString(find))) + 1) + utils.ToInt(sPos)
 }
 
 func Replace(input, start, end, new interface{}) string {
-	encodedS := utils.ToString(utf16.Encode([]rune(utils.ToString(input))))
+	encodedS := utils.ToUTF16String(utils.ToString(input))
 	if utils.ToInt(start)+utils.ToInt(end) > Len(input) {
 		return strings.Replace(encodedS, encodedS[utils.ToInt(start)-1:], utils.ToString(new), 1)
 	}

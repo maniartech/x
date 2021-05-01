@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"strconv"
+	"unicode/utf16"
 
 	"github.com/shopspring/decimal"
 )
@@ -16,6 +17,9 @@ func ToInterfaceSlice(v ...interface{}) []interface{} {
 		list = append(list, val)
 	}, v...)
 	return list
+}
+func ToUTF16String(v string) string {
+	return string(utf16.Decode(utf16.Encode([]rune(v))))
 }
 
 // ToFloat64 converts the generic interface value to float64
