@@ -52,7 +52,7 @@ func Substitute(input, old, new interface{}) string {
 }
 //WIP
 func Search(find, within, sPos interface{}) int {
-	return (strings.Index(string(utf16.Decode(utf16.Encode([]rune(ToString(within)))))[ToInt(sPos):], string(utf16.Decode(utf16.Encode([]rune(ToString(within)))))))
+	return (strings.Index(string(utf16.Decode(utf16.Encode([]rune(utils.ToString(within)))))[utils.ToInt(sPos):], string(utf16.Decode(utf16.Encode([]rune(utils.ToString(within)))))))
 }
 
 func Replace(input, start, end, new interface{}) string {
