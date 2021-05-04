@@ -15,8 +15,9 @@ func Code(input interface{}) string { return fmt.Sprintf("%x", utils.ToString(in
 func Len(input interface{}) int     { return len(utf16.Encode([]rune(utils.ToString(input)))) }
 
 // func LenB(input interface{}) int     { return }
-func Upper(input interface{}) string { return strings.ToUpper(utils.ToString(input)) }
-func Lower(input interface{}) string { return strings.ToLower(utils.ToString(input)) }
+func Upper(input interface{}) string  { return strings.ToUpper(utils.ToString(input)) }
+func Lower(input interface{}) string  { return strings.ToLower(utils.ToString(input)) }
+func Proper(input interface{}) string { return strings.Title(utils.ToString(input)) }
 
 func Left(input, num interface{}) string {
 	if utils.ToInt(num) >= len(utils.ToString(input)) {

@@ -3,6 +3,7 @@ package calc
 import (
 	"math"
 
+	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/utils"
 )
 
@@ -26,14 +27,38 @@ func Deg2Rad(input interface{}) float64 { return utils.ToFloat64(input) * (math.
 func Rad2Deg(input interface{}) float64 { return utils.ToFloat64(input) * (180 / math.Pi) }
 
 // Math Functions
-func Abs(input interface{}) float64    { return math.Abs(utils.ToFloat64(input)) }
-func Even(input interface{}) int       { return int((math.Floor(utils.ToFloat64(input)/2) + 1) * 2) }
-func Odd(input interface{}) int        { return int(((math.Floor(utils.ToFloat64(input)/2) - 1) * 2) + 3) }
-func INT(input interface{}) int        { return int(math.Floor(utils.ToFloat64(input))) }
-func Sqrt(input interface{}) float64   { return math.Sqrt(utils.ToFloat64(input)) }
-func SqrtPi(input interface{}) float64 { return utils.ToFloat64(input) * math.Pi }
-func Quotient(n, d interface{}) int    { return int(math.Floor(utils.ToFloat64(n) / utils.ToFloat64(d))) }
-func LN(input interface{}) float64     { return math.Log(utils.ToFloat64(input)) }
-func Log10(input interface{}) float64  { return math.Log10(utils.ToFloat64(input)) }
-func Exp(input interface{}) float64    { return math.Exp(utils.ToFloat64(input)) }
-func Trunc(input interface{}) float64  { return math.Trunc(utils.ToFloat64(input)) }
+func Abs(input interface{}) float64 { return math.Abs(utils.ToFloat64(input)) }
+func Even(input interface{}) int {
+	val := utils.ToFloat64(input)
+	if val < 0 {
+		valI := utils.ToInt(input)
+		return int(Floor(valI, 2))
+	}
+	return int(Ceiling(val, 2))
+}
+func Odd(input interface{}) int {
+	val := utils.ToInt(input)
+	if val < 0 {
+		return int(Floor(val, 2)) - 1
+	}
+	return int(Ceiling(val, 2)) + 1
+	// return int(((math.Floor(Abs(utils.ToFloat64(input))/2) - 1) * 2 * Abs(input) / utils.ToFloat64(input)) + 3*Abs(input)/utils.ToFloat64(input))
+}
+func Int(input interface{}) int { return int(math.Floor(utils.ToFloat64(input))) }
+func Sqrt(input interface{}) float64 {
+	if utils.ToFloat64(input) < 0 {
+		panic(core.ErrInvalidInput)
+	}
+	return math.Sqrt(utils.ToFloat64(input))
+}
+func SqrtPi(input interface{}) float64 {
+	if utils.ToFloat64(input) < 0 {
+		panic(core.ErrInvalidInput)
+	}
+	return math.Sqrt(utils.ToFloat64(input) * math.Pi)
+}
+func Quotient(n, d interface{}) int   { return int(utils.ToFloat64(n) / utils.ToFloat64(d)) }
+func LN(input interface{}) float64    { return math.Log(utils.ToFloat64(input)) }
+func Log10(input interface{}) float64 { return math.Log10(utils.ToFloat64(input)) }
+func Exp(input interface{}) float64   { return math.Exp(utils.ToFloat64(input)) }
+func Trunc(input interface{}) float64 { return math.Trunc(utils.ToFloat64(input)) }
