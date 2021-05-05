@@ -1,4 +1,4 @@
-package string
+package text
 
 import (
 	"fmt"
@@ -45,7 +45,7 @@ func Fixed(input, decimals interface{}) string {
 }
 
 func Dollar(input, decimals interface{}) string {
-	return fmt.Sprintf(fmt.Sprintf("$%%.%df", utils.ToInt(decimals)), utils.ToFloat64(input))
+	return fmt.Sprintf("$%f", calc.Round(input, decimals))
 }
 
 func Substitute(input, old, new interface{}) string {

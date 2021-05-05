@@ -57,7 +57,12 @@ func SqrtPi(input interface{}) float64 {
 	}
 	return math.Sqrt(utils.ToFloat64(input) * math.Pi)
 }
-func Quotient(n, d interface{}) int   { return int(utils.ToFloat64(n) / utils.ToFloat64(d)) }
+func Quotient(n, d interface{}) int {
+	if d == 0 {
+		panic(core.ErrDivideBy0)
+	}
+	return int(utils.ToFloat64(n) / utils.ToFloat64(d))
+}
 func LN(input interface{}) float64    { return math.Log(utils.ToFloat64(input)) }
 func Log10(input interface{}) float64 { return math.Log10(utils.ToFloat64(input)) }
 func Exp(input interface{}) float64   { return math.Exp(utils.ToFloat64(input)) }
