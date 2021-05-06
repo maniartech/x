@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/core"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,4 +26,6 @@ func TestDMAS(t *testing.T) {
 	assert.Equal(t, 1.33721217511612, calc.Divide(100.456, 75.123456))
 	assert.Equal(t, -4.0, calc.Divide(20, -5))
 	assert.Equal(t, -0.334442595673877, calc.Divide(25.125, -75.125))
+
+	assert.PanicsWithValue(t, core.ErrDivideBy0, func() { calc.Divide(2, 0) })
 }
