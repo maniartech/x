@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"strconv"
+	"unicode/utf16"
 
 	"github.com/shopspring/decimal"
 )
@@ -18,6 +19,9 @@ func ToInterfaceSlice(v ...interface{}) []interface{} {
 		list = append(list, val)
 	}, v...)
 	return list
+}
+func ToUTF16String(v string) string {
+	return string(utf16.Decode(utf16.Encode([]rune(v))))
 }
 
 // ToFloat64 converts the generic interface value to float64
@@ -176,52 +180,10 @@ func ToInt(v interface{}) int {
 }
 
 // ToInt converts the interface value to the generic integer
-func ToInt64(v interface{}) int64 {
-	switch v := v.(type) {
+func ToString(v interface{}) string {
 
-	case nil:
-		return 0
-
-	// Bool
-	case bool:
-		if v {
-			return 1
-		}
-		return 0
-
-	// Bytes
-	case byte:
-		return int64(v)
-
-		// Ints
-	case int16:
-		return int64(v)
-	case int32:
-		return int64(v)
-	case int64:
-		return int64(v)
-
-		// Uints
-	case uint:
-		return int64(v)
-	case uint16:
-		return int64(v)
-	case uint32:
-		return int64(v)
-	case uint64:
-		return int64(v)
-
-		// Floats
-	case float32:
-		return int64(v)
-	case float64:
-		return int64(v)
-
-	default:
-		i, e := strconv.ParseInt(fmt.Sprintf("%v", v), 10, 64)
-		if e != nil {
-			panic(e)
-		}
-		return int64(i)
+	if s, ok := v.(string); ok {
+		return s
 	}
+	return fmt.Sprintf("%v", v)
 }

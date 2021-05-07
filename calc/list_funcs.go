@@ -1,6 +1,7 @@
 package calc
 
-func SUMXMY2(x []int, y []int) int {
+func SUMXMY2(x, y []int) int {
+
 	xLen := len(x)
 	yLen := len(y)
 	if xLen != yLen {

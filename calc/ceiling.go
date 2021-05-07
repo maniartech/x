@@ -5,7 +5,7 @@ import (
 )
 
 //
-func Ceiling(val interface{}, factor interface{}) float64 {
+func Ceiling(val ,factor interface{}) float64 {
 	v := utils.ToDecimal(val)
 	f := utils.ToDecimal(factor)
 

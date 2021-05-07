@@ -1,14 +1,22 @@
 package calc
 
-//LCM func finds the Least common Multiple using the calcGCD function
-func LCM(arr []int) int {
-	// Initialize result
-	ans := arr[0]
+import "github.com/maniartech/x/utils"
 
-	// ans contains LCM of arr[0], ..arr[i]
-	// after i'th iteration,
-	for i := 1; i < len(arr); i++ {
-		ans = ((arr[i] * ans) / (calcGCD(arr[i], ans)))
-	}
-	return ans
+//LCM func finds the Least common Multiple using the calcGCD function
+func LCM(v ...interface{}) int {
+	// Initialize result
+	var result int
+	utils.ForEach(func(i int, x interface{}) {
+		ival := utils.ToInt(x)
+		if ival == 0 {
+			result = 0
+			return
+		}
+		if i == 0 {
+			result = ival
+			return
+		}
+		result = (ival * result) / (calcGCD(ival, result))
+	}, v...)
+	return result
 }
