@@ -38,3 +38,7 @@ func AttachFunctions(env map[string]interface{}) {
 		env[k] = v
 	}
 }
+
+func Get() map[string]interface{} {
+	return registry
+}

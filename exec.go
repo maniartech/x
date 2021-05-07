@@ -26,7 +26,7 @@ func Exec(expression string, env Env, normalizeFloat ...bool) (interface{}, erro
 		return nil, err
 	}
 
-	// Execute expression
+	// Execute the expression
 	result, err := expr.Run(c, env)
 	if err != nil {
 		return nil, err
@@ -39,9 +39,10 @@ func Exec(expression string, env Env, normalizeFloat ...bool) (interface{}, erro
 	//
 	// Excel normalizes the result by rounding off the result to max 15 decimals!
 	var fnormalize = true
-	if len(normalizeFloat) == 1 {
+	if len(normalizeFloat) >= 1 {
 		fnormalize = normalizeFloat[0]
 	}
+
 	if fnormalize {
 		if f, ok := result.(float64); ok {
 			r, _ := decimal.NewFromFloat(f).Round(15).Float64()

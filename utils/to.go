@@ -7,6 +7,8 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+//TODO: Test pending!
+
 // Loop through all the values and returns the
 // interface list
 func ToInterfaceSlice(v ...interface{}) []interface{} {
