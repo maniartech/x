@@ -3,9 +3,9 @@ package utils
 import "reflect"
 
 // IsSliceOrArray returns true if the supplied variable is
-// a slice or array. It returns false otherwise.
-// If the firat return value is true, the second return value
-// specifies whether it is slice or not.
+// a slice or array. It returns `false` otherwise.
+// If the value is a slice or an Array, it returns the
+// length of the slice/array as second return value.
 func IsSliceOrArray(v interface{}) (bool, int) {
 	rt := reflect.TypeOf(v)
 	switch rt.Kind() {
@@ -23,5 +23,5 @@ func IsFunc(v interface{}) bool {
 }
 
 // NotDigit checks if supplied character is a numerical digit or not.
-// Eeturns true if the character is a digit otherwise returns false.
+// Returns true if the character is a digit otherwise returns false.
 func NotDigit(c rune) bool { return c < '0' || c > '9' }
