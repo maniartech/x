@@ -11,10 +11,6 @@ import (
 // Base function returns the string representation of the provided
 // number converted into different base.
 //
-// Syntax
-//
-//    Base(number, redix, minL interface{}) string
-//
 // Arguments
 //
 // number : The number that needs to be converted into another representation
