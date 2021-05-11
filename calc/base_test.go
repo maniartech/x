@@ -9,6 +9,11 @@ import (
 )
 
 func TestBase(t *testing.T) {
+
+	assert.Equal(t, "1010", calc.Base(10, 2))
+	assert.Equal(t, "0000001010", calc.Base(10, 2, 10))
+	assert.Equal(t, "000000000F", (calc.Base(15, 16, 10)))
+
 	assert.Equal(t, "4H", (calc.Base(101, 21, 0)))
 	assert.Equal(t, "94", calc.Base(202, 22, 0))
 	assert.Equal(t, "D4", calc.Base(303, 23, 0))
