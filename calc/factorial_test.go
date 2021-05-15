@@ -32,6 +32,7 @@ func TestFactorial(t *testing.T) {
 func TestFactDouble(t *testing.T) {
 
 	//assert.Equal(t, 1, calc.FactDouble(0))
+	//assert.Equal(t, 1, calc.FactDouble(-1))
 
 	assert.Equal(t, 0, calc.FactDouble(0))
 	assert.Equal(t, 1, calc.FactDouble(1))

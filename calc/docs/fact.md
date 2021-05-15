@@ -1,6 +1,6 @@
 # calc.Fact
 
-Fact function returns the factorial of a number, that is 1*2*3*...* number.
+Fact function returns the factorial of a number, that is 1*2*3*...*number.
 
 ## Syntax
 
@@ -12,12 +12,16 @@ Fact(number interface{}) int
 
 ### number
 
-Required. The number is a non-negative number for which the factorial is calculated. If number is not an integer, it is truncated.
+Required. The number is a non-negative value for which the factorial is calculated.
+
+## Remark
+
++ If the number is negative, the function will return Invalid Input Error message.
++ If number is not an integer, it is truncated.
 
 ## Example
 
 ```Go
 Fact(0) // Returns 1
-
-Base(12)  // Returns 479001600
+Fact(12)  // Returns 479001600
 ```

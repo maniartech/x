@@ -9,8 +9,9 @@ import (
 
 func TestFloor(t *testing.T) {
 
-	//assert.Equal(t, -26.0, calc.Floor(-26, -2))
-	//assert.Equal(t, 1.5, calc.Floor(1.5, 0.1))
+	//assert.Equal(t, -25.0, calc.Floor(-26, -5))
+	//assert.Equal(t, -28.0, calc.Floor(-27.5, 4))
+	//assert.Equal(t, 1.5, calc.Floor("1.5", "0.1"))
 
 	assert.Equal(t, 120.0, calc.Floor(123.456, 10))
 	assert.Equal(t, 100.0, calc.Floor(123.456, 100))
