@@ -8,6 +8,10 @@ import (
 )
 
 func TestCeling(t *testing.T) {
+
+	assert.Equal(t, -32.0, calc.Ceiling(-42.5, 16))
+	assert.Equal(t, -35.0, calc.Ceiling(-32.25, -5))
+
 	assert.Equal(t, 16.0, calc.Ceiling(13, 4))
 	assert.Equal(t, 2.0, calc.Ceiling(1.2, 1))
 
