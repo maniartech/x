@@ -8,6 +8,9 @@ import (
 )
 
 func TestLCM(t *testing.T) {
+	//assert.Equal(t, 60, calc.LCM(15, 12))
+	//assert.Equal(t, 4, calc.LCM(4.5, 2.9))
+
 	assert.Equal(t, 120, calc.LCM(2, 4, 6, 8, 10))
 	assert.Equal(t, 120, calc.LCM(2.468, 4.135, 6.84648, 8.45, 10.11531))
 	assert.Equal(t, 80, calc.LCM(4, 16, 8, 20))

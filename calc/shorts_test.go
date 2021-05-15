@@ -45,29 +45,18 @@ func TestTrignometicFunc(t *testing.T) {
 	assert.Equal(t, 2.6466524123622457, calc.Atanh(0.99))
 	assert.Equal(t, -0.275354351742258, calc.Atanh(-0.2686))
 
-	//Cos
-	assert.Equal(t, 1.0, calc.Cos(0))
-	assert.Equal(t, -0.12796368962740468, calc.Cos(-36))
-	assert.Equal(t, 0.9725143413326429, calc.Cos(0.235))
-	assert.Equal(t, -0.9364566872907963, calc.Cos(-3.5))
-
 	//Cosh
 	assert.Equal(t, 1.0, calc.Cosh(0))
 	assert.Equal(t, 3.7621956910836314, calc.Cosh(2))
 	assert.Equal(t, 1.5314055816856538, calc.Cosh(0.99))
-	assert.Equal(t, 1.036290378879286, calc.Cosh(-0.2686))
+	assert.Equal(t, 1.0362903788792859, calc.Cosh(-0.2686))
 
 	//Cos
+	assert.Equal(t, 1.0, calc.Cos(0))
 	assert.Equal(t, 0.5403023058681398, calc.Cos(1))
 	assert.Equal(t, -0.12796368962740468, calc.Cos(-36))
 	assert.Equal(t, 0.9725143413326429, calc.Cos(0.235))
 	assert.Equal(t, -0.9364566872907963, calc.Cos(-3.5))
-
-	//Cosh
-	assert.Equal(t, 1.0, calc.Cosh(0))
-	assert.Equal(t, 3.7621956910836314, calc.Cosh(2))
-	assert.Equal(t, 1.5314055816856538, calc.Cosh(0.99))
-	assert.Equal(t, 1.036290378879286, calc.Cosh(-0.2686))
 
 	//Sin
 	assert.Equal(t, 0.0, calc.Sin(0))
@@ -146,6 +135,7 @@ func TestMathFunc(t *testing.T) {
 	//SqrtPi
 	assert.Equal(t, 7.0898154036220635, calc.SqrtPi(16))
 	assert.Equal(t, 19.669950654214343, calc.SqrtPi(123.15631))
+
 	//Quotient
 	assert.Equal(t, 3, calc.Quotient(16, 5))
 	assert.Equal(t, -5, calc.Quotient(-26, 5))
