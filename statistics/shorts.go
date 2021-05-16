@@ -93,18 +93,18 @@ func Kurt(x ...interface{}) float64 {
 
 }
 
-func Intercept(x, y []interface{}) float64 {
+func Intercept(y, x []interface{}) float64 {
 	if len(x) != len(y) {
 		panic(core.ErrInvalidInput)
 	}
 
 	var xD float64 = Average(x)
 	var yD float64 = Average(y)
-	b := Slope(x, y)
+	b := Slope(y, x)
 	return yD - (b * xD)
 }
 
-func Slope(x, y []interface{}) float64 {
+func Slope(y, x []interface{}) float64 {
 
 	if len(x) != len(y) {
 		panic(core.ErrInvalidInput)
@@ -122,6 +122,37 @@ func Slope(x, y []interface{}) float64 {
 	return n / d
 }
 
+//WIP
+func STEYX(y, x []interface{}) float64 {
+	if len(x) != len(y) {
+		panic(core.ErrInvalidInput)
+	}
+	l := len(x)
+	if l < 3 {
+		panic(core.ErrDivideBy0)
+	}
+	xD := Average(x)
+	yD := Average(x)
+
+	var sumYS float64
+	var n float64
+	var d float64
+	var xF float64
+	var yF float64
+
+	for i := 0; i < int(l); i++ {
+		xF = utils.ToFloat64(x[i])
+		yF = utils.ToFloat64(y[i])
+
+		n += (xF - xD) * (yF - yD)
+		d += (xF - xD) * (xF - xD)
+
+		sumYS += (yF - yD) * (yF - yD)
+	}
+
+	return math.Sqrt(calc.Divide(1, l-2) * (sumYS - calc.Divide(n*n, d)))
+}
+
 func Standardize(x, mean, sDev interface{}) float64 {
 	return (utils.ToFloat64(x) - utils.ToFloat64(mean)) / utils.ToFloat64(sDev)
 }
@@ -130,9 +161,76 @@ func StdevP(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
 	n := utils.ForEach(func(_ int, x interface{}) {
-		sum += (utils.ToFloat64(x) - xD) * (utils.ToFloat64(x) - xD)
+		switch x := x.(type) {
+		case string:
+			sum += 0
+		case bool:
+			if x {
+				sum += (1 - xD) * (1 - xD)
+			}
+		default:
+			sum += (utils.ToFloat64(x) - xD) * (utils.ToFloat64(x) - xD)
+		}
 	}, x...)
 	return math.Sqrt(sum / utils.ToFloat64(n))
+}
+
+func StdevPA(x ...interface{}) float64 {
+	xD := Average(x...)
+	var sum float64
+	n := utils.ForEach(func(_ int, x interface{}) {
+		switch x := x.(type) {
+		case string:
+			sum += 0
+		case bool:
+			if x {
+				sum += (1 - xD) * (1 - xD)
+			} else {
+				sum += (0 - xD) * (0 - xD)
+			}
+		default:
+			sum += (utils.ToFloat64(x) - xD) * (utils.ToFloat64(x) - xD)
+		}
+	}, x...)
+	return math.Sqrt(sum / utils.ToFloat64(n))
+}
+
+func StdevS(x ...interface{}) float64 {
+	xD := Average(x...)
+	var sum float64
+	var xF float64
+	n := utils.ForEach(func(_ int, x interface{}) {
+		switch x.(type) {
+		case string:
+			xF = 0
+		case bool:
+			xF = 0
+		default:
+			xF = utils.ToFloat64(x)
+		}
+		sum += (xF - xD) * (xF - xD)
+	}, x...)
+	return math.Sqrt(sum / utils.ToFloat64(n-1))
+}
+
+func StdevA(x ...interface{}) float64 {
+	xD := Average(x...)
+	var sum float64
+	n := utils.ForEach(func(_ int, x interface{}) {
+		switch x := x.(type) {
+		case string:
+			sum += 0
+		case bool:
+			if x {
+				sum += (1 - xD) * (1 - xD)
+			} else {
+				sum += (0 - xD) * (0 - xD)
+			}
+		default:
+			sum += (utils.ToFloat64(x) - xD) * (utils.ToFloat64(x) - xD)
+		}
+	}, x...)
+	return math.Sqrt(sum / utils.ToFloat64(n-1))
 }
 
 func Vara(v ...interface{}) float64 {
