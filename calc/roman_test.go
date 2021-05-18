@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/core"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -27,4 +28,8 @@ func TestRoman(t *testing.T) {
 	assert.Equal(t, "MDXLI", calc.Roman(1541))
 	assert.Equal(t, "MDLI", calc.Roman(1551))
 	assert.Equal(t, "MMMCMXCIX", calc.Roman(3999))
+
+	assert.PanicsWithValue(t, core.ErrInvalidInput, func() { calc.Roman(4000) })
+	assert.PanicsWithValue(t, core.ErrInvalidInput, func() { calc.Roman(0) })
+	assert.PanicsWithValue(t, core.ErrInvalidInput, func() { calc.Roman(-1) })
 }

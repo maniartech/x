@@ -1,6 +1,6 @@
 # calc.FactDouble
 
-FactDouble func calculates the double factorial of the number. It is represented using double exclamation mark (!!).
+FactDouble function calculates the double factorial of the number. It is represented using a double exclamation mark (!!).
 
 ## Syntax
 
@@ -12,7 +12,7 @@ FactDouble(number interface{}) int
 
 ### number
 
-Required. The number is a non-negative number for which the double factorial is calculated.
+Required. A number is a non-negative number for which the double factorial is calculated.
 
 ## Remark
 
@@ -25,6 +25,9 @@ Required. The number is a non-negative number for which the double factorial is 
 ## Example
 
 ```Go
-FactDouble(0) // Returns 1
-FactDouble(12)  // Returns 46080
+calc.FactDouble(0) // Returns 1
+calc.FactDouble(12)  // Returns 46080
+calc.FactDouble(3.153) // Returns 6
+calc.FactDouble(5.13551354) // Returns 120
+calc.FactDouble(-23) // Returns Invalid Input Error Message
 ```

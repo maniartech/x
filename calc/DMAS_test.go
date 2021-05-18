@@ -16,7 +16,6 @@ func TestDMAS(t *testing.T) {
 	assert.Equal(t, 4102.0, calc.Sum(13, 4, 456, 25, 3543, []int{13, 48}))
 	assert.Equal(t, 4102.55, calc.Sum(13, 4, 456.2, 25.25, 3543, []int{13, 48}, []float64{0.1}))
 	assert.Equal(t, 4102.35456, calc.Sum(13, 4, 456.2, 25.25456, 3543, []int{13, 48}, []float64{-0.1}))
-	assert.Equal(t, 4102.35456, calc.Sum(13, 4, 456.2, 25.25456, 3543, []int{13, 48}, []float64{-0.1}))
 
 	//Minus
 	assert.Equal(t, 25.0, calc.Minus(100, 75))

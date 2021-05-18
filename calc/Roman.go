@@ -8,20 +8,23 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-// Roman function accept an arabic numeral and return the roman numeral as a string.
+// Roman function accept an Arabic numeral and convert it to the roman numeral as a string.
 //
 // Arguments
 //
-// number : Required. The number is an arabic numeral you want to convert to roman.
+// number : Required. The number is an Arabic numeral you want to convert to a roman string.
 //
 // Remark
 //
-// If the number is negative or greater than 3999 the invalid input error message is returns.
+// If the number is negative or greater than 3999 the invalid input error message is returned.
 //
 // Example
 //
-//    Roman(1) // Returns I
-//    Roman(3999))  // Returns MMMCMXCIX
+//    calc.Roman(1) // Returns I
+//    calc.Roman(3999))  // Returns MMMCMXCIX
+//    calc.Roman(4000)   // Returns Invalid Input Error Message
+//    calc.Roman(-22)  // Returns Invalid Input Error Message
+//    calc.Roman(0) // Returns Invalid Input Error Message
 //
 func Roman(input interface{}) string {
 	// create a denary_number:roman_symbol map

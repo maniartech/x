@@ -4,28 +4,29 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-// Floor function rounds down the given number to the nearest multiple of significance.
-// That is the returned number is shifted towards the zero and closer to the multiple of significance.
+//The floor function rounds down the given number to the nearest multiple of significance.
+// That is the returned number is shifted towards zero and closer to the multiple of significance.
 //
 // Arguments
 //
 // number : Required. The number is a value that you want to round off.
 //
-// significance : Required. The multiple which is used to round down the given number.
+// significance : Required. The multiple is used to round down the given number.
 //
 // Remark :
-// The value is always rouded down regardless sign of a given number when adjusted away from zero.
-// The value will be returned in a float.
+// The value is always rounded down, regardless sign of a given number when adjusted away from zero.
 // If the given value is an exact multiple of significance then no rounding up occurs.
 // If both the number and significance are negative, the value is rounded down, towards zero.
-// If number is negative, and significance is positive, the value is rounded down away from zero.
-// If the input number is passed as a string the string value is converted to desired format. If sucessfully converted it retuns the expected outcome or throws an error.
+// If the number is negative, and significance is positive, the value is rounded down away from zero.
+// If the input number is passed as a string the string value is converted to the desired format. If successfully converted it returns the expected outcome or throws an error.
 //
 // Example
 //
-//    Floor(-26, -5) // Returns -25.0
-//    Floor(-27.5, 4)  // Returns -28.0
-//    Floor("1.5", "0.1") // Returns 1.5
+//    calc.Floor(-26, -5) // Returns -25.0
+//    calc.Floor(-27.5, 4)  // Returns -28.0
+//    calc.Floor("1.5", "0.1") // Returns 1.5
+//    calc.Floor(123.456, 1.3) // Returns 122.2
+//    calc.Floor(123.456, 0)  // Returns an Error Message
 //
 func Floor(input, factor interface{}) float64 {
 	i := utils.ToDecimal(input)
