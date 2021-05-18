@@ -3,7 +3,6 @@ package statistics
 import (
 	"math"
 
-	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/utils"
 )
 
@@ -81,28 +80,4 @@ func StdevA(x ...interface{}) float64 {
 		}
 	}, x...)
 	return math.Sqrt(sum / utils.ToFloat64(n-1))
-}
-
-func Correl(x, y []interface{}) float64 {
-	if len(x) == 0 || len(y) == 0 {
-		panic(core.ErrDivideBy0)
-	}
-	xD := Average(x)
-	yD := Average(y)
-
-	var n float64
-	var d1 float64
-	var d2 float64
-	var xF float64
-	var yF float64
-	for i := 0; i < len(x); i++ {
-		xF = utils.ToFloat64(x[i])
-		yF = utils.ToFloat64(y[i])
-
-		n += (xF - xD) * (yF - yD)
-		d1 += math.Pow((xF - xD), 2)
-		d2 += math.Pow((yF - yD), 2)
-
-	}
-	return n / math.Sqrt(d1*d2)
 }

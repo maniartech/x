@@ -34,4 +34,10 @@ func TestShorts(t *testing.T) {
 	assert.Equal(t, 10.607253086419755, statistics.Forecast(30, []interface{}{6, 7, 9, 15, 21}, []interface{}{20, 28, 31, 38, 40}))
 
 	assert.Equal(t, 0.9970544855015815, statistics.Correl([]interface{}{3, 2, 4, 5, 6}, []interface{}{9, 7, 12, 15, 17}))
+
+	assert.Equal(t, 1.329340388179137, statistics.Gamma(2.5))
+	assert.Equal(t, 0.26786612886141653, statistics.Gamma(-3.75))
+
+	assert.Equal(t, 0.205078125, statistics.BinomDist(6, 10, 0.5, false))
+	assert.Equal(t, 0.828125, statistics.BinomDist(6, 10, 0.5, true))
 }

@@ -161,3 +161,58 @@ func DevSQ(x ...interface{}) float64 {
 func Forecast(b interface{}, y, x []interface{}) float64 {
 	return Intercept(y, x) + Slope(y, x)*utils.ToFloat64(b)
 }
+
+func Correl(x, y []interface{}) float64 {
+	if len(x) == 0 || len(y) == 0 {
+		panic(core.ErrDivideBy0)
+	}
+	xD := Average(x)
+	yD := Average(y)
+
+	var n float64
+	var d1 float64
+	var d2 float64
+	var xF float64
+	var yF float64
+	for i := 0; i < len(x); i++ {
+		xF = utils.ToFloat64(x[i])
+		yF = utils.ToFloat64(y[i])
+
+		n += (xF - xD) * (yF - yD)
+		d1 += math.Pow((xF - xD), 2)
+		d2 += math.Pow((yF - yD), 2)
+
+	}
+	return n / math.Sqrt(d1*d2)
+}
+
+func Gamma(x interface{}) float64 {
+	if utils.ToFloat64(x) == 0 || utils.ToFloat64(x) < 0 && utils.ToFloat64(x)/utils.ToFloat64(utils.ToInt(x)) == 1 {
+		panic(core.ErrInvalidInput)
+	}
+	return math.Gamma(utils.ToFloat64(x))
+}
+
+func BinomDist(num, trials, probablity interface{}, cumulative bool) float64 {
+	n := utils.ToInt(trials)
+	x := utils.ToInt(num)
+	p := utils.ToFloat64(probablity)
+
+	if n < 0 || x > n {
+		panic(core.ErrInvalidInput)
+	}
+	if p < 0 || p > 1 {
+		panic(core.ErrInvalidInput)
+	}
+
+	var sum float64
+
+	if cumulative {
+		for y := 0; y <= x; y++ {
+			sum += utils.ToFloat64(calc.Combin(n, y)) * math.Pow(p, utils.ToFloat64(y)) * math.Pow(1-p, utils.ToFloat64(n-y))
+		}
+	} else {
+		sum = utils.ToFloat64(calc.Combin(n, x)) * math.Pow(p, utils.ToFloat64(x)) * math.Pow(1-p, utils.ToFloat64(n-x))
+	}
+	return sum
+}
