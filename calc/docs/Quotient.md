@@ -1,6 +1,6 @@
 # calc.Quotient
 
-Quotient function returns only the integer portion of the result for division operation and discard the remainder.
+Quotient function returns only the integer portion of the result for division operation and discards the remainder.
 
 ## Syntax
 
@@ -12,16 +12,17 @@ Quotient(number)
 
 ### numerator
 
-Required. The divident.
+Required. The dividend
 
 ### denominator
 
-Required. The divisor.
+Required. The divisor
 
 ## Example
 
-```Go
-Quotient(16, 5) //  Returns 3
-Quotient(-26, 5)  // Returns -5
-
+```go
+calc.Quotient(16, 5) //  Returns 3
+calc.Quotient(-26, 5)  // Returns -5
+calc.Quotient(-122.15631, 2.546) // Returns -47
+calc.Quotient(123.15631, 48)  // Returns 2
 ```

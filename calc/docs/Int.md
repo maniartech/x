@@ -1,6 +1,6 @@
 # calc.Int
 
-Int function rounds up a number to the nearest integer.
+Int function rounds down a number to the nearest integer.
 
 ## Syntax
 
@@ -10,14 +10,15 @@ Int(number)
 
 ## Arguments
 
-### number
+## number
 
-Required. The number you want to round up to the nearest integer.
+Required. The number you want to round down to the nearest integer.
 
 ## Example
 
-```Go
-Int(-122.15631) // Returns -123
-Int(123.15631) // Returns 123
-
+```go
+calc.Int(-122.15631) //  Returns -123
+calc.Int(123.15631)  // Returns 123
+calc.Int(16) // Returns 16
+calc.Int(-16) // Returns -16
 ```

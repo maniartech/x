@@ -16,7 +16,9 @@ Required. The number for which you want the base-10 logarithm. It must be a posi
 
 ## Example
 
-```Go
-Log10(122) //  Returns 2.0863598306747484
-Log10(122.15631)  // Returns 2.086915905426539
+```go
+calc.Log10 (122) //  Returns 2.0863598306747484
+calc.Log10(122.15631)  // Returns 2.086915905426539
+calc.Log(10000) // Returns 4.0
+calc.Log(1) // Returns 0.0
 ```

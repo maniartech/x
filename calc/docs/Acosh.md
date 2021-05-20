@@ -1,6 +1,6 @@
 # calc.Acosh
 
-Acosh returns inverse hperbolic cosine of a number.
+Acosh calculates the inverse hyperbolic cosine of a number and returns the angle in the radian.
 
 ## Syntax
 
@@ -12,11 +12,18 @@ Acosh(number)
 
 ### number
 
-Required. The number is an input to hyperbolic cosine function, it must be eual to or greater than 1.
+Required. The hyperbolic cosine of an angle you want, it must be greater than or equal to 1.
+
+## Remark
+
++ If the input value of an argument is less than 1 then it will throw an error.
 
 ## Example
 
-```Go
-Acosh(561.15) // Returns 7.023134636091518
-Acosh(1546)  // Returns 8.036573305109862
+```go
+calc.Acosh(561.15) // Returns 7.023134636091518
+calc.Acosh(1546)  // Returns 8.036573305109862
+calc.Acosh(1) // Returns 0.0
+calc.Acosh(0) // Returns Invalid Input Error Message
+calc.Acosh(-1) // Returns Invalid Input Error Message
 ```

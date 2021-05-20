@@ -1,7 +1,7 @@
 
 # calc.Atanh
 
-Atanh returns inverse hyperbolic tagnent of a number.
+Atanh returns the inverse hyperbolic tangent of a number and returns the angle in radian.
 
 ## Syntax
 
@@ -13,11 +13,19 @@ Atanh(number)
 
 ### number
 
-Required. The number is a real number between 1 and -1 for which inverse hyperbolic of tagnent is calculated.
+Required. The inverse hyperbolic tangent of the angle you want must be between -1 to 1.
+
+## Remark
+
++ If the input value of an argument is outside the range of -1 to 1 then it will throw an error.
++ The inverse hyperbolic tangent of 1 and -1 are Infinity and -Infinity.
 
 ## Example
 
-```Go
-Atanh(0.99) // Returns 2.6466524123622457
-Atanh(-0.2686)  // Returns -0.275354351742258
+```go
+calc.Atanh(0.99) // Returns 2.6466524123622457
+calc.Atanh(-0.2686)  // Returns -0.275354351742258
+calc.Atanh(0.651) // Returns 0.7770322608588505
+calc.Atanh(-23) // Returns an error
+calc.Atanh(23) // Returns an error
 ```

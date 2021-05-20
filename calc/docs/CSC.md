@@ -1,6 +1,7 @@
 # calc.CSC
 
-CSC function returns cosecant of a number.
+CSC function calculates the cosecant of a number and returns the angle in the radian.
+Geometrically it is the ratio of the right triangle's hypotenuse divided by its opposite side.
 
 ## Syntax
 
@@ -12,12 +13,13 @@ CSC(number)
 
 ### number
 
-Required. The number is an input to the CSC funtion, it can be any real number.
+Required. The number is an input to the CSC function, it can be any real number.
 
 ## Example
 
-```Go
-CSC(-36) // Returns  1.0082892940581898
-CSC(0.235)  // Returns 4.294739640961497
-
+```go
+calc.CSC(-36) // Returns 1.0082892940581898
+calc.CSC(0.235) // Returns 4.294739640961497
+calc.CSC(1) // Returns 1.1883951057781212
+calc.CSC(15) // Returns 1.538
 ```

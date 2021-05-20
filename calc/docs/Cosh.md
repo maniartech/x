@@ -1,6 +1,6 @@
 # calc.Cosh
 
-Cosh function returns hyperbolic cosine of a number.
+Cosh function calculates the hyperbolic cosine of a number and returns an angle in the radian.
 
 ## Syntax
 
@@ -12,11 +12,14 @@ Cosh(number)
 
 ### number
 
-Required. The number is an input to the hyperbolic cosine funtion, it can be any real number.
+Required. The number is an input to the hyperbolic cosine function, it can be any real number.
 
 ## Example
 
-```Go
-Cosh(0.99) // Returns 1.5314055816856538
-Cosh(-0.2686)  // Returns -0.2718414047892157
+```go
+calc.Cosh(0.99) // Returns 1.5314055816856538
+calc.Cosh(-0.2686)  // Returns 1.036290378879286
+calc.Cosh(0) // Returns 1
+calc.Cosh(0.99) // Returns 1.5314055816856538
+calc.Cosh(1)  // Returns 1.543081
 ```

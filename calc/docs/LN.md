@@ -16,11 +16,11 @@ Required. The number for which you want the natural logarithm. It can be any rea
 
 ## Remark
 
-LN function is inverse of exponetial function.
++ LN function is inverse of an exponential function.
 
 ## Example
 
-```Go
-LN(100) //  Returns 4.605170185988092
-LN(16)  // Returns 2.772588722239781
-```
+```go
+calc.LN(100) //  Returns 4.605170185988092
+calc.LN(16)  // Returns 2.772588722239781
+calc.LN(122.15631) //Returns 4.805301454167321

@@ -16,12 +16,12 @@ Required. The number to which Pi is multiplied.
 
 ## Remark
 
-If the number is less than zero then the function returns Invalid Input Error message.
++ If the number is less than zero then the function returns an Invalid Input Error message.
 
 ## Example
 
-```Go
-SqrtPi(16) // Returns 7.0898154036220635
-SqrtPi(123.15631) // Returns 19.669950654214343
-
+```go
+calc.SqrtPi(16) //  Returns 7.0898154036220635
+calc.SqrtPi(123.15631)  // Returns 19.669950654214343
+calc.SqrtPi(-16) // Returns Invalid Input Error
 ```
