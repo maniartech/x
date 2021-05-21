@@ -40,4 +40,11 @@ func TestShorts(t *testing.T) {
 
 	assert.Equal(t, 0.205078125, statistics.BinomDist(6, 10, 0.5, false))
 	assert.Equal(t, 0.828125, statistics.BinomDist(6, 10, 0.5, true))
+
+	assert.Equal(t, 0.03263913028460413, statistics.GammaDist(10.00001131, 9, 2, false))
+	assert.Equal(t, 0.068094, statistics.GammaDist(10.00001131, 9, 2, true))
+
+	assert.Equal(t, 0.10934004978399584, statistics.NormDist(42, 40, 1.5, false))
+
+	assert.Equal(t, 0.16401014756936738, statistics.NormSDist(1.333333, false))
 }

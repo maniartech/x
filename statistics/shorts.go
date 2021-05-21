@@ -44,24 +44,6 @@ func HarMean(v ...interface{}) float64 {
 	return calc.Divide(1, calc.Divide(1, c)*sum)
 }
 
-func ExponDist(x, lamda interface{}, cumulative bool) float64 {
-	xF := utils.ToFloat64(x)
-	lamdaF := utils.ToFloat64(lamda)
-
-	if lamdaF <= 0 || xF < 0 {
-		panic(core.ErrInvalidInput)
-	}
-
-	var val float64
-
-	if cumulative {
-		val = 1 - math.Pow(math.E, -lamdaF*xF)
-	} else {
-		val = lamdaF * math.Pow(math.E, -lamdaF*xF)
-	}
-	return val
-}
-
 func Kurt(x ...interface{}) float64 {
 	n := utils.ToFloat64(len(x))
 	if n <= 3 {
@@ -191,28 +173,4 @@ func Gamma(x interface{}) float64 {
 		panic(core.ErrInvalidInput)
 	}
 	return math.Gamma(utils.ToFloat64(x))
-}
-
-func BinomDist(num, trials, probablity interface{}, cumulative bool) float64 {
-	n := utils.ToInt(trials)
-	x := utils.ToInt(num)
-	p := utils.ToFloat64(probablity)
-
-	if n < 0 || x > n {
-		panic(core.ErrInvalidInput)
-	}
-	if p < 0 || p > 1 {
-		panic(core.ErrInvalidInput)
-	}
-
-	var sum float64
-
-	if cumulative {
-		for y := 0; y <= x; y++ {
-			sum += utils.ToFloat64(calc.Combin(n, y)) * math.Pow(p, utils.ToFloat64(y)) * math.Pow(1-p, utils.ToFloat64(n-y))
-		}
-	} else {
-		sum = utils.ToFloat64(calc.Combin(n, x)) * math.Pow(p, utils.ToFloat64(x)) * math.Pow(1-p, utils.ToFloat64(n-x))
-	}
-	return sum
 }
