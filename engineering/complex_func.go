@@ -1,7 +1,9 @@
 package engineering
 
 import (
+	"fmt"
 	"math/cmplx"
+	"strings"
 
 	"github.com/maniartech/x/utils"
 )
@@ -33,4 +35,29 @@ func IMProduct(x ...complex128) complex128 {
 		product *= x[i]
 	}
 	return product
+}
+
+func ComplexSplit(input complex128) (float64, float64) {
+	s := fmt.Sprintf("%v", input)
+	ss := make([]string, 2)
+	var x float64
+	var y float64
+	if strings.Index(s, "+") != -1 {
+		ss = strings.Split(s, "+")
+		y = utils.ToFloat64(ss[1][:len(ss[1])-2])
+	} else {
+		ss = strings.Split(s, "-")
+		y = utils.ToFloat64(ss[1][:len(ss[1])-2]) * -1
+	}
+	x = utils.ToFloat64(ss[0][1:])
+	return x, y
+}
+
+func Imaginary(input complex128) float64 {
+	_, y := ComplexSplit(input)
+	return y
+}
+func IMReal(input complex128) float64 {
+	x, _ := ComplexSplit(input)
+	return x
 }
