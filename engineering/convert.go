@@ -43,8 +43,8 @@ func Convert(number, fromUnit, toUnit interface{}) float64 {
 	pressure := []string{"p", "atm", "mmHg", "psi", "Torr"}
 	energy := []string{"e", "c", "cal", "eV", "hh", "wh", "flb", "btu"}
 	temprature := []string{"C", "F", "K", "Rank", "Reau"}
-	information := []string{"bit", "byte"}
-	volume := []string{"l", "tsp", "tspm", "tbs", "oz", "cup", "pt", "uk_pt", "qt", "uk_qt", "gal", "uk_gal", "ang3", "barrel", "bushel", "ft3", "in3", "ly3", "m3", "mi3", "yd3", "GRT", "MTON"}
+	// information := []string{"bit", "byte"}
+	// volume := []string{"l", "tsp", "tspm", "tbs", "oz", "cup", "pt", "uk_pt", "qt", "uk_qt", "gal", "uk_gal", "ang3", "barrel", "bushel", "ft3", "in3", "ly3", "m3", "mi3", "yd3", "GRT", "MTON"}
 
 	if text.Contains(weight, fr) {
 		return ConvertMass(number, fr, to)
@@ -60,6 +60,8 @@ func Convert(number, fromUnit, toUnit interface{}) float64 {
 		return ConvertPressure(number, fr, to)
 	} else if text.Contains(energy, fr) {
 		return ConvertEnergy(number, fr, to)
+	} else if text.Contains(temprature, fr) && text.Contains(temprature, to) {
+		return ConvertTemprature(number, fr, to)
 	}
 
 	return 0.0

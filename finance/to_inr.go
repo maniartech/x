@@ -5,17 +5,18 @@ import (
 
 	"github.com/maniartech/x/calc"
 	"github.com/maniartech/x/core"
+	"github.com/maniartech/x/utils"
 )
 
 // Num2WordInd convert the number string into indian numbering word format.
-func Num2WordInd(input string) string {
+func Num2WordInd(input interface{}) string {
 	var word, part, paiseV string
 	var mod1, powerCounter, number, paise int
 	var multiplier bool = false
 	power := [6]string{"", "thousand", "lakh", "crore", "arab", "kharab"}
 
 	//Converting the input to int and then spliting it into two
-	number, paise = ConvertToInt(input)
+	number, paise = ConvertToInt(utils.ToString(input))
 	if calc.NumberOfDigits(paise) == 1 {
 		multiplier = true
 	}

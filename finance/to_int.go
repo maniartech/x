@@ -9,10 +9,10 @@ import (
 )
 
 //ConvertToInt, converts inputs into integer type
-func ConvertToInt(input string) (int, int) {
+func ConvertToInt(input interface{}) (int, int) {
 	var numberV, decimalV int
 	var err error
-	strArr := strings.Split(input, ".")
+	strArr := strings.Split(utils.ToString(input), ".")
 	strArrLen := len(strArr)
 	if strArrLen != 1 && strArrLen != 2 {
 		panic(core.ErrInvalidInput)
