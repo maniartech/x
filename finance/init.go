@@ -1,4 +1,4 @@
-package currency
+package finance
 
 var singles []string = []string{
 	// The element 0 contains no value because the number zero isn't
