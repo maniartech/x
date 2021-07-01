@@ -35,3 +35,13 @@ func FV(Rate, Nper, Pmt interface{}, Value ...interface{}) float64 {
 	}
 	return -ans
 }
+
+//WIP
+func FVSchedule(Principal interface{}, Schedule ...interface{}) float64 {
+	principal := utils.ToFloat64(Principal)
+	var future float64 = principal
+	utils.ForEach(func(_ int, x interface{}) {
+		future *= 1 + utils.ToFloat64(x)
+	}, Schedule...)
+	return future
+}
