@@ -16,6 +16,7 @@ func IsPMT(Rate, Nper, Period, Value interface{}) float64 {
 	return value * rate * (per/period - 1)
 }
 
+//Some issue I cant figure out
 func IPMT(Rate, Period, Periods, PresentValue interface{}, futureValue ...interface{}) float64 {
 	var fv float64
 	var ty float64
