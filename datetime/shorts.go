@@ -7,9 +7,29 @@ import (
 	"github.com/maniartech/x/calc"
 )
 
-//Finds the difference between two dates
+//Days Finds the difference between two dates
 func Days(date1 time.Time, date2 time.Time) int {
 	return int(math.Abs((date1.Sub(date2).Hours() / 24)))
+}
+
+//Days360 Finds the difference between two dates on a 360 day year calendar
+func Days360(date1, date2 time.Time) int {
+	val := 0
+	diffYear := date2.Year() - date1.Year()
+	diffMonth := int(date2.Month()) - int(date1.Month())
+	days := (date2.Day() + 30 - date1.Day()) % 30
+	if diffMonth == 1 && date2.Day() < date1.Day() {
+		diffMonth = 0
+	}
+	if diffMonth > 1 {
+		val = diffYear*360 + (diffMonth-1)*30 + days
+	} else {
+		val = diffYear*360 + days
+	}
+	if date2.Day() >= date1.Day() {
+		val += 30
+	}
+	return val
 }
 
 //EDate Adds or subtract months from the inputed date
@@ -22,7 +42,7 @@ func EOMonth(date time.Time, months int) time.Time {
 	var DaysInMonthC []int = []int{31, 31, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 	date = date.AddDate(0, months, 0)
 	if date.Month() == time.February {
-		if isLeapYear(date.Year()) {
+		if IsLeapYear(date.Year()) {
 			return time.Date(date.Year(), date.Month(), 29, 0, 0, 0, 0, time.UTC)
 		} else {
 			return time.Date(date.Year(), date.Month(), 28, 0, 0, 0, 0, time.UTC)
@@ -30,12 +50,6 @@ func EOMonth(date time.Time, months int) time.Time {
 	} else {
 		return time.Date(date.Year(), date.Month(), DaysInMonthC[(int(date.Month())%12)], 0, 0, 0, 0, time.UTC)
 	}
-}
-
-//YearFrac finds the fraction of year between two dates
-func YearFrac(date1 time.Time, date2 time.Time) float64 {
-	diff := (math.Abs(float64(DateValue(date1) - DateValue(date2)))) / 365
-	return diff
 }
 
 //Today returns todays date

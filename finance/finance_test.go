@@ -3,6 +3,7 @@ package finance_test
 import (
 	"testing"
 
+	"github.com/maniartech/x/datetime"
 	"github.com/maniartech/x/finance"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,4 +22,10 @@ func TestFinanceFunc(t *testing.T) {
 
 	//PV
 	assert.Equal(t, 59777.1458511878, finance.PV(0.08/12.0, 12*20, -500, 0, 0))
+
+	//Effect
+	assert.Equal(t, 0.05354266737075841, finance.Effect(0.0525, 4))
+
+	//Disc
+	assert.Equal(t, 0.000685899220489978, finance.Disc(datetime.Date(2018, 7, 1), datetime.Date(2048, 1, 1), 97.975, 100, 1))
 }
