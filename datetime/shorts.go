@@ -1,36 +1,10 @@
 package datetime
 
 import (
-	"math"
 	"time"
 
 	"github.com/maniartech/x/calc"
 )
-
-//Days Finds the difference between two dates
-func Days(date1 time.Time, date2 time.Time) int {
-	return int(math.Abs((date1.Sub(date2).Hours() / 24)))
-}
-
-//Days360 Finds the difference between two dates on a 360 day year calendar
-func Days360(date1, date2 time.Time) int {
-	val := 0
-	diffYear := date2.Year() - date1.Year()
-	diffMonth := int(date2.Month()) - int(date1.Month())
-	days := (date2.Day() + 30 - date1.Day()) % 30
-	if diffMonth == 1 && date2.Day() < date1.Day() {
-		diffMonth = 0
-	}
-	if diffMonth > 1 {
-		val = diffYear*360 + (diffMonth-1)*30 + days
-	} else {
-		val = diffYear*360 + days
-	}
-	if date2.Day() >= date1.Day() {
-		val += 30
-	}
-	return val
-}
 
 //EDate Adds or subtract months from the inputed date
 func EDate(date time.Time, months int) time.Time {
