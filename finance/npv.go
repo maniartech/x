@@ -8,13 +8,13 @@ import (
 )
 
 //NPV
-func Npv(v ...interface{}) float64 {
+func Npv(Rate interface{}, v ...interface{}) float64 {
 	var sum float64
 	var i float64 = 1
-	r := utils.ToFloat64(v[0])
+	rate := utils.ToFloat64(Rate)
 	utils.ForEach(func(_ int, val interface{}) {
-		sum += calc.Divide(utils.ToFloat64(val), math.Pow((1+r), i))
+		sum += calc.Divide(utils.ToFloat64(val), math.Pow((1+rate), i))
 		i += 1
-	}, v[1:]...)
+	}, v[0:]...)
 	return sum
 }

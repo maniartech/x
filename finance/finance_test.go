@@ -27,5 +27,10 @@ func TestFinanceFunc(t *testing.T) {
 	assert.Equal(t, 0.05354266737075841, finance.Effect(0.0525, 4))
 
 	//Disc
-	assert.Equal(t, 0.000685899220489978, finance.Disc(datetime.Date(2018, 7, 1), datetime.Date(2048, 1, 1), 97.975, 100, 1))
+	date1 := datetime.Date(2018, 7, 1)
+	date2 := datetime.Date(2048, 1, 1)
+	assert.Equal(t, 0.0006864406779661065, finance.Disc(date1, date2, 97.975, 100, 0))
+	// assert.Equal(t, 0.0006864406779661065, finance.Disc(date1, date2, 97.975, 100, 0))
+	assert.Equal(t, 0.0006765033407572485, finance.Disc(date1, date2, 97.975, 100, 2))
+	assert.Equal(t, 0.0006858992204899875, finance.Disc(date1, date2, 97.975, 100, 3))
 }
