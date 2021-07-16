@@ -39,4 +39,7 @@ func TestFinanceFunc(t *testing.T) {
 	//SYD
 	assert.Equal(t, 4090.90909090909, finance.SYD(30000, 7500, 10, 1))
 	assert.Equal(t, 409.090909090909, finance.SYD(30000, 7500, 10, 10))
+
+	//RRI
+	assert.Equal(t, 0.0009933073762913303, finance.RRI(96, 10000, 11000))
 }
