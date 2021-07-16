@@ -3,7 +3,6 @@ package finance
 import (
 	"math"
 
-	"github.com/maniartech/x/calc"
 	"github.com/maniartech/x/core"
 	"github.com/maniartech/x/utils"
 )
@@ -33,7 +32,7 @@ func Mirr(FinanceRate, ReinvestRate interface{}, Value ...interface{}) float64 {
 		panic(core.ErrDivideBy0)
 
 	}
-	n := -Npv(Rrate, Pve) * math.Pow(1+Rrate, len)
+	n := -Npv(Rrate, Pve) * math.Pow(1+Rrate, len-1)
 	d := Npv(Frate, Nve) * (1 + Frate)
-	return math.Pow(calc.Divide(n, d), calc.Divide(1, len-1)) - 1
+	return math.Pow(n/d, 1.0/(len-1.0)) - 1
 }

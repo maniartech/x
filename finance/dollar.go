@@ -60,6 +60,6 @@ func Dollarfr(Dollar, Fraction interface{}) float64 {
 	//i.e 1.16 so, numerator is 0.16
 	var decimal float64 = calc.Round(dollar-math.Floor(dollar), 15-calc.NumberOfDigits(utils.ToInt(dollar)))
 	decimal = decimal * fraction
-	
+
 	return math.Floor(dollar) + (0.01 * decimal)
 }
