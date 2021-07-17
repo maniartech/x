@@ -14,8 +14,9 @@ func Disc(Settlement, Maturity time.Time, Pr, Redemption interface{}, Basis ...i
 	pr := utils.ToFloat64(Pr)
 	redemption := utils.ToFloat64(Redemption)
 	B := 360
-	basis := utils.ToInt(Basis[0])
+	basis := 0
 	if len(Basis) > 0 {
+		basis = utils.ToInt(Basis[0])
 		if basis == 0 || basis == 2 || basis == 4 {
 			B = 360
 		} else if basis == 1 {

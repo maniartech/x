@@ -42,4 +42,12 @@ func TestFinanceFunc(t *testing.T) {
 
 	//RRI
 	assert.Equal(t, 0.0009933073762913303, finance.RRI(96, 10000, 11000))
+
+	//IntRate
+	date1 = datetime.Date(2008, 2, 15)
+	date2 = datetime.Date(2008, 5, 15)
+	assert.Equal(t, 0.058641333333333386, finance.IntRate(date1, date2, 1000000, 1014420, 1))
+	assert.Equal(t, 0.05768, finance.IntRate(date1, date2, 1000000, 1014420, 2))
+	assert.Equal(t, 0.05848111111111117, finance.IntRate(date1, date2, 1000000, 1014420, 3))
+
 }
