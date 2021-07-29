@@ -27,6 +27,7 @@ func TestDMAS(t *testing.T) {
 	assert.Equal(t, 10.0, calc.Product(10))
 	assert.Equal(t, 420.0, calc.Product(10, 42))
 	assert.Equal(t, -8000.0, calc.Product(20, 5, []int{2, 10}, -4))
+	assert.Equal(t, 4.06, calc.Product(2, 20.3, 0.1))
 
 	//Divide
 	assert.Equal(t, 20.0, calc.Divide(100, 5))

@@ -1,4 +1,4 @@
-package currency
+package finance
 
 import "github.com/maniartech/x/registry"
 

@@ -1,10 +1,10 @@
-package currency_test
+package finance_test
 
 import (
 	"testing"
 
 	"github.com/maniartech/x/core"
-	"github.com/maniartech/x/currency"
+	"github.com/maniartech/x/finance"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -28,13 +28,10 @@ func TestDigit2Word(t *testing.T) {
 }
 
 func digit2Word(t *testing.T, input string) string {
-	output, err := currency.Digit2Word(input)
-	if err != nil {
-		assert.Fail(t, err.Error())
-	}
+	output := finance.Digit2Word(input)
 	return output
 }
 
 func digit2WordErr(t *testing.T, input string, err error) {
-	assert.PanicsWithValue(t, err, func() { currency.Digit2Word(input) })
+	assert.PanicsWithValue(t, err, func() { finance.Digit2Word(input) })
 }

@@ -28,7 +28,10 @@ func Fact(input interface{}) int {
 	if num < 0 {
 		panic(core.ErrInvalidInput)
 	}
-	if num == 1 || num == 0 {
+	if num == 0 {
+		return 1
+	}
+	if num-1 <= 1 {
 		return num
 	}
 	return num * Fact(num-1)
@@ -61,7 +64,10 @@ func FactDouble(input interface{}) int {
 	if num < 0 {
 		panic(core.ErrInvalidInput)
 	}
-	if num <= 2 {
+	if num == 0 {
+		return 1
+	}
+	if num-2 <= 2 {
 		return num
 	}
 	return num * FactDouble(num-2)

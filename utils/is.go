@@ -25,3 +25,13 @@ func IsFunc(v interface{}) bool {
 // NotDigit checks if supplied character is a numerical digit or not.
 // Returns true if the character is a digit otherwise returns false.
 func NotDigit(c rune) bool { return c < '0' || c > '9' }
+
+// IsValidMonth accepts a "Month" and checks if that is a valid month
+// Returns true if the value of the "Month" is betwern 1 and 12 otherwise returns false
+func IsValidMonth(input interface{}) bool {
+	month := ToInt(input)
+	if month < 1 || month > 12 {
+		return false
+	}
+	return true
+}

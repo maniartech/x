@@ -145,6 +145,7 @@ func TestMathFunc(t *testing.T) {
 	//LN
 	assert.Equal(t, 4.605170185988092, calc.LN(100))
 	assert.Equal(t, 2.772588722239781, calc.LN(16))
+	assert.Equal(t, 1.9459101490553132, calc.LN(7))
 	assert.Equal(t, 4.805301454167321, calc.LN(122.15631))
 
 	//Log10

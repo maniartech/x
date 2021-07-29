@@ -29,7 +29,7 @@ import (
 func Roman(input interface{}) string {
 	// create a denary_number:roman_symbol map
 	number := utils.ToInt(input)
-	if number > 4000 && number < 0 {
+	if number <= 0 || number >= 4000 {
 		panic(core.ErrInvalidInput)
 	}
 	romanMap := map[int]string{

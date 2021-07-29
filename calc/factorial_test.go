@@ -9,10 +9,7 @@ import (
 )
 
 func TestFactorial(t *testing.T) {
-
-	//assert.Equal(t, 1, calc.Fact(0))
-
-	assert.Equal(t, 0, calc.Fact(0))
+	assert.Equal(t, 1, calc.Fact(0))
 	assert.Equal(t, 1, calc.Fact(1))
 	assert.Equal(t, 2, calc.Fact(2))
 	assert.Equal(t, 6, calc.Fact(3))
@@ -30,11 +27,7 @@ func TestFactorial(t *testing.T) {
 	assert.PanicsWithValue(t, core.ErrInvalidInput, func() { calc.Fact(-23) })
 }
 func TestFactDouble(t *testing.T) {
-
-	//assert.Equal(t, 1, calc.FactDouble(0))
-	//assert.Equal(t, 1, calc.FactDouble(-1))
-
-	assert.Equal(t, 0, calc.FactDouble(0))
+	assert.Equal(t, 1, calc.FactDouble(0))
 	assert.Equal(t, 1, calc.FactDouble(1))
 	assert.Equal(t, 2, calc.FactDouble(2))
 	assert.Equal(t, 3, calc.FactDouble(3))
