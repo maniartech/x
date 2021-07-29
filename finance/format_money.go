@@ -1,16 +1,19 @@
-package currency
+package finance
+
+import "github.com/maniartech/x/utils"
 
 // FormatMoneySymbol formats the money with correct placement of ',' between digits according to international system
 // this function also places a currency symbol before the number
-func FormatMoney(input string, currencySymbol string) string {
-	value := formatMoney(input, currencySymbol, 3)
+func FormatMoney(input, currencySymbol interface{}) string {
+
+	value := formatMoney(utils.ToString(input), utils.ToString(currencySymbol), 3)
 	return value
 }
 
 // FormatMoneySymbolInd formats the money with correct placement of ',' between digits according to indian numbering system
 // this function also places a currency symbol before the number
-func FormatMoneyInd(input string, currencySymbol string) string {
-	value := formatMoney(input, currencySymbol, 2)
+func FormatMoneyInd(input, currencySymbol interface{}) string {
+	value := formatMoney(utils.ToString(input), utils.ToString(currencySymbol), 2)
 	return value
 }
 

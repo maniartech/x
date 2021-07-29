@@ -1,4 +1,4 @@
-package currency
+package finance
 
 import (
 	"math"
@@ -8,7 +8,7 @@ import (
 )
 
 // Num2Word convert the number string into international numbering word format.
-func Num2Word(input string) string {
+func Num2Word(input interface{}) string {
 	var word, part, centV string
 	var mod, powerCounter, number, cent int
 	var multiplier bool = false

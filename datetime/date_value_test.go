@@ -17,13 +17,10 @@ func TestDateValue(t *testing.T) {
 	assert.Equal(t, 37669, dateValue(t, "2003/Febuary/17"))
 	assert.Equal(t, 37669, dateValue(t, "2003/Feb/17"))
 	assert.Equal(t, 37669, dateValue(t, "2003/Feb/17"))
-	
+	assert.Equal(t, 37669, datetime.DateValue(datetime.Date(2003, 2, 17)))
+
 }
 func dateValue(t *testing.T, input string) int {
 	output := datetime.DateValue(input)
 	return output
 }
-
-// func dateValueErr(t *testing.T, input string, err error) {
-// 	assert.PanicsWithValue(t, err, func() { currency.Digit2Word(input) })
-// }

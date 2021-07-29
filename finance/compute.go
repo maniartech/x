@@ -1,4 +1,4 @@
-package currency
+package finance
 
 // ToWordTens converts numbers form 0 to 99 to word form
 func ToWordTens(input int, multiplier bool) string {

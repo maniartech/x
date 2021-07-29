@@ -1,4 +1,4 @@
-package currency
+package finance
 //Different Currency symbols
 const DollorSymbol string = "$"
 const PoundSymbol string = "₤"

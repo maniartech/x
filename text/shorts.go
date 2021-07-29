@@ -10,15 +10,20 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func Char(input rune) string        { return fmt.Sprintf("%x", input) }
-func Code(input interface{}) string { return fmt.Sprintf("%x", utils.ToString(input)) }
-func Len(input interface{}) int     { return len(utf16.Encode([]rune(utils.ToString(input)))) }
+func Char(input interface{}) string { return string(rune(utils.ToInt(input))) }
+func Code(input interface{}) int {
+	return utils.ToInt(fmt.Sprintf("%d", int([]rune(utils.ToString(input))[0])))
+}
+func Len(input interface{}) int { return len(utf16.Encode([]rune(utils.ToString(input)))) }
 
 // func LenB(input interface{}) int     { return }
-func Upper(input interface{}) string  { return strings.ToUpper(utils.ToString(input)) }
-func Lower(input interface{}) string  { return strings.ToLower(utils.ToString(input)) }
+func Upper(input interface{}) string { return strings.ToUpper(utils.ToString(input)) }
+func Lower(input interface{}) string { return strings.ToLower(utils.ToString(input)) }
+
+//TODO: Make the Proper func lower other character other than the first
 func Proper(input interface{}) string { return strings.Title(utils.ToString(input)) }
 
+//TODO: Make DBCS language count as 1 character
 func Left(input, num interface{}) string {
 	if utils.ToInt(num) >= len(utils.ToString(input)) {
 		return utils.ToString(input)
@@ -41,11 +46,11 @@ func Mid(input, start, end interface{}) string {
 }
 
 func Fixed(input, decimals interface{}) string {
-	return fmt.Sprintf("%f", calc.Round(input, decimals))
+	return utils.ToString(calc.Round(input, decimals))
 }
 
 func Dollar(input, decimals interface{}) string {
-	return fmt.Sprintf("$%f", calc.Round(input, decimals))
+	return "$" + utils.ToString(calc.Round(input, decimals))
 }
 
 func Substitute(input, old, new interface{}) string {
@@ -53,7 +58,11 @@ func Substitute(input, old, new interface{}) string {
 }
 
 func Search(find, within, sPos interface{}) int {
-	return (strings.Index(utils.ToUTF16String(utils.ToString(within)[utils.ToInt(sPos):]), utils.ToUTF16String(utils.ToString(find))) + 1) + utils.ToInt(sPos)
+	pos := (strings.Index(utils.ToUTF16String(utils.ToString(within)[utils.ToInt(sPos):]), utils.ToUTF16String(utils.ToString(find))))
+	if pos != -1 {
+		return pos + 1 + utils.ToInt(sPos)
+	}
+	return pos
 }
 
 func Replace(input, start, end, new interface{}) string {

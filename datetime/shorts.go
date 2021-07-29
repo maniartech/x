@@ -1,16 +1,10 @@
 package datetime
 
 import (
-	"math"
 	"time"
 
 	"github.com/maniartech/x/calc"
 )
-
-//Finds the difference between two dates
-func Days(date1 time.Time, date2 time.Time) int {
-	return int(math.Abs((date1.Sub(date2).Hours() / 24)))
-}
 
 //EDate Adds or subtract months from the inputed date
 func EDate(date time.Time, months int) time.Time {
@@ -22,7 +16,7 @@ func EOMonth(date time.Time, months int) time.Time {
 	var DaysInMonthC []int = []int{31, 31, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 	date = date.AddDate(0, months, 0)
 	if date.Month() == time.February {
-		if isLeapYear(date.Year()) {
+		if IsLeapYear(date.Year()) {
 			return time.Date(date.Year(), date.Month(), 29, 0, 0, 0, 0, time.UTC)
 		} else {
 			return time.Date(date.Year(), date.Month(), 28, 0, 0, 0, 0, time.UTC)
@@ -30,12 +24,6 @@ func EOMonth(date time.Time, months int) time.Time {
 	} else {
 		return time.Date(date.Year(), date.Month(), DaysInMonthC[(int(date.Month())%12)], 0, 0, 0, 0, time.UTC)
 	}
-}
-
-//YearFrac finds the fraction of year between two dates
-func YearFrac(date1 time.Time, date2 time.Time) float64 {
-	diff := (math.Abs(float64(DateValue(date1) - DateValue(date2)))) / 365
-	return diff
 }
 
 //Today returns todays date
