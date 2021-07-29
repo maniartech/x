@@ -1,6 +1,7 @@
 package x_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/maniartech/x"
@@ -8,7 +9,8 @@ import (
 )
 
 func TestExec(t *testing.T) {
-	r, err := x.Exec("Average([ten, ten], ten)", x.Env{"ten": 10})
+
+	r, err := x.Exec("Average([t, t], t)", x.Env{"t": 10})
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 10.0, r)
 
@@ -25,4 +27,8 @@ func TestExec(t *testing.T) {
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 0.013, r)
 
+	r, err = x.Exec("Digit2Word(Average(l))", x.Env{
+		"l": []interface{}{15.0, 22, 30, 40, 50},
+	})
+	fmt.Println(r, err)
 }

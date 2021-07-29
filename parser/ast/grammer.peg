@@ -1,0 +1,168 @@
+{
+  //
+  // Inspired by pegjs arithmetic example:
+  // https://github.com/pegjs/pegjs/blob/master/examples/arithmetics.pegjs
+  //
+  // Inspired from pegjs excel formula parser:
+  // https://gist.github.com/gamerxl/cf5184a437b10d0f86197b102cf1255a
+  //
+  // JSON grammar:
+  // https://github.com/mna/pigeon/blob/master/examples/json/json.peg
+  //
+  // Excel:
+  // https://mrcsparker.wordpress.com/2015/07/26/excel-formula-grammar-for-peg-js/
+  //
+  // https://pkg.go.dev/github.com/mna/pigeon:
+  //
+
+  package ast
+
+}
+
+Input <- expr:Expr EOF {
+    cntCodeBlocks++
+    return expr, nil
+}
+
+Expr <- _ first:Term rest:( _ ( AddOp / CompOp ) _ Term )* _ {
+    cntCodeBlocks++
+    return eval(first, rest), nil
+}
+
+Term <- first:Factor rest:( _ MulOp _ Factor )* {
+    cntCodeBlocks++
+    return eval(first, rest), nil
+}
+
+Function <- fn:AlphaNum+ _ '(' _ args:Args? ')' {
+    cntCodeBlocks++
+    fmt.Printf("fn:%s args:%+v \n", fn, toIfaceSlice(args))
+    return 99.00, nil
+}
+
+Args <- first:Expr rest:( _ "," _ Expr )* {
+    cntCodeBlocks++
+    slice := toIfaceSlice(rest)
+    if slice == nil {
+        return []interface{}{first}, nil
+    }
+
+    args := make([]interface{}, len(slice)+1)
+    args[0] = eval(first, nil)
+    for i, arg := range slice {
+        args [i + 1] = eval(arg, nil).([]interface{})[3]
+    }
+    return args, nil
+}
+
+Factor <- '(' expr:Expr ')' {
+    cntCodeBlocks++
+    return expr, nil
+} / value:Value {
+    cntCodeBlocks++
+    return value, nil
+}
+
+AddOp <- ( "+" / "-" ) {
+    cntCodeBlocks++
+    return string(c.text), nil
+}
+
+MulOp <- ( "*" / "/" ) {
+    cntCodeBlocks++
+    return string(c.text), nil
+}
+
+CompOp <- ("=" / "<>" / "<=" / "<" / ">=" / ">") {
+  cntCodeBlocks++
+  return c.text, nil
+}
+
+Value <- val:( Object / Array / Number / String / Bool / Null / Function ) _ {
+    return val, nil
+}
+
+Object <- '{' _ vals:( String _ ':' _ Expr ( ',' _ String _ ':' _ Expr )* )? '}' {
+    res := make(map[string]interface{})
+    valsSl := toIfaceSlice(vals)
+    if len(valsSl) == 0 {
+        return res, nil
+    }
+    res[valsSl[0].(string)] = valsSl[4]
+    restSl := toIfaceSlice(valsSl[5])
+    for _, v := range restSl {
+        vSl := toIfaceSlice(v)
+        res[vSl[2].(string)] = vSl[6]
+    }
+    return res, nil
+}
+
+Array <- '[' _ vals:( Expr ( ',' _ Expr )* )? ']' {
+    valsSl := toIfaceSlice(vals)
+    if len(valsSl) == 0 {
+        return []interface{}{}, nil
+    }
+    res := []interface{}{valsSl[0]}
+    restSl := toIfaceSlice(valsSl[1])
+    for _, v := range restSl {
+        vSl := toIfaceSlice(v)
+        res = append(res, vSl[2])
+    }
+    return res, nil
+}
+
+///////////////////// Number /////////////////////
+
+Number <- Integer ( '.' DecimalDigit+ )? Exponent? {
+    // JSON numbers have the same syntax as Go, and are parseable using
+    // strconv.ParseFloat
+    cntCodeBlocks++
+    return strconv.ParseFloat(string(c.text), 64)
+}
+
+Integer <- [+-]? DecimalDigit+ {
+    cntCodeBlocks++
+    return strconv.Atoi(string(c.text))
+}
+
+Exponent <- 'e'i [+-]? DecimalDigit+
+
+DecimalDigit <- [0-9]
+
+AlphaNum <- [A-Za-z0-9]
+
+/////////////////// Strings ////////////////
+
+String <- DoubleQuoteString / SingleQuoteString
+
+DoubleQuoteString <- '"' ( !EscapedChar . / '\\' EscapeSequence )* '"' {
+    c.text = bytes.Replace(c.text, []byte(`\/`), []byte(`/`), -1)
+    return strconv.Unquote(string(c.text))
+}
+
+SingleQuoteString <- "'" str:PlainString "'" {
+    return str, nil
+}
+
+PlainString <- ( !EscapedChar . / '\\' EscapeSequence )* {
+    c.text = bytes.Replace(c.text, []byte(`\/`), []byte(`/`), -1)
+    return string(c.text), nil
+}
+
+EscapedChar <- [\x00-\x1f"'\\]
+
+EscapeSequence <- SingleCharEscape / UnicodeEscape
+
+SingleCharEscape <- ["\\/bfnrt]
+
+UnicodeEscape <- 'u' HexDigit HexDigit HexDigit HexDigit
+
+HexDigit <- [0-9a-f]i
+
+Bool <- "true" { return true, nil } / "false" { return false, nil }
+
+Null <- "null" { return nil, nil }
+
+_ "whitespace" <- [ \n\t\r]*
+
+EOF <- !.

@@ -8,7 +8,6 @@ import (
 
 // Register registers a function with the function registry.
 func Register(n string, fn interface{}) {
-
 	// Ensure fn is a function
 	if !utils.IsFunc(fn) {
 		panic("The fn must be a function!")

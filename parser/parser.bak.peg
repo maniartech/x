@@ -1,0 +1,105 @@
+{
+  // Command calculator is a small PEG-generated parser that computes
+  // simple math using numbers.
+  //
+  // Example usage: $ calculator "3 + (2 - 5 * 12)"
+  //
+  // Inspired by pegjs arithmetic example:
+  // https://github.com/pegjs/pegjs/blob/master/examples/arithmetics.pegjs
+  //
+  // Inspired from pegjs excel formula parser:
+  // https://gist.github.com/gamerxl/cf5184a437b10d0f86197b102cf1255a
+  //
+
+  package parser
+
+}
+
+
+Input <- expr:Expr EOF {
+    cntCodeBlocks++
+    return expr, nil
+}
+
+// CompExpr <- _ first:Expr rest:( _ Expr )
+
+
+Expr <- _ first:Term rest:( _ AddOp _ Term )* _ {
+    cntCodeBlocks++
+    return eval(first, rest), nil
+}
+
+Term <- first:Factor rest:( _ MulOp _ Factor )* {
+    cntCodeBlocks++
+    return eval(first, rest), nil
+}
+
+Factor <- '(' expr:Expr ')' {
+    cntCodeBlocks++
+    return expr, nil
+} / number:Number {
+    cntCodeBlocks++
+    return number, nil
+}
+
+AddOp <- ( '+' / '-' ) {
+    cntCodeBlocks++
+    return string(c.text), nil
+}
+
+MulOp <- ( '*' / '/' ) {
+    cntCodeBlocks++
+    return string(c.text), nil
+}
+
+
+CompOp <- ("=" / "<>" / "<" / "<=" / ">" / ">=") {
+  cntCodeBlocks++
+  return c.text, nil
+}
+
+Literals <- (
+  Number /
+  String /
+  Bool /
+  Null
+)
+
+Number <- Integer ( '.' DecimalDigit+ )? Exponent? {
+    // JSON numbers have the same syntax as Go, and are parseable using
+    // strconv.ParseFloat
+    cntCodeBlocks++
+    return strconv.ParseFloat(string(c.text), 64)
+}
+
+Integer <- [+-]? DecimalDigit+ {
+    cntCodeBlocks++
+    return strconv.Atoi(string(c.text))
+}
+
+Exponent <- 'e'i [+-]? DecimalDigit+
+
+DecimalDigit <- [0-9]
+
+String <- '"' ( !EscapedChar . / '\\' EscapeSequence )* '"' {
+    c.text = bytes.Replace(c.text, []byte(`\/`), []byte(`/`), -1)
+    return strconv.Unquote(string(c.text))
+}
+
+EscapedChar <- [\x00-\x1f"\\]
+
+EscapeSequence <- SingleCharEscape / UnicodeEscape
+
+SingleCharEscape <- ["\\/bfnrt]
+
+UnicodeEscape <- 'u' HexDigit HexDigit HexDigit HexDigit
+
+HexDigit <- [0-9a-f]i
+
+Bool <- "true" { return true, nil } / "false" { return false, nil }
+
+Null <- "null" { return nil, nil }
+
+_ "whitespace" <- [ \n\t\r]*
+
+EOF <- !.

@@ -2,6 +2,7 @@ package x
 
 import (
 	"github.com/maniartech/x/calc"
+	"github.com/maniartech/x/currency"
 	"github.com/maniartech/x/statistics"
 )
 
@@ -13,4 +14,5 @@ type Env map[string]interface{}
 func init() {
 	calc.Initialize()
 	statistics.Initialize()
+	currency.Initialize()
 }
