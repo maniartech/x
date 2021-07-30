@@ -1,5 +1,5 @@
 package utils
 
-func throwNotImplementedPanic() {
+func ThrowNotImplementedPanic() {
 	panic("not-implemented")
 }
