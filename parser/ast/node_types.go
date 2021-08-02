@@ -1,60 +1,60 @@
 package ast
 
-// Defines the types of the nodes in the AST.
-
-type NodeType int
+// NodeType defines the types of the nodes in the AST.
+type NodeType uint8
 
 const (
-	Null      NodeType = iota // Null node
-	Boolean                   // Boolean node
-	Number                    // Number node
-	String                    // String node
-	Array                     // Array node
-	Object                    // Object node
-	Ident                     // Identifier node
-	Keyword                   // Keyword node
-	Operator                  // Operator node
-	AssignOp                  // Assign operator node
-	BinOp                     // Binary operator node
-	CompOp                    // Comparison operator node
-	LogicalOp                 // Logical operator node
-	Func                      // Function node
-	FuncArgs                  // Function arguments node
+	TypeNull       NodeType = iota // Null node
+	TypeBoolean                    // Boolean node
+	TypeNumber                     // Number node
+	TypeString                     // String node
+	TypeArray                      // Array node
+	TypeObject                     // Object node
+	TypeExpression                 // Expression node
+	TypeFunc                       // Function node
+	TypeIdent                      // Identifier node
 )
 
 // Returns the string representation of the node type.
 func (n NodeType) String() string {
 	switch n {
-	case Null:
+
+	// Null node
+	case TypeNull:
 		return "Null"
-	case Boolean:
+
+		// Boolean node
+	case TypeBoolean:
 		return "Boolean"
-	case Number:
+
+		// Number node
+	case TypeNumber:
 		return "Number"
-	case String:
+
+		// String node
+	case TypeString:
 		return "String"
-	case Array:
+
+		// Array node
+	case TypeArray:
 		return "Array"
-	case Object:
+
+		// Object node
+	case TypeObject:
 		return "Object"
-	case Ident:
+
+		// Identifier node
+	case TypeIdent:
 		return "Ident"
-	case Keyword:
-		return "Keyword"
-	case Operator:
-		return "Operator"
-	case AssignOp:
-		return "AssignOp"
-	case BinOp:
-		return "BinOp"
-	case CompOp:
-		return "CompOp"
-	case LogicalOp:
-		return "LogicalOp"
-	case Func:
+
+		// Expession Node
+	case TypeExpression:
+		return "Expression"
+
+		// Function node
+	case TypeFunc:
 		return "Func"
-	case FuncArgs:
-		return "FuncArgs"
 	}
+	// Unknown node
 	return "Unknown"
 }
