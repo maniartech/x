@@ -22,8 +22,8 @@ type NumberNode struct {
 }
 
 // NewNumberNode creates a new NumberNode.
-func NewNumberNode(line int, column int, value Number) *NumberNode {
-	return &NumberNode{
+func NewNumberNode(line int, column int, value Number) Node {
+	node := NumberNode{
 		ASTNode: ASTNode{
 			Type: TypeNumber,
 			Position: Position{
@@ -33,9 +33,15 @@ func NewNumberNode(line int, column int, value Number) *NumberNode {
 		},
 		Value: value,
 	}
+	return Node(node)
 }
 
 // String returns a string representation of the NumberNode.
 func (n NumberNode) String() string {
 	return fmt.Sprintf("NumberNode %s", n.Value)
+}
+
+// Eval evalues the NumberNode.
+func (n NumberNode) Eval() (interface{}, error) {
+	return n.Value, nil
 }

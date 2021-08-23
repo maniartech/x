@@ -9,8 +9,8 @@ type StringNode struct {
 }
 
 // NewStringNode returns a new StringNode.
-func NewStringNode(line int, column int, value string) *StringNode {
-	return &StringNode{
+func NewStringNode(line int, column int, value string) Node {
+	node := StringNode{
 		ASTNode: ASTNode{
 			Type: TypeString,
 			Position: Position{
@@ -20,9 +20,15 @@ func NewStringNode(line int, column int, value string) *StringNode {
 		},
 		Value: value,
 	}
+	return Node(node)
 }
 
 // String returns a string representation of the StringNode.
 func (n StringNode) String() string {
-	return fmt.Sprint()
+	return fmt.Sprintf("StringNode: %s", n.Value)
+}
+
+// Eval evaluates the StringNode to string
+func (n StringNode) Eval() (interface{}, error) {
+	return n.Value, nil
 }

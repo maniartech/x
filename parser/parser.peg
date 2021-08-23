@@ -51,6 +51,7 @@ Args <- first:Expr rest:( _ "," _ Expr )* {
     }
 
     args := make([]interface{}, len(slice)+1)
+
     args[0] = eval(first, nil)
     for i, arg := range slice {
         args [i + 1] = eval(arg, nil).([]interface{})[3]
@@ -101,6 +102,8 @@ Object <- '{' _ vals:( String _ ':' _ Expr ( ',' _ String _ ':' _ Expr )* )? '}'
 }
 
 Array <- '[' _ vals:( Expr ( ',' _ Expr )* )? ']' {
+
+
     valsSl := toIfaceSlice(vals)
     if len(valsSl) == 0 {
         return []interface{}{}, nil

@@ -32,23 +32,25 @@ Term <- first:Factor rest:( _ MulOp _ Factor )* {
 }
 
 Function <- fn:AlphaNum+ _ '(' _ args:Args? ')' {
-    // fnName := toString(fn)
+    fnName := toString(fn)
     // return getFunctionNode(0, 0, fnName, args.([]interface{})...), nil
-    return nil, nil
+    return NewFunctionNode(0, 0, fnName, args.([]Node)), nil
 }
 
 Args <- first:Expr rest:( _ "," _ Expr )* {
     slice := toIfaceSlice(rest)
     if slice == nil {
-        return []interface{}{first}, nil
+        return []Node{}, nil
     }
 
     args := make([]interface{}, len(slice)+1)
     args[0] = eval(0, 0, first, nil)
     for i, arg := range slice {
-        args [i + 1] = eval(0, 0, arg, nil).([]interface{})[3]
+        val := eval(0, 0, arg.([]interface{})[3], nil)
+		args[i+1] = val
     }
-    return args, nil
+
+    return toNodeSlice(args), nil
 }
 
 Factor <- '(' expr:Expr ')' {
@@ -74,24 +76,28 @@ Value <- val:( Object / Array / Number / String / Bool / Null / Function ) _ {
 }
 
 Object <- '{' _ vals:( String _ ':' _ Expr ( ',' _ String _ ':' _ Expr )* )? '}' {
-    res := make(map[string]interface{})
+    // res := make(map[string]interface{})
     valsSl := toIfaceSlice(vals)
+    res := make([]ObjectItem, 0, len(valsSl))
     if len(valsSl) == 0 {
-        return res, nil
+        return NewObjectNode(c.pos.line, c.pos.col, res), nil
     }
-    res[valsSl[0].(string)] = valsSl[4]
+    // res[valsSl[0].(string)] = valsSl[4]
+    res = append(res, ObjectItem{ Key: valsSl[0].(StringNode).Value, Value: valsSl[4].(Node) })
+
     restSl := toIfaceSlice(valsSl[5])
     for _, v := range restSl {
         vSl := toIfaceSlice(v)
-        res[vSl[2].(string)] = vSl[6]
+        // res[vSl[2].(string)] = vSl[6]
+        res = append(res, ObjectItem{ Key: vSl[2].(StringNode).Value, Value: vSl[6].(Node) })
     }
-    return res, nil
+    return NewObjectNode(c.pos.line, c.pos.col, res), nil
 }
 
 Array <- '[' _ vals:( Expr ( ',' _ Expr )* )? ']' {
     valsSl := toIfaceSlice(vals)
     if len(valsSl) == 0 {
-        return []interface{}{}, nil
+        return NewArrayNode(c.pos.line, c.pos.col, []Node{}), nil
     }
     res := []interface{}{valsSl[0]}
     restSl := toIfaceSlice(valsSl[1])
@@ -99,7 +105,7 @@ Array <- '[' _ vals:( Expr ( ',' _ Expr )* )? ']' {
         vSl := toIfaceSlice(v)
         res = append(res, vSl[2])
     }
-    return res, nil
+    return NewArrayNode(c.pos.line, c.pos.col, toNodeSlice(res)), nil
 }
 
 ///////////////////// Number /////////////////////
@@ -125,6 +131,10 @@ AlphaNum <- [A-Za-z0-9]
 
 String <- DoubleQuoteString / SingleQuoteString
 
+// Identifier <- AlphaNum+ {
+//     return c.text
+// }
+
 DoubleQuoteString <- '"' ( !EscapedChar . / '\\' EscapeSequence )* '"' {
     c.text = bytes.Replace(c.text, []byte(`\/`), []byte(`/`), -1)
     value, err := strconv.Unquote(string(c.text))
@@ -137,7 +147,7 @@ SingleQuoteString <- "'" str:PlainString "'" {
 
 PlainString <- ( !EscapedChar . / '\\' EscapeSequence )* {
     c.text = bytes.Replace(c.text, []byte(`\/`), []byte(`/`), -1)
-    return NewStringNode(c.pos.line, c.pos.col, string(c.text)), nil
+    return string(c.text), nil
 }
 
 EscapedChar <- [\x00-\x1f"'\\]
@@ -150,9 +160,15 @@ UnicodeEscape <- 'u' HexDigit HexDigit HexDigit HexDigit
 
 HexDigit <- [0-9a-f]i
 
-Bool <- "true" { return true, nil } / "false" { return false, nil }
+Bool <- "true" {
+    return NewBooleanNode(c.pos.line, c.pos.col, true), nil
+} / "false" {
+    return NewBooleanNode(c.pos.line, c.pos.col, false), nil
+}
 
-Null <- "null" { return nil, nil }
+Null <- "null" {
+    return NewNullNode(c.pos.line, c.pos.col), nil
+}
 
 _ "whitespace" <- [ \n\t\r]*
 

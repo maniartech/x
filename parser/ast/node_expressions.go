@@ -13,7 +13,7 @@ type ExpressionNode struct {
 	Right        Node
 }
 
-func NewExpressionNode(line int, column int, operator string, left Node, right Node) *ExpressionNode {
+func NewExpressionNode(line int, column int, operator string, left, right Node) *ExpressionNode {
 	return &ExpressionNode{
 		ASTNode: ASTNode{
 			Type:     TypeFunc,

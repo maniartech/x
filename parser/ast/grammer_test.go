@@ -9,7 +9,7 @@ import (
 )
 
 func TestGrammer(t *testing.T) {
-	got, err := ast.ParseReader("", strings.NewReader("1 + 2.5"))
+	got, err := ast.ParseReader("", strings.NewReader("(1 + 2) * 3"))
 	if err != nil {
 		t.Error(err)
 	}

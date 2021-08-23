@@ -7,8 +7,8 @@ type BooleanNode struct {
 	Value bool
 }
 
-func NewBooleanNode(line int, column int, value bool) *BooleanNode {
-	return &BooleanNode{
+func NewBooleanNode(line int, column int, value bool) Node {
+	node := BooleanNode{
 		ASTNode: ASTNode{
 			Type: TypeBoolean,
 			Position: Position{
@@ -18,8 +18,14 @@ func NewBooleanNode(line int, column int, value bool) *BooleanNode {
 		},
 		Value: value,
 	}
+	return Node(node)
 }
 
 func (n BooleanNode) String() string {
-	return fmt.Sprint()
+	return fmt.Sprintf("BooleanNode: %v", n.Value)
+}
+
+// Eval evaluates the BooleanNode
+func (n BooleanNode) Eval() (interface{}, error) {
+	return n.Value, nil
 }
