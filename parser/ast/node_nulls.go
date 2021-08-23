@@ -19,3 +19,7 @@ func NewNullNode(line int, column int) *NullNode {
 func (n NullNode) String() string {
 	return "NullNode {null}"
 }
+
+func (n NullNode) Eval() (interface{}, error) {
+	return nil, nil
+}
