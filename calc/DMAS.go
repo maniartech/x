@@ -90,6 +90,5 @@ func Divide(num1, num2 interface{}) float64 {
 	if utils.ToFloat64(num2) == 0 {
 		panic(core.ErrDivideBy0)
 	}
-	ans := utils.ToFloat64(num1) / utils.ToFloat64(num2)
-	return Round(ans, 15-NumberOfDigits(utils.ToInt(ans)))
+	return utils.ToFloat64(num1) / utils.ToFloat64(num2)
 }

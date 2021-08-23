@@ -5,50 +5,52 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func BitAnd(num1, num2 interface{}) int {
-	x := utils.ToInt(num1)
-	y := utils.ToInt(num2)
+const limit int64 = 281474976710656 // 2 ^ 48
 
-	if x < 0 || y < 0 || x >= 281474976710656 || y >= 281474976710656 {
+func BitAnd(num1, num2 interface{}) int64 {
+	x := utils.ToInt64(num1)
+	y := utils.ToInt64(num2)
+
+	if x < 0 || y < 0 || x >= limit || y >= limit {
 		panic(core.ErrInvalidInput)
 	}
 	return (x & y)
 }
 
-func BitOr(num1, num2 interface{}) int {
-	x := utils.ToInt(num1)
-	y := utils.ToInt(num2)
+func BitOr(num1, num2 interface{}) int64 {
+	x := utils.ToInt64(num1)
+	y := utils.ToInt64(num2)
 
-	if x < 0 || y < 0 || x >= 281474976710656 || y >= 281474976710656 {
+	if x < 0 || y < 0 || x >= limit || y >= limit {
 		panic(core.ErrInvalidInput)
 	}
 	return (x | y)
 }
 
-func BitXOR(num1, num2 interface{}) int {
-	x := utils.ToInt(num1)
-	y := utils.ToInt(num2)
+func BitXOR(num1, num2 interface{}) int64 {
+	x := utils.ToInt64(num1)
+	y := utils.ToInt64(num2)
 
-	if x < 0 || y < 0 || x >= 281474976710656 || y >= 281474976710656 {
+	if x < 0 || y < 0 || x >= limit || y >= limit {
 		panic(core.ErrInvalidInput)
 	}
 	return (x ^ y)
 }
 
-func BitLShift(num1, num2 interface{}) int {
-	x := utils.ToInt(num1)
-	y := utils.ToInt(num2)
+func BitLShift(num1, num2 interface{}) int64 {
+	x := utils.ToInt64(num1)
+	y := utils.ToInt64(num2)
 
-	if x < 0 || y < 0 || x >= 281474976710656 || y >= 281474976710656 {
+	if x < 0 || y < 0 || x >= limit || y >= limit {
 		panic(core.ErrInvalidInput)
 	}
 	return (x << y)
 }
-func BitRShift(num1, num2 interface{}) int {
-	x := utils.ToInt(num1)
-	y := utils.ToInt(num2)
+func BitRShift(num1, num2 interface{}) int64 {
+	x := utils.ToInt64(num1)
+	y := utils.ToInt64(num2)
 
-	if x < 0 || y < 0 || x >= 281474976710656 || y >= 281474976710656 {
+	if x < 0 || y < 0 || x >= limit || y >= limit {
 		panic(core.ErrInvalidInput)
 	}
 	return (x >> y)
