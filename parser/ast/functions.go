@@ -9,35 +9,57 @@ func toIfaceSlice(v interface{}) []interface{} {
 	return v.([]interface{})
 }
 
+// toNodeSlice converts the interface{} to []Node. The supplied
+// interface{} must be a slice of []interface{}
+func toNodeSlice(v interface{}) []Node {
+	if v == nil {
+		return nil
+	}
+	islice := v.([]interface{})
+	// convert iSlice to []Node
+	nodes := make([]Node, len(islice))
+	for i, node := range islice {
+		nodes[i] = node.(Node)
+	}
+	return nodes
+}
+
 func eval(line, col int, first, rest interface{}) interface{} {
 
-	fmt.Printf(">> %+v %+v\n", first, rest)
-	return nil
+	// fmt.Printf("EVAL => First:%+v Rest:%+v\n", first, rest)
+	// return nil
 
-	// l := first
-	// restSl := toIfaceSlice(rest)
+	l, ok := first.(Node)
 
-	// for _, v := range restSl {
-	// 	restExpr := toIfaceSlice(v)
-	// 	if r, ok := restExpr[3].(Node); !ok {
-	// 		panic("invalid-expression - assertion-failed!")
-	// 		return nil
-	// 	}
-	// 	op := ""
+	// TODO: handle error
+	if l != nil && !ok { // when l is nil, ignore it!
+		panic("invalid-expression - assertion-failed")
+	}
 
-	// 	if o, ok := restExpr[1].([]byte); ok {
-	// 		op = string(o)
-	// 	} else if o, ok := restExpr[1].(string); ok {
-	// 		op = o
-	// 	}
+	restSl := toIfaceSlice(rest)
 
-	// 	if op != "" {
-	// 		fmt.Println("Operator: ", op)
-	// 		l = NewExpressionNode(line, col, op, l, r)
-	// 	}
-	// }
+	for _, v := range restSl {
+		restExpr := toIfaceSlice(v)
+		r, ok := restExpr[3].(Node)
+		// TODO: handle error
+		if !ok {
+			panic("invalid-expression - assertion-failed!")
+		}
+		op := ""
 
-	// return l
+		if o, ok := restExpr[1].([]byte); ok {
+			op = string(o)
+		} else if o, ok := restExpr[1].(string); ok {
+			op = o
+		}
+
+		if op != "" {
+			fmt.Println("Operator: ", op)
+			l = NewExpressionNode(line, col, op, l, r)
+		}
+	}
+
+	return l
 }
 
 /*
@@ -73,9 +95,9 @@ func eval(line, col int, first, rest interface{}) Node {
 }
 */
 
-func getFunctionNode(line, col int, name string, args []Node) *FunctionNode {
-	return NewFunctionNode(line, col, name, args)
-}
+// func getFunctionNode(line, col int, name string, args []Node) *FunctionNode {
+// 	return NewFunctionNode(line, col, name, args)
+// }
 
 func toByteSlice(val []interface{}) []byte {
 	s := make([]byte, len(val))
