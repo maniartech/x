@@ -1,103 +1,98 @@
-package finance
+package calc
 
 import "github.com/maniartech/x/utils"
 
-func AccRINT() {
+func Aggregate() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func AccRINTM() {
+func Acoth() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Amordegrc() {
+func Arabic() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CoupDayBS() {
+func CeilingMath() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CoupDays() {
+func CeilingPrecise() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CoupDaysNC() {
+func CombinA() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CoupNCD() {
+func FloorMath() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CoupNum() {
+func FloorPresice() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func CumPrINC() {
+func IsoCeiling() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Duration() {
+func Let() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func MDuration() {
+func MDTerm() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func OddFPrice() {
+func MinVerse() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func OddFYeild() {
+func MMult() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func OddLPrice() {
+func MRound() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func OddLYeild() {
+func MultiNomial() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Price() {
+func MuNit() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Rate() {
+func RandArray() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Recived() {
+func SeriesSum() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func TBillEQ() {
+func Sequence() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func TBillPrice() {
+func Sign() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func VDB() {
+func SumIF() {
+	utils.ThrowNotImplementedPanic()
+}
+func SumOfS() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Xirr() {
+func SumProduct() {
 	utils.ThrowNotImplementedPanic()
 }
 
-func Yeild() {
-	utils.ThrowNotImplementedPanic()
-}
-
-func YeildDisc() {
-	utils.ThrowNotImplementedPanic()
-}
-
-func YeildMat() {
+func SumSQ() {
 	utils.ThrowNotImplementedPanic()
 }
