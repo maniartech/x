@@ -151,7 +151,7 @@ func ToInt(v interface{}) int {
 		return int(v)
 	case int32:
 		return int(v)
-	case int64:
+	case int:
 		return int(v)
 
 		// Uints
@@ -176,6 +176,57 @@ func ToInt(v interface{}) int {
 			panic(e)
 		}
 		return int(i)
+	}
+}
+
+// ToInt converts the interface value to the generic integer
+func ToInt64(v interface{}) int64 {
+	switch v := v.(type) {
+
+	case nil:
+		return 0
+
+	// Bool
+	case bool:
+		if v {
+			return 1
+		}
+		return 0
+
+	// Bytes
+	case byte:
+		return int64(v)
+
+		// Ints
+	case int16:
+		return int64(v)
+	case int32:
+		return int64(v)
+	case int64:
+		return int64(v)
+
+		// Uints
+	case uint:
+		return int64(v)
+	case uint16:
+		return int64(v)
+	case uint32:
+		return int64(v)
+	case uint64:
+		return int64(v)
+
+		// Floats
+	case float32:
+		return int64(v)
+	case float64:
+		return int64(v)
+
+	default:
+		i, e := strconv.ParseInt(fmt.Sprintf("%v", v), 10, 64)
+		if e != nil {
+			panic(e)
+		}
+		return int64(i)
 	}
 }
 

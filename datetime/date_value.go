@@ -8,6 +8,15 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
+//DateValue converts a date and then converts itto a serial number.
+//
+//Arguments
+//
+//date in either string form or a time.Time form
+//
+//Examples
+//	DateValue("1/1/2021") // returns a value of 44197
+// 	DateValue("1/1/2021") // returns a value of 44197
 func DateValue(date interface{}) int {
 	var val time.Time = time.Date(1900, time.Month(1), 1, 0, 0, 0, 0, time.UTC)
 	switch date := date.(type) {
@@ -52,8 +61,19 @@ func DateValue(date interface{}) int {
 	}
 	return int(val.Sub(DayZero).Hours()/24) + 2
 }
-func getMonth(input interface{}) time.Month {
-	switch v := input.(type) {
+
+//getMonth inputs a month and then convert it into time.Month form.
+//
+//Arguments
+//
+//month in either string or a int form
+//
+//Examples
+//	getMonth("January") // returns a value of 1
+//	getMonth("Feb") // returns a value of 2
+// 	getMonth(12) // returns a value of 12
+func getMonth(month interface{}) time.Month {
+	switch v := month.(type) {
 	case string:
 		for i := 0; i < 12; i++ {
 			if MonthsInYear[i] == v {
@@ -62,7 +82,7 @@ func getMonth(input interface{}) time.Month {
 		}
 		panic(core.ErrInvalidInput)
 	case int:
-		return time.Month(input.(int))
+		return time.Month(month.(int))
 	default:
 		panic(core.ErrInvalidInput)
 	}

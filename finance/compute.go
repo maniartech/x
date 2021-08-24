@@ -1,7 +1,7 @@
 package finance
 
-// ToWordTens converts numbers form 0 to 99 to word form
-func ToWordTens(input int, multiplier bool) string {
+// toWordTens converts numbers form 0 to 99 to word form
+func toWordTens(input int, multiplier bool) string {
 	var output string
 	if input > 0 && input < 20 {
 		output = singles[input]
@@ -18,21 +18,21 @@ func ToWordTens(input int, multiplier bool) string {
 	return output
 }
 
-// ToWordTens converts numbers form 0 to 999 to word form
-func ToWordHundreds(input int) string {
+// toWordTens converts numbers form 0 to 999 to word form
+func toWordHundreds(input int) string {
 	var output string
 	if input == 0 {
 		output = "zero"
 	}
 	if input/100 != 0 {
 		if input%100 != 0 {
-			output = ToWordTens(input/100, false) + " hundred " + ToWordTens(input%100, false)
+			output = toWordTens(input/100, false) + " hundred " + toWordTens(input%100, false)
 		} else {
-			output = ToWordTens(input/100, false) + " hundred"
+			output = toWordTens(input/100, false) + " hundred"
 		}
 	} else {
 
-		output = ToWordTens(input%100, false)
+		output = toWordTens(input%100, false)
 	}
 	return output
 }
