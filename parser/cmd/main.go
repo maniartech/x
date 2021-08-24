@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/maniartech/x/parser/ast"
+	"github.com/maniartech/x/parser"
 	// "github.com/maniartech/x/currency"
 	// "github.com/maniartech/x/statistics"
 	// "github.com/maniartech/x/statistics"
@@ -18,7 +18,7 @@ func main() {
 		log.Fatal("Usage: calculator 'EXPR'")
 	}
 
-	got, err := ast.ParseReader("", strings.NewReader(os.Args[1]))
+	got, err := parser.ParseReader("", strings.NewReader(os.Args[1]))
 
 	if err != nil {
 		log.Fatal(err)

@@ -5,6 +5,6 @@ import (
 )
 
 func Initialize() {
-	registry.Register("Average", Average)
-	registry.Register("AverageA", AverageA)
+	registry.Register("AVERAGE", Average)
+	registry.Register("AVERAGEA", AverageA)
 }
