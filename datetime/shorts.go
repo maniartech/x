@@ -11,6 +11,7 @@ import (
 //Arguments
 //
 //date: Starting date in time.Time
+//
 //months: Months to be added or subtracted
 //
 //Examples
@@ -26,6 +27,7 @@ func EDate(date time.Time, months int) time.Time {
 //Arguments
 //
 //date: Starting date in time.Time
+//
 //months: Months to be added or subtracted
 //
 //Examples
