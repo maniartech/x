@@ -3,8 +3,8 @@ package calc
 import "github.com/maniartech/x/registry"
 
 func Initialize() {
-	registry.Register("Ceiling", Ceiling)
-	registry.Register("Round", Round)
-	registry.Register("Floor", Floor)
+	registry.Register("CEILING", Ceiling)
+	registry.Register("ROUND", Round)
+	registry.Register("FLOOR", Floor)
 	registry.Register("GCD", GCD)
 }

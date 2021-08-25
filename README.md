@@ -14,7 +14,7 @@ func main() {
   if err != nil {
     panic(err)
   }
-  
+
   print(val) // Prints: TWO THOUSAND THREE HUNDRED TWENTY TWO
 }
 ```
@@ -38,7 +38,7 @@ The following packages are functions are ready for use!
 
 ### Packages
 
-#### github.com/maniartech/x/currency
+#### github.com/maniartech/x/finance
 
 Provides the currency manipulation functions.
 

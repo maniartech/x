@@ -1,5 +1,7 @@
 package finance
 
+import "github.com/maniartech/x/registry"
+
 var singles []string = []string{
 	// The element 0 contains no value because the number zero isn't
 	// rendered in the output of most numbers.
@@ -12,4 +14,8 @@ var singles []string = []string{
 var tys []string = []string{
 	"ten", "twenty", "thirty", "fourty", "fifty", "sixty",
 	"seventy", "eighty", "ninety",
+}
+
+func Initialize() {
+	registry.Register("Digit2Word", Digit2Word)
 }

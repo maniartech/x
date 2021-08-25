@@ -1,16 +1,37 @@
 package datetime
 
 import (
-	"math"
 	"time"
 )
 
-//Days Finds the difference between two dates
+//Days finds the difference between the two dates. date1 - date2
+//
+//Arguments
+//
+//date1: First Date
+//
+//date2: Second Date
+//
+//Examples
+//	Days (Date(2021, 12, 31), Date(2021, 1, 1)) // returns 364
+// 	Days (Date(2021, 1, 1), Date(2022, 1, 1)) // returns 365
 func Days(date1 time.Time, date2 time.Time) int {
-	return int(math.Abs((date1.Sub(date2).Hours() / 24)))
+	d1 := DateValue(date1)
+	d2 := DateValue(date2)
+	return d1 - d2
 }
 
-//Days360 Finds the difference between two dates on a 360 day year calendar
+//Days360 finds the difference between two dates according to a 360 day year calendar.
+//
+//Arguments
+//
+//date1: First Date
+//
+//date2: Second Date
+//
+//Examples
+//	Days (Date(2021, 12, 31), Date(2021, 1, 1)) // returns 359
+// 	Days (Date(2021, 1, 1), Date(2022, 1, 1)) // returns 360
 func Days360(date1, date2 time.Time) int {
 	//Checking if the second date is smaller than the first one
 	//So it could be swaped to reduce chances of error

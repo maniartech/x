@@ -18,7 +18,7 @@ func AverageA(v ...interface{}) float64 {
 				sum += 1
 			}
 		default:
-			if fval, err := strconv.ParseFloat(fmt.Sprintf("%v", tval), 63); err == nil {
+			if fval, err := strconv.ParseFloat(fmt.Sprintf("%v", tval), 64); err == nil {
 				sum += fval
 			}
 		}

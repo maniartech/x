@@ -10,7 +10,10 @@ import (
 )
 
 // Digit2Word convert the indiviual digits to their word form.
-func Digit2Word(input interface{}) (string, error) {
+func Digit2Word(input interface{}) string {
+
+	value := utils.ToString(input)
+
 	//Variable initalization
 	var word, pointV, pointS string
 	var digit []string = []string{
@@ -18,10 +21,9 @@ func Digit2Word(input interface{}) (string, error) {
 	}
 	var number, point int
 	var single bool = false
-	inputS := utils.ToString(input)
 
 	//Converting the input to int and then spliting it into two
-	number, point = ConvertToInt(inputS)
+	number, point = ConvertToInt(value)
 	pointS = strconv.Itoa(point)
 	if len(pointS) < 2 {
 		single = true
@@ -50,7 +52,7 @@ func Digit2Word(input interface{}) (string, error) {
 	}
 	//Checking if the value of the point != 0 if not then we also return the point part in the reutrn
 	if point != 0 {
-		return word + pointV, nil
+		return word + pointV
 	}
-	return word[:len(word)-1], nil
+	return word[:len(word)-1]
 }

@@ -18,8 +18,13 @@ func TestDays(t *testing.T) {
 	var input4 time.Time = time.Date(2011, time.Month(2), 1, 0, 0, 0, 0, time.UTC)
 	assert.Equal(t, 364, days(t, input, input2))
 	assert.Equal(t, 42, days(t, input3, input4))
+	date1 = datetime.Date(2020, 1, 1)
+	date2 = datetime.Date(2020, 12, 30)
+	assert.Equal(t, -364, datetime.Days(date1, date2))
 
 	//Days360
+	date1 = datetime.Date(2017, 2, 6)
+	date2 = datetime.Date(2018, 3, 5)
 	assert.Equal(t, 389, datetime.Days360(date1, date2))
 	assert.Equal(t, 390, datetime.Days360(datetime.Date(2017, 2, 6), datetime.Date(2018, 3, 6)))
 	assert.Equal(t, 391, datetime.Days360(datetime.Date(2017, 2, 6), datetime.Date(2018, 3, 7)))

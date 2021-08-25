@@ -28,10 +28,7 @@ func TestDigit2Word(t *testing.T) {
 }
 
 func digit2Word(t *testing.T, input string) string {
-	output, err := finance.Digit2Word(input)
-	if err != nil {
-		assert.Fail(t, err.Error())
-	}
+	output := finance.Digit2Word(input)
 	return output
 }
 
