@@ -114,7 +114,6 @@ func ConvertPressure(number interface{}, fr, to string) float64 {
 	return ((1.0 / toPascal[to]) * (num * toPascal[fr]))
 }
 
-//TODO Double check value of 1 eV
 func ConvertEnergy(number interface{}, fr, to string) float64 {
 	num := utils.ToFloat64(number)
 	toJoule := map[string]float64{"e": 0.0000001, "c": 4.184, "cal": 4.1868, "eV": 1.602176634e-19, "hh": 2684519.538, "wh": 3600, "flb": 1.355817948, "btu": 1055.055853}

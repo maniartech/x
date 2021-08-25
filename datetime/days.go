@@ -9,6 +9,7 @@ import (
 //Arguments
 //
 //date1: First Date
+//
 //date2: Second Date
 //
 //Examples
@@ -25,6 +26,7 @@ func Days(date1 time.Time, date2 time.Time) int {
 //Arguments
 //
 //date1: First Date
+//
 //date2: Second Date
 //
 //Examples
