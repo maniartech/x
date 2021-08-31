@@ -28,7 +28,7 @@ func Num2WordInd(input interface{}) string {
 		if paise == 100 {
 			panic(core.ErrInvalidInput)
 		}
-		paiseV = ToWordTens(paise, multiplier)
+		paiseV = toWordTens(paise, multiplier)
 	}
 	//Some basic conditons
 	if number == 0 {
@@ -42,7 +42,7 @@ func Num2WordInd(input interface{}) string {
 			// computing the first 3 digits of the number togther
 			if powerCounter == 0 {
 				mod1 = temp % 1000
-				word = ToWordHundreds(mod1)
+				word = toWordHundreds(mod1)
 				powerCounter++
 				temp = temp / 1000
 			}
@@ -53,7 +53,7 @@ func Num2WordInd(input interface{}) string {
 				temp = temp / 100
 				continue
 			}
-			part = ToWordTens(mod1, false)
+			part = toWordTens(mod1, false)
 			word = part + " " + power[powerCounter] + " " + word
 			powerCounter++
 			temp = temp / 100

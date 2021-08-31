@@ -9,60 +9,101 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-//actual/actual bias with leap year and non leap year not working properly
-func Disc(Settlement, Maturity time.Time, Pr, Redemption interface{}, Basis ...interface{}) float64 {
-	pr := utils.ToFloat64(Pr)
-	redemption := utils.ToFloat64(Redemption)
+//Disc returns discount percentage for a security.
+//
+//Arguments
+//
+//Settlement: The settlement for the security.
+//
+//Maturity: The maturity date for the expiration of the security.
+//
+//Pr: Price of security per $100 face value.
+//
+//Redemption: Value of redemption of security per $100 face value.
+//
+//Basis: OPTIONAL, Day count basis used for calculations
+//
+//Examples:
+//	date1 = 2018-Jul-1
+//	date2 = 2048-Jan-1
+//	Disc(date1, date2, 97.975, 100, 0) //Returns 0.0006864406779661065
+//	Disc(date1, date2, 97.975, 100, 2) //Returns 0.0006765033407572485
+func Disc(settlement, maturity time.Time, pr, redemption interface{}, basis ...interface{}) float64 {
+	Pr := utils.ToFloat64(pr)
+	Redemption := utils.ToFloat64(redemption)
+	//Setting Default Basis
 	B := 360
-	basis := 0
-	if len(Basis) > 0 {
-		basis = utils.ToInt(Basis[0])
-		if basis == 0 || basis == 2 || basis == 4 {
+	Basis := 0
+	//getting the value of basis if it was inputted
+	if len(basis) > 0 {
+		Basis = utils.ToInt(basis[0])
+		if Basis == 0 || Basis == 2 || Basis == 4 {
 			B = 360
-		} else if basis == 1 {
-			if datetime.IsLeapYear(Settlement) || datetime.IsLeapYear(Maturity) {
+		} else if Basis == 1 {
+			if datetime.IsLeapYear(settlement) || datetime.IsLeapYear(maturity) {
 				B = 366
 			} else {
 				B = 365
 			}
-		} else if basis == 3 {
+		} else if Basis == 3 {
 			B = 365
 		} else {
 			panic(core.ErrInvalidInput)
 		}
 	}
-	if pr <= 0 || redemption <= 0 {
+	if Pr <= 0 || Redemption <= 0 {
 		panic(core.ErrInvalidInput)
 	}
 
-	if datetime.DateValue(Settlement) >= datetime.DateValue(Maturity) {
+	if datetime.DateValue(settlement) >= datetime.DateValue(maturity) {
 		panic(core.ErrInvalidInput)
 	}
 	DSM := 0
-	if basis == 0 || basis == 4 {
-		DSM = (datetime.Days360(Settlement, Maturity))
+	if Basis == 0 || Basis == 4 {
+		DSM = (datetime.Days360(settlement, maturity))
 	} else {
-		DSM = datetime.Days(Maturity, Settlement)
+		DSM = datetime.Days(maturity, settlement)
 	}
-	return calc.Divide((redemption-pr), redemption) * calc.Divide(B, DSM)
+	return calc.Divide((Redemption-Pr), Redemption) * calc.Divide(B, DSM)
 }
 
-func PriceDisc(Settlement, Maturity time.Time, Discount, Redemption interface{}, Basis ...interface{}) float64 {
-	discount := utils.ToFloat64(Discount)
-	redemption := utils.ToFloat64(Redemption)
+//PriceDisc returns the price of a discounted security per $100 face value.
+//
+//Arguments
+//
+//Settlement: The settlement for the security.
+//
+//Maturity: The maturity date for the expiration of the security.
+//
+//Discount: Discount rate on the security.
+//
+//Redemption: Value of redemption of security per $100 face value.
+//
+//Basis: OPTIONAL, Day count basis used for calculations
+//
+//Examples:
+//	date1 = 2018-Jul-1
+//	date2 = 2048-Jan-1
+//	Disc(date1, date2, 97.975, 100, 0) //Returns 0.0006864406779661065
+//	Disc(date1, date2, 97.975, 100, 2) //Returns 0.0006765033407572485
+func PriceDisc(settlement, maturity time.Time, discount, redemption interface{}, basis ...interface{}) float64 {
+	Discount := utils.ToFloat64(discount)
+	Redemption := utils.ToFloat64(redemption)
+	//Setting Default Basis
 	B := 360
-	basis := 0
-	if len(Basis) > 0 {
-		basis = utils.ToInt(Basis[0])
-		if basis == 0 || basis == 2 || basis == 4 {
+	Basis := 0
+	//getting the value of basis if it was inputted
+	if len(basis) > 0 {
+		Basis = utils.ToInt(basis[0])
+		if Basis == 0 || Basis == 2 || Basis == 4 {
 			B = 360
-		} else if basis == 1 {
-			if datetime.IsLeapYear(Settlement) || datetime.IsLeapYear(Maturity) {
+		} else if Basis == 1 {
+			if datetime.IsLeapYear(settlement) || datetime.IsLeapYear(maturity) {
 				B = 366
 			} else {
 				B = 365
 			}
-		} else if basis == 3 {
+		} else if Basis == 3 {
 			B = 365
 		} else {
 			panic(core.ErrInvalidInput)
@@ -71,17 +112,17 @@ func PriceDisc(Settlement, Maturity time.Time, Discount, Redemption interface{},
 
 	//Checking if Date of settlement is greater than or equal to Date of maturity
 	//If it is then panicing
-	if datetime.DateValue(Settlement) >= datetime.DateValue(Maturity) {
+	if datetime.DateValue(settlement) >= datetime.DateValue(maturity) {
 		panic(core.ErrInvalidInput)
 	}
-	if discount <= 0 || redemption <= 0 {
+	if Discount <= 0 || Redemption <= 0 {
 		panic(core.ErrInvalidInput)
 	}
 	DSM := 0
-	if basis == 0 || basis == 4 {
-		DSM = (datetime.Days360(Settlement, Maturity))
+	if Basis == 0 || Basis == 4 {
+		DSM = (datetime.Days360(settlement, maturity))
 	} else {
-		DSM = datetime.Days(Maturity, Settlement)
+		DSM = datetime.Days(maturity, settlement)
 	}
-	return redemption - (discount*redemption)*calc.Divide(DSM, B)
+	return Redemption - (Discount*Redemption)*calc.Divide(DSM, B)
 }

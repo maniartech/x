@@ -42,6 +42,7 @@ func PriceMat(Settlement, Maturity, Issue time.Time, Rate, Yeild interface{}, Ba
 	DSM := 0
 	DIM := 0
 	A := 0
+	//Calculating values depending on different basis
 	if basis == 0 || basis == 4 {
 		A = datetime.Days360(Issue, Settlement)
 		DIM = datetime.Days360(Issue, Maturity)
@@ -51,6 +52,7 @@ func PriceMat(Settlement, Maturity, Issue time.Time, Rate, Yeild interface{}, Ba
 		DIM = datetime.Days(Issue, Maturity)
 		DSM = datetime.Days(Settlement, Maturity)
 	}
+	//Calculating Numerator and Denominator
 	n := 100 + (calc.Divide(DIM, B) * rate * 100)
 	d := 1 + (calc.Divide(DSM, B) * yeild)
 	return (n / d) - (calc.Divide(A, B) * rate * 100)

@@ -27,19 +27,19 @@ func Num2Word(input interface{}) string {
 		if cent == 100 {
 			panic(core.ErrInvalidInput)
 		}
-		centV = ToWordTens(cent, multiplier)
+		centV = toWordTens(cent, multiplier)
 	}
 	//Some basic conditons
 	// computing the 3 digits of the number togther
 	if number == 0 {
 		word = "zero"
 	} else if number > 0 && number < 20 {
-		word = ToWordTens(number, false)
+		word = toWordTens(number, false)
 	} else {
 		temp := int(number)
 		for temp != 0 {
 			mod = temp % 1000
-			part = ToWordHundreds(mod)
+			part = toWordHundreds(mod)
 			if mod != 0 {
 				word = part + power[powerCounter] + word
 			} else {

@@ -10,6 +10,16 @@ import (
 )
 
 // Digit2Word convert the indiviual digits to their word form.
+//
+//Arguments
+//
+//Cost: Starting cost of the asset.
+//
+//Input: A Number that you want to convert into word form digit wise.
+//
+//Examples:
+//	 Digit2Word (1564) //Returns one five six four
+//	 Digit2Word (645.23) //Returns six four five point two three
 func Digit2Word(input interface{}) string {
 
 	value := utils.ToString(input)

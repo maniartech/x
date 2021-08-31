@@ -7,30 +7,32 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func FV(Rate, Nper, Pmt interface{}, Value ...interface{}) float64 {
-	var value float64
+func FV(rate, nper, pmt interface{}, value ...interface{}) float64 {
+	//Initialising variables
+	var Value float64
 	var ty float64
 	var ans float64
-	rate := utils.ToFloat64(Rate)
-	periods := utils.ToFloat64(Nper)
-	payment := utils.ToFloat64(Pmt)
-	if len(Value) > 0 {
-		value = utils.ToFloat64(Value[0])
-		if len(Value) > 1 {
-			ty = utils.ToFloat64(Value[1])
+	Rate := utils.ToFloat64(rate)
+	periods := utils.ToFloat64(nper)
+	payment := utils.ToFloat64(pmt)
+	if len(value) > 0 {
+		Value = utils.ToFloat64(value[0])
+		if len(value) > 1 {
+			ty = utils.ToFloat64(value[1])
 			if ty < 0 || ty > 1 {
 				panic(core.ErrInvalidInput)
 			}
 		}
 	}
-	if rate == 0 {
-		ans = value + payment*periods
+	//Calcuting ans differently based on rate
+	if Rate == 0 {
+		ans = Value + payment*periods
 	} else {
-		term := math.Pow(1+rate, periods)
+		term := math.Pow(1+Rate, periods)
 		if ty == 1 {
-			ans = value*term + payment*(1+rate)*(term-1)/rate
+			ans = Value*term + payment*(1+Rate)*(term-1)/Rate
 		} else {
-			ans = value*term + payment*(term-1)/rate
+			ans = Value*term + payment*(term-1)/Rate
 		}
 	}
 	return -ans

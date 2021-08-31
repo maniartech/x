@@ -7,13 +7,14 @@ import (
 	"github.com/maniartech/x/utils"
 )
 
-func Nper(Rate, Pmt, Pv interface{}, futureValue ...interface{}) float64 {
+func Nper(rate, pmt, pv interface{}, futureValue ...interface{}) float64 {
 	var fv float64
 	var ans float64
 	var ty float64
-	pv := utils.ToFloat64(Pv)
-	payment := utils.ToFloat64(Pmt)
-	rate := utils.ToFloat64(Rate)
+	Pv := utils.ToFloat64(pv)
+	payment := utils.ToFloat64(pmt)
+	Rate := utils.ToFloat64(rate)
+	//Getting the futureValue if it was inputted
 	if len(futureValue) > 0 {
 		fv = utils.ToFloat64(futureValue[0])
 		if len(futureValue) > 1 {
@@ -23,12 +24,14 @@ func Nper(Rate, Pmt, Pv interface{}, futureValue ...interface{}) float64 {
 			}
 		}
 	}
-	if rate == 0 {
-		ans = (-(payment + fv) / pv)
+	//Calculating ans depending differently if the rate == 0
+	if Rate == 0 {
+		ans = (-(payment + fv) / Pv)
 	} else {
-		var num float64 = payment*(1+rate*ty) - fv*rate
-		var den float64 = (pv*rate + payment*(1+rate*ty))
-		ans = math.Log(num/den) / math.Log(1+rate)
+		//Calculating numerator and denominator
+		var num float64 = payment*(1+Rate*ty) - fv*Rate
+		var den float64 = (Pv*Rate + payment*(1+Rate*ty))
+		ans = math.Log(num/den) / math.Log(1+Rate)
 	}
 	return ans
 }
