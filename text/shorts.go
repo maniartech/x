@@ -36,7 +36,16 @@ func Lower(input interface{}) string {
 //TODO: Make the Proper func lower other character other than the first
 func Proper(input interface{}) string {
 	//Converting string to camel case
-	return strings.Title(utils.ToString(input))
+	split := strings.Split(utils.ToString(input), " ")
+	for i := 0; i < len(split); i++ {
+		word := split[i]
+		if Code(word) < 255 {
+			split[i] = strings.ToUpper(word[0:1]) + strings.ToLower(word[1:])
+		} else {
+			continue
+		}
+	}
+	return strings.Join(split, " ")
 }
 
 //TODO: Make DBCS language count as 1 character
