@@ -47,7 +47,7 @@ func Dollarfr(Dollar, Fraction interface{}) float64 {
 	dollar := utils.ToFloat64(Dollar)
 	fraction := math.Floor(utils.ToFloat64(Fraction))
 
-	//Checking if
+	//Checking if dollar is less than 0 if it yes then panicing
 	if dollar < 0 {
 		panic(core.ErrInvalidInput)
 	}

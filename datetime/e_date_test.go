@@ -15,6 +15,7 @@ func TestEDate(t *testing.T) {
 	assert.Equal(t, time.Date(2004, time.Month(2), 17, 0, 0, 0, 0, time.UTC), eDate(t, input, 12))
 	assert.Equal(t, time.Date(2005, time.Month(2), 17, 0, 0, 0, 0, time.UTC), eDate(t, input, 24))
 	assert.Equal(t, time.Date(2005, time.Month(2), 17, 0, 0, 0, 0, time.UTC), eDate(t, input, 24))
+	assert.Equal(t, time.Date(2007, time.Month(2), 17, 0, 0, 0, 0, time.UTC), eDate(t, input, 48))
 }
 func eDate(t *testing.T, input time.Time, month int) time.Time {
 	output := datetime.EDate(input, month)

@@ -16,7 +16,7 @@ import (
 //
 //Examples
 //	DateValue("1/1/2021") // returns a value of 44197
-// 	DateValue("1/1/2021") // returns a value of 44197
+// 	DateValue("1/1/1900") // returns a value of 1
 func DateValue(date interface{}) int {
 	var val time.Time = time.Date(1900, time.Month(1), 1, 0, 0, 0, 0, time.UTC)
 	switch date := date.(type) {
@@ -58,6 +58,9 @@ func DateValue(date interface{}) int {
 		}
 	case time.Time:
 		val = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, time.UTC)
+	}
+	if val == Date(1900, 1, 1) {
+		return 1
 	}
 	return int(val.Sub(DayZero).Hours()/24) + 2
 }

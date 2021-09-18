@@ -18,7 +18,7 @@ func TestShorts(t *testing.T) {
 	assert.Equal(t, 32, text.Code(" "))
 	assert.Equal(t, 97, text.Code("a"))
 	assert.Equal(t, 65, text.Code("ASDF"))
-	assert.Equal(t, 128522, text.Code("😊"))
+	assert.Equal(t, 128522, text.Code("😊👌"))
 
 	//Len
 	assert.Equal(t, 6, text.Len(-65.23))
@@ -40,9 +40,9 @@ func TestShorts(t *testing.T) {
 
 	//Proper
 	assert.Equal(t, "-65.23", text.Proper(-65.23))
-	assert.Equal(t, "Hello World", text.Proper("Hello world"))
+	assert.Equal(t, "Hello World", text.Proper("Hello wOrld"))
 	assert.Equal(t, "こんにちは！", text.Proper("こんにちは！"))
-	assert.Equal(t, "It'S Day 21! Good Morning😊", text.Proper("It's day 21! Good morning😊"))
+	assert.Equal(t, "It's Day 21! Good Morning😊", text.Proper("It's day 21! Good moRniNg😊"))
 
 	//Left
 	assert.Equal(t, "-6", text.Left(-65.23, 2))

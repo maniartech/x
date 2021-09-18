@@ -12,7 +12,7 @@ func IsPMT(Rate, Nper, Period, Value interface{}) float64 {
 	period := utils.ToFloat64(Period)
 	per := utils.ToFloat64(Nper)
 	value := utils.ToFloat64(Value)
-
+	//Formula for calculating
 	return value * rate * (per/period - 1)
 }
 
@@ -24,6 +24,7 @@ func IPMT(Rate, Period, Periods, PresentValue interface{}, futureValue ...interf
 	periods := utils.ToFloat64(Periods)
 	rate := utils.ToFloat64(Rate)
 	present := utils.ToFloat64(PresentValue)
+	//Retriving value of future value if it was inputed
 	if len(futureValue) > 0 {
 		fv = utils.ToFloat64(futureValue[0])
 		if len(futureValue) > 1 {
@@ -36,6 +37,7 @@ func IPMT(Rate, Period, Periods, PresentValue interface{}, futureValue ...interf
 
 	var payment float64 = PMT(rate, periods, present, fv, ty)
 	var interest float64
+	//Calculations changing depending on the periods of the payment
 	if period == 1 {
 		if ty == 1 {
 			interest = 0
@@ -59,6 +61,7 @@ func PMT(Rate, Nper, Pmt interface{}, futureValue ...interface{}) float64 {
 	period := utils.ToFloat64(Nper)
 	payment := utils.ToFloat64(Pmt)
 	rate := utils.ToFloat64(Rate)
+	//Retriving value of future value if it was inputed
 	if len(futureValue) > 0 {
 		fv = utils.ToFloat64(futureValue[0])
 		if len(futureValue) > 1 {
@@ -68,10 +71,12 @@ func PMT(Rate, Nper, Pmt interface{}, futureValue ...interface{}) float64 {
 			}
 		}
 	}
+	//Calculating diffrently depending if the rate == 0
 	if rate == 0 {
 		ans = (payment + fv) / period
 	} else {
 		term := math.Pow(1+rate, period)
+		//Calculating diffrently depending if the ty == 1
 		if ty == 1 {
 			ans = (fv*rate/(term-1) + payment*rate/(1-1/term)) / (1 + rate)
 		} else {
@@ -88,6 +93,7 @@ func PPMT(Rate, Period, Periods, PresentValue interface{}, futureValue ...interf
 	periods := utils.ToFloat64(Periods)
 	rate := utils.ToFloat64(Rate)
 	present := utils.ToFloat64(PresentValue)
+	//Retriving value of future value and ty if they were inputed
 	if len(futureValue) > 0 {
 		fv = utils.ToFloat64(futureValue[0])
 		if len(futureValue) > 1 {
@@ -98,6 +104,7 @@ func PPMT(Rate, Period, Periods, PresentValue interface{}, futureValue ...interf
 		}
 
 	}
+	//Formula for PPMT
 	return PMT(rate, periods, present, fv, ty) - IPMT(rate, period, periods, present, fv, ty)
 }
 
@@ -108,14 +115,15 @@ func CumIPMT(Rate, Nper, PresentValue, Start, End, TYPE interface{}) float64 {
 	start := utils.ToFloat64(Start)
 	end := utils.ToFloat64(End)
 	ty := utils.ToFloat64(TYPE)
-
+	//Panicing if rate <= 0 or periods <= or value <= 0
 	if rate <= 0 || periods <= 0 || value <= 0 {
 		panic(core.ErrInvalidInput)
 	}
+	//Panicing if start or end are less than 0 or start is greater than end
 	if start < 0 || end < 0 || start > end {
 		panic(core.ErrInvalidInput)
 	}
-
+	//If ty is neither 1 nor 0 then panicing
 	if ty != 0 && ty != 1 {
 		panic(core.ErrInvalidInput)
 	}

@@ -10,6 +10,7 @@ import (
 
 func Fisher(x interface{}) float64 {
 	xF := utils.ToFloat64(x)
+	//Panicing if value of xF is <= 0 or >= 1
 	if xF <= -1 || xF >= 1 {
 		panic(core.ErrInvalidInput)
 	}
@@ -18,15 +19,18 @@ func Fisher(x interface{}) float64 {
 
 func FisherInv(y interface{}) float64 {
 	yF := utils.ToFloat64(y)
+	//Formula for inverse of fisher
 	return calc.Round((math.Pow(math.E, yF*2)-1)/(math.Pow(math.E, yF*2)+1), 15)
 }
 
 func GeoMean(v ...interface{}) float64 {
 	var vN float64 = 1
 	c := utils.ForEach(func(_ int, x interface{}) {
+		//Panicing if any value is <= 0
 		if utils.ToFloat64(x) <= 0 {
 			panic(core.ErrInvalidInput)
 		}
+		//Multiplying all the values with one another
 		vN *= utils.ToFloat64(x)
 	}, v...)
 	val := math.Pow(vN, calc.Divide(1, c))
@@ -36,9 +40,11 @@ func GeoMean(v ...interface{}) float64 {
 func HarMean(v ...interface{}) float64 {
 	var sum float64 = 0
 	c := utils.ForEach(func(_ int, x interface{}) {
+		//Panicing if any value is <= 0
 		if utils.ToFloat64(x) <= 0 {
 			panic(core.ErrInvalidInput)
 		}
+		//Adding all the values
 		sum += calc.Divide(1, x)
 	}, v...)
 	return calc.Divide(1, calc.Divide(1, c)*sum)
@@ -46,6 +52,7 @@ func HarMean(v ...interface{}) float64 {
 
 func Kurt(x ...interface{}) float64 {
 	n := utils.ToFloat64(len(x))
+	//Panicing if n <= 3
 	if n <= 3 {
 		panic(core.ErrDivideBy0)
 	}
@@ -53,6 +60,7 @@ func Kurt(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
 	utils.ForEach(func(_ int, x interface{}) {
+		//Summation of all the values of the forumla
 		sum += math.Pow((utils.ToFloat64(x)-xD)/s, 4)
 	}, x...)
 
@@ -71,7 +79,7 @@ func Intercept(y, x []interface{}) float64 {
 }
 
 func Slope(y, x []interface{}) float64 {
-
+	//Panicing if x and y have the same number of points
 	if len(x) != len(y) {
 		panic(core.ErrInvalidInput)
 	}
@@ -80,7 +88,7 @@ func Slope(y, x []interface{}) float64 {
 	var d float64
 	var xD float64 = Average(x)
 	var yD float64 = Average(y)
-
+	//Calculating the numerator and the denominator
 	for i := 0; i < len(x); i++ {
 		n += (utils.ToFloat64(x[i]) - xD) * (utils.ToFloat64(y[i]) - yD)
 		d += (utils.ToFloat64(x[i]) - xD) * (utils.ToFloat64(x[i]) - xD)
@@ -89,9 +97,11 @@ func Slope(y, x []interface{}) float64 {
 }
 
 func STEYX(y, x []interface{}) float64 {
+	//Panicing if x does not have the same number of points as y
 	if len(x) != len(y) {
 		panic(core.ErrInvalidInput)
 	}
+	//Panicing if length of x or y is < 3
 	l := len(x)
 	if l < 3 {
 		panic(core.ErrDivideBy0)
@@ -104,7 +114,7 @@ func STEYX(y, x []interface{}) float64 {
 	var d float64
 	var xi float64
 	var yi float64
-
+	//Looping and calculating all the values
 	for i := 0; i < l; i++ {
 		xi = utils.ToFloat64(x[i])
 		yi = utils.ToFloat64(y[i])
@@ -126,6 +136,7 @@ func Vara(v ...interface{}) float64 {
 	vA := Average(v...)
 	var sum float64
 	c := utils.ForEach(func(_ int, x interface{}) {
+		//Summation of all the values of the formula with different values from v...
 		sum += (utils.ToFloat64(x) - vA) * (utils.ToFloat64(x) - vA)
 	}, v...)
 	return calc.Divide(sum, (c - 1))
@@ -135,6 +146,7 @@ func DevSQ(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
 	utils.ForEach(func(_ int, xi interface{}) {
+		//Summation of all the values of the formula with different values from v...
 		sum += (utils.ToFloat64(xi) - xD) * (utils.ToFloat64(xi) - xD)
 	}, x...)
 	return sum

@@ -9,6 +9,7 @@ import (
 func StdevP(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
+	//Considering strings as 0 and booleans when they are true
 	n := utils.ForEach(func(_ int, x interface{}) {
 		switch x := x.(type) {
 		case string:
@@ -27,6 +28,7 @@ func StdevP(x ...interface{}) float64 {
 func StdevPA(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
+	//Considering strings as 0 and booleans depending on its value
 	n := utils.ForEach(func(_ int, x interface{}) {
 		switch x := x.(type) {
 		case string:
@@ -48,6 +50,7 @@ func StdevS(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
 	var xF float64
+	//Considering strings and booleans as 0
 	n := utils.ForEach(func(_ int, x interface{}) {
 		switch x.(type) {
 		case string:
@@ -65,6 +68,7 @@ func StdevS(x ...interface{}) float64 {
 func StdevA(x ...interface{}) float64 {
 	xD := Average(x...)
 	var sum float64
+	//Considering strings as 0 and booleans depending on its value
 	n := utils.ForEach(func(_ int, x interface{}) {
 		switch x := x.(type) {
 		case string:

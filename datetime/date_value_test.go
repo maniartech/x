@@ -18,7 +18,8 @@ func TestDateValue(t *testing.T) {
 	assert.Equal(t, 37669, dateValue(t, "2003/Feb/17"))
 	assert.Equal(t, 37669, dateValue(t, "2003/Feb/17"))
 	assert.Equal(t, 37669, datetime.DateValue(datetime.Date(2003, 2, 17)))
-
+	assert.Equal(t, 1, datetime.DateValue(datetime.Date(1900, 1, 1)))
+	assert.Equal(t, 106753, datetime.DateValue(datetime.Date(9999, 1, 1)))
 }
 func dateValue(t *testing.T, input string) int {
 	output := datetime.DateValue(input)

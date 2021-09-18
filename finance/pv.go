@@ -15,6 +15,7 @@ func PV(Rate, Nper, Pmt interface{}, futureValue ...interface{}) float64 {
 	np := utils.ToFloat64(Nper)
 	pmt := utils.ToFloat64(Pmt)
 	rate := utils.ToFloat64(Rate)
+	//Retriving the futurevalue if it was inputed
 	if len(futureValue) > 0 {
 		fv = utils.ToFloat64(futureValue[0])
 		if len(futureValue) > 1 {
@@ -24,6 +25,7 @@ func PV(Rate, Nper, Pmt interface{}, futureValue ...interface{}) float64 {
 			}
 		}
 	}
+	//Calculating differently depending on the rate
 	if rate == 0 {
 		ans = -pmt*np - fv
 

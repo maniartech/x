@@ -22,7 +22,7 @@ func PDuaration(Rate, PresentValue, FutureValue interface{}) float64 {
 	rate := utils.ToFloat64(Rate)
 	present := utils.ToFloat64(PresentValue)
 	future := utils.ToFloat64(FutureValue)
-
+	//Panicing if rate <= 0
 	if rate <= 0 {
 		panic(core.ErrInvalidInput)
 	}
@@ -34,6 +34,7 @@ func Npv(Rate interface{}, v ...interface{}) float64 {
 	var sum float64
 	var i float64 = 1
 	rate := utils.ToFloat64(Rate)
+	//Adding all the results
 	utils.ForEach(func(_ int, val interface{}) {
 		sum += calc.Divide(utils.ToFloat64(val), math.Pow((1+rate), i))
 		i += 1
@@ -44,8 +45,8 @@ func Npv(Rate interface{}, v ...interface{}) float64 {
 func Effect(NominalRate, Npery interface{}) float64 {
 	NR := utils.ToFloat64(NominalRate)
 	Np := utils.ToFloat64(utils.ToInt(Npery))
-
-	if NR <= 0 && Np < 1 {
+	//Panicing if NR <= 0 or Np < 1
+	if NR <= 0 || Np < 1 {
 		panic(core.ErrInvalidInput)
 	}
 	return math.Pow((1+calc.Divide(NR, Np)), Np) - 1
@@ -72,6 +73,7 @@ func IntRate(Settlement, Maturity time.Time, Investment, Redemption interface{},
 			panic(core.ErrInvalidInput)
 		}
 	}
+	//Calculating differently depending on the basis
 	DIM := 0
 	if basis == 0 || basis == 4 {
 		DIM = (datetime.Days360(Settlement, Maturity))
@@ -109,4 +111,3 @@ func SLN(Cost, Salvage, Life interface{}) float64 {
 	}
 	return calc.Divide(cost-salvage, life)
 }
-

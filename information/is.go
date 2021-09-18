@@ -8,6 +8,7 @@ import (
 )
 
 func IsLogical(input interface{}) bool {
+	//Returns true if the input is Logical Boolean Value
 	switch input.(type) {
 	case bool:
 		return true
@@ -16,8 +17,11 @@ func IsLogical(input interface{}) bool {
 }
 
 func IsNonText(input interface{}) bool {
+	//Returns true to all non text data types
 	switch input.(type) {
 	case string:
+		return false
+	case rune:
 		return false
 	}
 	return true
@@ -25,7 +29,10 @@ func IsNonText(input interface{}) bool {
 
 func IsText(input interface{}) bool {
 	switch input.(type) {
+	//Returns true to all strings and runes
 	case string:
+		return true
+	case rune:
 		return true
 	}
 	return false
@@ -33,39 +40,20 @@ func IsText(input interface{}) bool {
 
 func IsNumber(input interface{}) bool {
 	switch input.(type) {
-	case byte:
-		return true
-
-		// Ints
-	case int:
-		return true
-	case int16:
-		return true
-	case int32:
-		return true
-	case int64:
-		return true
-
-		// Uints
-	case uint:
-		return true
-	case uint16:
-		return true
-	case uint32:
-		return true
-	case uint64:
-		return true
-
-		// Floats
-	case float32:
-		return true
-	case float64:
+	//Returns false to all non numeric data types
+	case bool:
+		return false
+	case string:
+		return false
+	case rune:
+		return false
+	default:
 		return true
 	}
-	return false
 }
 
 func N(input interface{}) float64 {
+	//Returns Numeric values of data types
 	switch input := input.(type) {
 	case bool:
 		if input {
@@ -73,38 +61,15 @@ func N(input interface{}) float64 {
 		} else {
 			return 0
 		}
-	case byte:
-		return utils.ToFloat64(input)
-
-		// Ints
-	case int:
-		return utils.ToFloat64(input)
-	case int16:
-		return utils.ToFloat64(input)
-	case int32:
-		return utils.ToFloat64(input)
-	case int64:
-		return utils.ToFloat64(input)
-
-		// Uints
-	case uint:
-		return utils.ToFloat64(input)
-	case uint16:
-		return utils.ToFloat64(input)
-	case uint32:
-		return utils.ToFloat64(input)
-	case uint64:
-		return utils.ToFloat64(input)
-
-		// Floats
-	case float32:
-		return utils.ToFloat64(input)
 	case float64:
 		return input
+	case rune:
+		return 0
 	case string:
-		return -1
+		return 0
+	default:
+		return utils.ToFloat64(input)
 	}
-	return 0
 }
 
 func IsEven(input interface{}) bool { return utils.ToInt(input)%2 == 0 }
